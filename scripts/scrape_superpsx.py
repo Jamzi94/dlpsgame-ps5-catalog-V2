@@ -915,22 +915,34 @@ def parse_game_page(url: str) -> dict | None:
 
     soup = BeautifulSoup(html, "html.parser")
 
-    # Title: prefer og:title, strip " - SuperPSX" suffix
+    # Info table (source canonique du nom de jeu) — parsée AVANT le titre.
+    info = parse_info_table(soup)
+
+    # Title : priorité au "Game Name" de la table (nom propre, ex. "Code Violet"),
+    # puis h1/entry-title (suffixe " PS5" retiré), puis og:title. On écarte les
+    # valeurs réduites au slug numérique (ex. "26528-2626", le slug WordPress).
+    def _looks_like_slug(s: str) -> bool:
+        return bool(re.fullmatch(r"\d+[-–]\d+", (s or "").strip()))
+
     title = ""
-    og_title = soup.find("meta", property="og:title")
-    if og_title and og_title.get("content"):
-        title = og_title["content"]
-        title = re.sub(r"\s*[-–]\s*(SuperPSX|Download|PS5).*$", "", title, flags=re.I).strip()
-    if not title:
-        h1 = soup.find("h1")
+    for _k, _v in info.items():
+        if _k.strip().lower() in ("game name", "name", "title") and (_v or "").strip():
+            title = _v.strip()
+            break
+    if not title or _looks_like_slug(title):
+        h1 = soup.select_one("h1.entry-title") or soup.find("h1")
         if h1:
             title = h1.get_text(strip=True)
+    if not title or _looks_like_slug(title):
+        og_title = soup.find("meta", property="og:title")
+        if og_title and og_title.get("content"):
+            title = og_title["content"]
+    # Nettoyage : retire un suffixe éditeur et un " PS5" final éventuel.
+    title = re.sub(r"\s*[-–]\s*(SuperPSX|Download).*$", "", title, flags=re.I).strip()
+    title = re.sub(r"\s+PS5$", "", title, flags=re.I).strip()
 
     # Poster URL
     poster_url = extract_poster_url(soup, url)
-
-    # Info table
-    info = parse_info_table(soup)
 
     # DLL page URL
     dll_url = find_dll_page_url(soup, url)
