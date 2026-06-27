@@ -38,6 +38,7 @@ from urllib.parse import urljoin, urlparse, parse_qs
 from bs4 import BeautifulSoup
 
 from formats import detect_formats
+from sizes import extract_size
 
 # ---------------------------------------------------------------------------
 # Configuration générale
@@ -812,27 +813,9 @@ def discover_game_urls(session: requests.Session, max_pages: int | None) -> list
 
 PPSA_RE = re.compile(r"\b([A-Z]{4}\d{5})\b")
 VERSION_RE = re.compile(r"v(?:ersion)?\s*0?(\d+\.\d+(?:\.\d+)?)", re.I)
-# Unités de taille rencontrées sur dlpsgame : anglaises (KB/MB/GB/TB) ET
-# françaises (Ko/Mo/Go/To), casse libre (Gb, GO…), espace normal ou insécable
-# (\xa0) entre le nombre et l'unité. On capture l'unité en 1-2 lettres + B/o.
-SIZE_RE = re.compile(
-    r"(\d+(?:[.,]\d+)?)\s*([KMGT])[\s]?(?:B|O|b|o)\b",
-    re.I,
-)
-
-
-def parse_size_bytes(size_str: str | None) -> int | None:
-    """Convertit '54GB', '12 Go', '1,5gb' → octets. None si non reconnu."""
-    if not size_str:
-        return None
-    # On normalise les espaces insécables avant la recherche.
-    m = SIZE_RE.search(size_str.replace("\xa0", " "))
-    if not m:
-        return None
-    value = float(m.group(1).replace(",", "."))
-    unit = m.group(2).upper()  # K, M, G ou T
-    multipliers = {"K": 1024, "M": 1048576, "G": 1073741824, "T": 1099511627776}
-    return int(value * multipliers.get(unit, 1))
+# La détection de taille est centralisée dans sizes.py : ancrage sur « SIZE: »
+# puis unités anglaises complètes uniquement (KB/MB/GB/TB), ce qui corrige le
+# bug historique où le mot anglais « to » (= T+o) était lu en Téraoctets.
 
 
 def decode_payload(payload: str) -> str:
@@ -1065,8 +1048,8 @@ def extract_metadata(
     # Taille : on cherche d'abord dans les spoilers décodés (taille compressée
     # généralement annoncée là). Repli : le contenu de l'article principal, car
     # certains jeux n'indiquent la taille que dans la description, hors spoiler.
-    size_match = SIZE_RE.search(decoded_plain)
-    if not size_match:
+    size_bytes, size_str = extract_size(decoded_plain)
+    if not size_bytes:
         article = (
             soup.find("article")
             or soup.find(class_=re.compile(r"entry-content|post-content"))
@@ -1076,9 +1059,7 @@ def extract_metadata(
             for junk in article.select("#comments, .comments, .comment-list"):
                 junk.decompose()
             article_text = article.get_text(" ", strip=True)
-            size_match = SIZE_RE.search(article_text)
-    size_str = size_match.group(0) if size_match else None
-    size_bytes = parse_size_bytes(size_str)
+            size_bytes, size_str = extract_size(article_text)
 
     # Tags : tous les PPSA + toutes les versions FW (4.xx etc.)
     tags: list[str] = []

@@ -21,6 +21,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import sys
 import time
 import urllib.parse
@@ -30,23 +31,69 @@ from pathlib import Path
 RAWG_SEARCH = "https://api.rawg.io/api/games"
 USER_AGENT = "dlpsgame-pegasus-enricher/1.0"
 
+# ID de plateforme RAWG pour "PlayStation 5" (vérifié). On filtre la recherche
+# dessus pour éviter de matcher la version PS4/PC/Switch d'un jeu homonyme.
+RAWG_PS5_PLATFORM_ID = 187
+
+
+# ---------------------------------------------------------------------------
+# Correspondance de titres (évite les faux matches)
+# ---------------------------------------------------------------------------
+def _normalize_title(s: str) -> str:
+    s = (s or "").lower()
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _best_match(title: str, results: list[dict]) -> dict | None:
+    """Choisit le meilleur résultat RAWG pour `title`, ou None si trop éloigné.
+
+    Exact (normalisé) > inclusion > recouvrement de tokens (Jaccard >= 0.6).
+    Évite d'attribuer une fiche RAWG sans rapport au jeu scrapé.
+    """
+    nt = _normalize_title(title)
+    if not nt:
+        return None
+    best: dict | None = None
+    best_score = -1
+    for r in results:
+        nn = _normalize_title(r.get("name") or "")
+        if not nn:
+            continue
+        if nn == nt:
+            return r
+        if nt in nn or nn in nt:
+            score = 80
+        else:
+            ta, tb = set(nt.split()), set(nn.split())
+            score = int(100 * len(ta & tb) / len(ta | tb)) if (ta and tb) else 0
+        if score > best_score:
+            best_score, best = score, r
+    return best if best_score >= 60 else None
+
 
 # ---------------------------------------------------------------------------
 # Appel API isolé (facile à mocker pour les tests)
 # ---------------------------------------------------------------------------
 def fetch_rawg(title: str, api_key: str, *, timeout: int = 20) -> dict | None:
-    """Interroge RAWG par titre et retourne le premier résultat, ou None."""
+    """Interroge RAWG (filtré PS5) et retourne le meilleur match, ou None.
+
+    Filtre `platforms=187` (PS5) + vérification du nom pour fiabiliser le match.
+    RAWG ne fournit aucune jaquette : on l'utilise pour les métadonnées
+    (note, genres, date, metacritic), PAS pour la cover.
+    """
     params = urllib.parse.urlencode({
         "key": api_key,
         "search": title,
         "search_precise": "true",
-        "page_size": 1,
+        "platforms": str(RAWG_PS5_PLATFORM_ID),
+        "page_size": 5,
     })
     req = urllib.request.Request(f"{RAWG_SEARCH}?{params}", headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     results = data.get("results") or []
-    return results[0] if results else None
+    return _best_match(title, results)
 
 
 # ---------------------------------------------------------------------------
@@ -94,18 +141,22 @@ def is_fresh(pkg: dict, ttl_days: int) -> bool:
 
 
 def apply_rawg(pkg: dict, result: dict | None) -> None:
-    """Applique les champs RAWG au package (sur place). Marque l'enrichissement."""
+    """Applique les métadonnées RAWG au package (sur place).
+
+    IMPORTANT : RAWG ne fournit AUCUNE jaquette/cover. Le champ
+    `background_image` est une image PAYSAGE (screenshot ou hero art), pas une
+    cover portrait. L'utiliser comme posterUrl (comportement historique) est un
+    bug : on ne touche donc PLUS à posterUrl ici. La vraie jaquette vient de la
+    cover scrapée du site (og:image) ou d'IGDB (voir enrich_igdb.py).
+    On conserve background_image dans metadata.rawgBackground (utilisable comme
+    fond/écran, jamais comme cover).
+    """
     now_iso = dt.datetime.now(dt.timezone.utc).isoformat()
     pkg["_enrichedAt"] = now_iso
     if not result:
         pkg["_rawgMatched"] = False
         return
     pkg["_rawgMatched"] = True
-    # Couverture : on remplace par la jaquette RAWG si disponible (plus propre
-    # que celle du site), en gardant l'ancienne en repli.
-    cover = result.get("background_image")
-    if cover:
-        pkg["posterUrl"] = cover
     pkg["metadata"] = {
         "rawgSlug": result.get("slug"),
         "rawgName": result.get("name"),
@@ -113,6 +164,7 @@ def apply_rawg(pkg: dict, result: dict | None) -> None:
         "metacritic": result.get("metacritic"),
         "released": result.get("released"),
         "genres": [g.get("name") for g in (result.get("genres") or []) if g.get("name")],
+        "rawgBackground": result.get("background_image"),
     }
 
 

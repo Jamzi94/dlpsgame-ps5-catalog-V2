@@ -52,6 +52,7 @@ except ImportError:
     ScrapeManifest = None  # type: ignore[assignment,misc]
 
 from formats import detect_formats
+from sizes import extract_size
 
 try:
     from bs4 import BeautifulSoup
@@ -139,7 +140,7 @@ IGNORED_LINK_TEXTS = {
 # Regex patterns — same as scrape_dlpsgame.py
 PPSA_RE = re.compile(r"\b([A-Z]{4}\d{5})\b")
 VERSION_RE = re.compile(r"v(?:ersion)?\s*0?(\d+\.\d+(?:\.\d+)?)", re.I)
-SIZE_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*([KMGT])[\s]?(?:B|O|b|o)\b", re.I)
+# La détection de taille est centralisée dans sizes.py (corrige le bug « to »).
 
 # Secure-lnk pattern from downloadgameps3.net redirect pages
 SECURE_LNK_RE = re.compile(
@@ -478,18 +479,6 @@ def extract_mirror_name(url: str, link_text: str) -> str:
 def is_ignored_link(text: str) -> bool:
     t = (text or "").strip().lower()
     return t in IGNORED_LINK_TEXTS
-
-
-def parse_size_bytes(size_str: str | None) -> int | None:
-    if not size_str:
-        return None
-    m = SIZE_RE.search(size_str.replace("\xa0", " "))
-    if not m:
-        return None
-    value = float(m.group(1).replace(",", "."))
-    unit = m.group(2).upper()
-    multipliers = {"K": 1024, "M": 1048576, "G": 1073741824, "T": 1099511627776}
-    return int(value * multipliers.get(unit, 1))
 
 
 def detect_group(label_text: str) -> str:
@@ -1015,10 +1004,8 @@ def extract_metadata_from_post(
             if len(parts) >= 3:
                 version += f".{parts[2].ljust(3, '0')[:3]}"
 
-    # Size
-    size_match = SIZE_RE.search(all_decoded.replace("\xa0", " "))
-    size_str = size_match.group(0) if size_match else None
-    size_bytes = parse_size_bytes(size_str)
+    # Size (ancré sur SIZE: en priorité, unités anglaises — anti-bug « to »)
+    size_bytes, size_str = extract_size(all_decoded)
 
     # Title
     title_rendered = (post.get("title") or {}).get("rendered", "")
@@ -1594,6 +1581,13 @@ def main(argv: list[str] | None = None) -> int:
 
     # Cleanup FlareSolverr session
     _fs_destroy()
+
+    # En mode full, 0 package = échec total de l'API (Cloudflare a tout bloqué).
+    # On sort en erreur pour ARMER l'étape de repli HTML (`if: failure()`) du
+    # workflow ; sinon le pipeline croirait le scrape réussi avec un catalogue vide.
+    if args.mode == "full" and len(packages) == 0:
+        log.error("Aucun package via l'API en mode full — sortie en erreur (repli HTML).")
+        return 1
 
     return 0
 

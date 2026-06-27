@@ -2,6 +2,7 @@
 .scrape_cache/
 .scrape_cache_api/
 .scrape_cache_superpsx/
+.scrape_cache_sizes/
 
 # Incremental manifests
 .scrape_manifest.json

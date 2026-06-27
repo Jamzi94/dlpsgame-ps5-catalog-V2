@@ -54,6 +54,7 @@ from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup, Tag
 
 from formats import detect_formats, normalize_formats
+from sizes import extract_size, parse_size_bytes
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -163,8 +164,7 @@ PPSA_RE = re.compile(r"\b(PPSA\d{5})\b", re.I)
 VERSION_RE = re.compile(r"v(?:ersion)?\s*0?(\d+\.\d+(?:\.\d+)?)", re.I)
 # Matches version in DLL page Version row: "PPSA02182 – USA" (no v prefix sometimes)
 VERSION_FROM_ROW_RE = re.compile(r"0?(\d+\.\d{3,})", re.I)
-# Size: "117 GB", "85GB", "1.5 GB", "60GB"
-SIZE_RE = re.compile(r"(\d+(?:[.,]\d+)?)\s*([KMGT])[\s]?(?:B|O|b|o)\b", re.I)
+# La détection de taille est centralisée dans sizes.py (corrige le bug « to »).
 # DLL page link on game page
 DLL_LINK_RE = re.compile(r'href="(https://(?:www\.)?superpsx\.com/dll-[^/"]+/)"')
 # Separator character used in DLL page tables
@@ -361,17 +361,8 @@ def is_non_host_url(url: str) -> bool:
     return host in NON_HOST_HOSTS
 
 
-def parse_size_bytes(size_str: str | None) -> int | None:
-    """Convert '117 GB', '85GB', '1.5 GB', '60GB' → bytes. None if unrecognized."""
-    if not size_str:
-        return None
-    m = SIZE_RE.search(size_str.replace("\xa0", " "))
-    if not m:
-        return None
-    value = float(m.group(1).replace(",", "."))
-    unit = m.group(2).upper()
-    multipliers = {"K": 1024, "M": 1048576, "G": 1073741824, "T": 1099511627776}
-    return int(value * multipliers.get(unit, 1))
+# parse_size_bytes (token de table « Size ») et extract_size (texte libre des
+# notes) sont fournis par le module centralisé sizes.py (corrige le bug « to »).
 
 
 def normalize_version(raw: str | None) -> str:
@@ -1112,13 +1103,13 @@ def scrape_game(game_url: str) -> dict | None:
     if not version:
         version = "01.000"
 
-    # Size: from info table or DLL page notes
+    # Size: from info table (token propre) or DLL page notes (texte libre)
     size_str = info.get("Size", "")
     size_bytes = parse_size_bytes(size_str)
     if not size_bytes:
-        # Try from DLL page notes
+        # Try from DLL page notes — extraction sûre (anti-bug « to »)
         for note in dll_data.get("notes", []):
-            sb = parse_size_bytes(note)
+            sb, _ = extract_size(note)
             if sb:
                 size_bytes = sb
                 break

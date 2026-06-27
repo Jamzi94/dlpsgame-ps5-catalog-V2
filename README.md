@@ -135,12 +135,15 @@ La concurrency est forcée à **1** en mode FlareSolverr (une session = un Chrom
 | `packages[].title` | Titre du jeu |
 | `packages[].version` | Version du dump (ex: `01.004`) |
 | `packages[].category` | Toujours `"game"` |
-| `packages[].posterUrl` | URL de la cover/poster (og:image de la page) |
-| `packages[].description` | Tags + Size + Credits + Thanks + FW |
+| `packages[].posterUrl` | **Vraie jaquette** (cover portrait). Priorité : IGDB (si configuré) > cover scrapée du site (og:image) > **jamais** l'image RAWG (qui est un screenshot paysage, pas une jaquette) |
+| `packages[].description` | 1ʳᵉ ligne `Format: …` puis Tags + Size + Credits + Thanks + FW |
+| `packages[].formatLabel` | Libellé de format lisible (ex. `FPKG · Backport 4.xx`, `exFAT · FFPFSC`) |
+| `packages[].fileFormat` | Liste canonique de formats (FPKG, FFPKG, FFPFSC, exFAT, Folder, PKG, APR-EMU, Backport x.xx, RAR/ZIP/7z) |
 | `packages[].downloadLinks[].name` | Nom du miroir (Akia, Viki, Data, Filek, Vault, Rootz, Mediafire, 1File, Buzz, ...) |
 | `packages[].downloadLinks[].url` | **URL directe** vers l'hébergeur (les redirections `downloadgameps3.net` sont résolues) |
-| `packages[].sizeBytes` | Taille en octets (parsée depuis "54GB" → 57982058496) |
+| `packages[].sizeBytes` | Taille en octets (parsée depuis "54GB" → 57982058496). **Champ optionnel** : son absence n'empêche PAS l'affichage du jeu dans Pegasus |
 | `packages[].downloadSource` | URL de la page de jeu sur dlpsgame.com |
+| `packages[].metadata` | Métadonnées RAWG : `rating`, `metacritic`, `released`, `genres`, `rawgSlug`, `rawgBackground` (image paysage, jamais utilisée comme cover) |
 
 ### Miroirs reconnus
 
@@ -158,6 +161,50 @@ La concurrency est forcée à **1** en mode FlareSolverr (une session = un Chrom
 | `gofile` | Gofile |
 | `1cloudfile` | 1Cloud |
 | `mega.nz` | Mega |
+
+---
+
+## 🎨 Enrichissement & finalisation (pipeline)
+
+Après la fusion des sources, le catalogue passe par plusieurs étapes :
+
+| Étape | Script | Rôle | Secret requis |
+|---|---|---|---|
+| Métadonnées | `enrich_rawg.py` | Note, Metacritic, genres, date de sortie via RAWG (filtré PS5, `platforms=187`). **Ne touche plus à `posterUrl`** : RAWG ne fournit pas de jaquette. | `RAWG_API_KEY` (sinon no-op) |
+| Jaquettes | `enrich_igdb.py` | **Vraie cover portrait PS5** via IGDB (`t_cover_big`). Sans clé → no-op, on garde la cover du site. | `TWITCH_CLIENT_ID` + `TWITCH_CLIENT_SECRET` (sinon no-op) |
+| Tailles | `hoster_size.py` | Complète les `sizeBytes` manquants en octets exacts via vikingfile/mega/gofile (sans téléchargement). | — |
+| Finalisation | `pegasus_finalize.py` | Surface le format (`formatLabel` + ligne `Format:`), canonicalise `fileFormat`, retire les tailles aberrantes (> 2 To), nettoie les liens invalides. Idempotent. | — |
+
+### Pourquoi les covers étaient « des images lambda »
+
+RAWG **ne fournit aucune jaquette** : son champ `background_image` est une image
+**paysage** (screenshot ou hero art). L'ancien `enrich_rawg.py` la posait dans
+`posterUrl`, d'où les ~740 covers « lambda » (`media.rawg.io/screenshots/…`).
+Désormais :
+
+1. RAWG ne sert qu'aux **métadonnées** ;
+2. la **jaquette** vient d'**IGDB** (portrait) si les secrets Twitch sont
+   configurés, sinon de la **cover scrapée du site** (og:image) ;
+3. la fusion préfère toujours une vraie jaquette à l'image RAWG, ce qui
+   « ré-guérit » automatiquement les anciennes entrées au prochain scrape complet.
+
+> Pour obtenir de vraies jaquettes immédiatement : créez une app sur
+> <https://dev.twitch.tv/console/apps> et ajoutez `TWITCH_CLIENT_ID` /
+> `TWITCH_CLIENT_SECRET` dans les *Secrets* du dépôt.
+
+### Formats distingués
+
+`fileFormat` (liste canonique) et `formatLabel` (libellé court) différencient :
+**FPKG**, **FFPKG**, **FFPFSC**, **exFAT**, **Folder** (dossier normal), **PKG**,
+**APR-EMU**, et **Backport x.xx**, plus le conteneur (RAR/ZIP/7z). La détection
+est centralisée dans `formats.py` (source unique de vérité, avec auto-tests).
+
+### Note sur `sizeBytes` (Pegasus)
+
+`sizeBytes` est un champ **optionnel** de Pegasus DL : un jeu sans taille
+**reste affiché** (seuls `titleId`, `title` et `downloadLinks[].url` sont
+requis). On omet simplement le champ quand la taille est inconnue (jamais
+null/0), et on retire toute valeur aberrante.
 
 ---
 

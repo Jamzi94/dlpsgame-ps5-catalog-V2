@@ -40,11 +40,34 @@ flaresolverr:
 enrichment:
   rawg:
     api_url: "https://api.rawg.io/api/games"
+    ps5_platform_id: 187      # filtre la recherche RAWG sur PlayStation 5
     ttl_days_matched: 30      # games successfully matched: refresh every 30 days
     ttl_days_unmatched: 14    # games not found in RAWG: retry every 14 days
     ttl_days_new: 0           # new games: enrich immediately
     max_calls_per_run: 900
     delay_between_calls: 0.2
+    # RAWG ne fournit AUCUNE jaquette : on l'utilise pour les métadonnées
+    # (note, genres, date, metacritic), jamais pour posterUrl.
+    use_for_cover: false
+
+  igdb:
+    # Vraie jaquette portrait PS5. Auth Twitch (client_credentials).
+    games_url: "https://api.igdb.com/v4/games"
+    image_tmpl: "https://images.igdb.com/igdb/image/upload/t_cover_big/{image_id}.jpg"
+    ps5_platform_id: 167      # PlayStation 5 sur IGDB
+    ttl_days_matched: 60
+    ttl_days_unmatched: 21
+    max_calls_per_run: 500
+    delay_between_calls: 0.28 # IGDB limite à 4 req/s
+    client_id_env: "TWITCH_CLIENT_ID"
+    client_secret_env: "TWITCH_CLIENT_SECRET"
+
+  sizes:
+    # Sondage des tailles auprès des hébergeurs (octets exacts, sans download).
+    hosts: ["vikingfile", "mega", "gofile"]  # fiables sans clé
+    cache_dir: ".scrape_cache_sizes"
+    max_probe_per_run: 400
+    max_sane_bytes: 966367641600  # 900 Go : au-delà = aberrant (rejeté ; bug « to »)
 
 mirror_patterns:
   - [akirabox, Akia]

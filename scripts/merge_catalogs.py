@@ -80,10 +80,31 @@ def union_list(a, b) -> list:
 ENRICHABLE_FIELDS = ("version", "description", "sizeBytes", "downloadSource", "category")
 # Champs liste qu'on unionne (provenance, formats) pour ne rien perdre.
 UNION_FIELDS = ("source", "fileFormat")
-# Champs d'enrichissement à préserver tels quels (cache RAWG + métadonnées).
-# Indispensable : sans ça, la fusion effacerait _enrichedAt et RAWG serait
-# ré-interrogé à chaque run, dépassant le quota.
-PRESERVE_FIELDS = ("_enrichedAt", "_rawgMatched", "metadata")
+# Champs d'enrichissement à préserver tels quels (cache RAWG/IGDB + métadonnées).
+# Indispensable : sans ça, la fusion effacerait _enrichedAt et RAWG/IGDB seraient
+# ré-interrogés à chaque run, dépassant le quota.
+PRESERVE_FIELDS = (
+    "_enrichedAt", "_rawgMatched", "metadata",
+    "_igdbEnrichedAt", "_igdbMatched",
+)
+
+
+def _cover_rank(pkg: dict) -> int:
+    """Qualité de la posterUrl d'un package (plus haut = meilleure jaquette).
+
+    3 = jaquette IGDB (vraie cover portrait)
+    2 = cover scrapée du site (og:image) ou autre source réelle
+    1 = image RAWG (rawg.io : screenshot/hero paysage, PAS une jaquette)
+    0 = pas de poster
+    """
+    url = (pkg.get("posterUrl") or "").lower()
+    if not url:
+        return 0
+    if "images.igdb.com" in url or pkg.get("_igdbMatched") is True:
+        return 3
+    if "rawg.io" in url:
+        return 1
+    return 2
 
 
 def merge_package(base: dict, extra: dict) -> dict:
@@ -99,16 +120,18 @@ def merge_package(base: dict, extra: dict) -> dict:
         if field in base or field in extra:
             merged[field] = union_list(base.get(field), extra.get(field))
 
-    # posterUrl : on privilégie la couverture enrichie (RAWG) sur celle, brute,
-    # fraîchement scrapée du site. Le côté "enrichi" est celui qui a _enrichedAt.
-    base_enr = bool(base.get("_enrichedAt"))
-    extra_enr = bool(extra.get("_enrichedAt"))
-    if base_enr and not extra_enr:
-        merged["posterUrl"] = base.get("posterUrl") or extra.get("posterUrl")
-    elif extra_enr and not base_enr:
-        merged["posterUrl"] = extra.get("posterUrl") or base.get("posterUrl")
+    # posterUrl : on privilégie une VRAIE jaquette. L'image RAWG (rawg.io) est
+    # une image paysage (screenshot/hero), pas une cover -> rang le plus bas.
+    # Ordre : jaquette IGDB > cover scrapée du site (og:image) > image RAWG.
+    # C'est ce qui « ré-guérit » les anciennes posterUrl RAWG : au prochain scrape,
+    # la cover fraîche du site (rang 2) l'emporte sur l'image RAWG existante (rang 1).
+    rank_base, rank_extra = _cover_rank(base), _cover_rank(extra)
+    if rank_extra > rank_base:
+        merged["posterUrl"] = extra.get("posterUrl")
+    elif rank_base > rank_extra:
+        merged["posterUrl"] = base.get("posterUrl")
     elif "posterUrl" in base or "posterUrl" in extra:
-        merged["posterUrl"] = richer(base.get("posterUrl"), extra.get("posterUrl"))
+        merged["posterUrl"] = base.get("posterUrl") or extra.get("posterUrl")
 
     # Préservation des champs d'enrichissement (présents côté existant, absents
     # côté frais) : on garde celui qui existe, en privilégiant la base.
@@ -125,8 +148,9 @@ def merge_package(base: dict, extra: dict) -> dict:
             merged["titleId"] = cand
             break
 
-    # sizeBytes : un champ à null/0 fait skipper l'entrée par Pegasus DL.
-    # On omet le champ quand la taille est inconnue (champ absent = ignoré).
+    # sizeBytes est OPTIONNEL côté Pegasus DL (seuls titleId/title/
+    # downloadLinks[].url sont requis). On omet simplement le champ quand la
+    # taille est inconnue : un null/0 n'apporte rien et salit le catalogue.
     if not merged.get("sizeBytes"):
         merged.pop("sizeBytes", None)
     return merged
@@ -168,8 +192,8 @@ def main(argv: list[str]) -> int:
         stats.append((path.name, len(cat["packages"]), added, updated))
 
     packages = [by_key[k] for k in order]
-    # Filet de sécurité : aucun package ne doit sortir avec sizeBytes null/0,
-    # sinon Pegasus DL skippe l'entrée. Un champ absent, lui, est ignoré.
+    # On n'émet jamais sizeBytes null/0 (inutile) ; le champ est optionnel pour
+    # Pegasus DL et son absence n'empêche pas l'affichage du jeu.
     for pkg in packages:
         if not pkg.get("sizeBytes"):
             pkg.pop("sizeBytes", None)

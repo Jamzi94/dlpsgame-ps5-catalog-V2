@@ -84,6 +84,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run module self-tests
+        run: |
+          # Garde-fous : les auto-tests sortent != 0 en cas de régression
+          # (notamment le bug de taille « to » et la taxonomie des formats).
+          python3 scripts/sizes.py
+          python3 scripts/formats.py
+
       - name: Determine scrape mode
         id: config
         run: |
@@ -285,8 +292,53 @@ jobs:
           # - Matchés RAWG : rafraîchis tous les 30 jours
           # - Non matchés : réessayés tous les 14 jours
           # Sans secret RAWG_API_KEY, le script ne fait rien.
+          # NB : RAWG sert UNIQUEMENT aux métadonnées (note, genres, date,
+          # metacritic). Il ne fournit PAS de jaquette → ne touche plus posterUrl.
           if [ -f dlpsgame-ps5.json ]; then
             python3 scripts/enrich_rawg.py dlpsgame-ps5.json --ttl-days 3 --max-calls 900
+          fi
+
+      # ──────────────────────────────────────────────────────────────
+      # ENRICHISSEMENT JAQUETTES (IGDB) — vraies covers portrait
+      # ──────────────────────────────────────────────────────────────
+      - name: Enrich covers (IGDB)
+        if: env.MERGE_SKIPPED != '1'
+        continue-on-error: true
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+        run: |
+          # Récupère la VRAIE jaquette PS5 (cover portrait) depuis IGDB et la
+          # pose dans posterUrl. Sans secrets TWITCH_CLIENT_ID/SECRET, no-op.
+          # En l'absence de jaquette IGDB, on garde la cover scrapée du site.
+          if [ -f dlpsgame-ps5.json ]; then
+            python3 scripts/enrich_igdb.py dlpsgame-ps5.json --ttl-days 30 --max-calls 500
+          fi
+
+      # ──────────────────────────────────────────────────────────────
+      # SONDAGE DES TAILLES (hébergeurs fiables sans clé)
+      # ──────────────────────────────────────────────────────────────
+      - name: Probe hoster sizes
+        if: env.MERGE_SKIPPED != '1'
+        continue-on-error: true
+        run: |
+          # Complète les sizeBytes manquants en interrogeant vikingfile/mega/
+          # gofile (octets exacts, sans téléchargement). Non bloquant.
+          if [ -f dlpsgame-ps5.json ]; then
+            python3 scripts/hoster_size.py --catalog dlpsgame-ps5.json --max 400
+          fi
+
+      # ──────────────────────────────────────────────────────────────
+      # FINALISATION PEGASUS (formats visibles + assainissement tailles)
+      # ──────────────────────────────────────────────────────────────
+      - name: Finalize for Pegasus
+        if: env.MERGE_SKIPPED != '1'
+        run: |
+          # Surface le format (formatLabel + ligne "Format:" dans la description),
+          # canonicalise fileFormat, retire les tailles aberrantes (> 2 To), et
+          # nettoie les liens invalides. Idempotent.
+          if [ -f dlpsgame-ps5.json ]; then
+            python3 scripts/pegasus_finalize.py dlpsgame-ps5.json
           fi
 
       # ──────────────────────────────────────────────────────────────
