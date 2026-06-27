@@ -92,6 +92,30 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
+      # Instances 4 et 5 : accélèrent SuperPSX (pool concurrency 5). LOG_LEVEL
+      # warning pour limiter le bruit. ~5 Chrome max raisonnable sur un runner 7 Go.
+      flaresolverr4:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8194:8191
+        env:
+          LOG_LEVEL: warning
+        options: >-
+          --health-cmd "curl -fs http://localhost:8191/health | grep -q ok"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      flaresolverr5:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8195:8191
+        env:
+          LOG_LEVEL: warning
+        options: >-
+          --health-cmd "curl -fs http://localhost:8191/health | grep -q ok"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
       - name: Checkout
@@ -156,7 +180,7 @@ jobs:
           # ITEM 12 : on attend les 3 instances (8191/8192/8193). 8191 est
           # bloquante (instance nominale) ; 8192/8193 alimentent le pool round-robin
           # du fallback HTML — on les attend aussi pour exporter FLARESOLVERR_URLS.
-          for port in 8191 8192 8193; do
+          for port in 8191 8192 8193 8194 8195; do
             echo "Attente du démarrage de FlareSolverr sur le port $port..."
             ready=0
             for i in $(seq 1 60); do
@@ -178,7 +202,7 @@ jobs:
           done
           # Construit la liste CSV des instances RÉELLEMENT en bonne santé pour le pool.
           URLS=""
-          for port in 8191 8192 8193; do
+          for port in 8191 8192 8193 8194 8195; do
             if curl -sf "http://localhost:${port}/health" > /dev/null 2>&1; then
               URLS="${URLS:+$URLS,}http://localhost:${port}/v1"
             fi
@@ -303,7 +327,8 @@ jobs:
           ARGS+=("--mode" "${{ steps.config.outputs.mode }}")
           ARGS+=("--http-backend" "flaresolverr")
           ARGS+=("--flaresolverr-url" "http://localhost:8191/v1")
-          ARGS+=("--concurrency" "3")
+          # Pool 5 instances (8191-8195) → 5 fiches en parallèle (cf. services).
+          ARGS+=("--concurrency" "5")
           if [ -n "${{ github.event.inputs.max_games }}" ]; then
             ARGS+=("--max-games" "${{ github.event.inputs.max_games }}")
           fi

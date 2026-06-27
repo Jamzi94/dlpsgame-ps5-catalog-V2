@@ -85,7 +85,7 @@ HTTP_RETRIES = 5           # retries on 429/503/timeout
 # FlareSolverr configuration (placeholder for future use)
 FS_REQUEST_TIMEOUT = 90
 FS_MAX_TIMEOUT = 90000
-FS_WAIT_SECONDS = 5
+FS_WAIT_SECONDS = 3  # attente JS keepshield ; miroirs injectés vite (cf. sonde). Repli lien brut si 0.
 
 # Disk cache for resuming after interruption
 DISK_CACHE_DIR = Path(".scrape_cache_superpsx")
