@@ -37,6 +37,8 @@ from urllib.parse import urljoin, urlparse, parse_qs
 
 from bs4 import BeautifulSoup
 
+from formats import detect_formats
+
 # ---------------------------------------------------------------------------
 # Configuration générale
 # ---------------------------------------------------------------------------
@@ -981,49 +983,10 @@ def detect_file_format(groups: list[tuple[str, str]], download_links: list[dict]
         BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
         for _, html in groups
     )
-    found: list[str] = []
-
-    def add(marker: str) -> None:
-        if marker not in found:
-            found.append(marker)
-
-    # --- 1) marqueurs de format/conteneur dans le texte ---
-    text_markers = [
-        (r"\bexfat\b", "exFAT"),
-        (r"\bffpkg\b", "FFPKG"),
-        (r"\bffpfsc\b", "FFPFSC"),
-        (r"\bffpfs\b", "FFPFS"),
-        (r"\bfpkg\b", "FPKG"),
-        (r"\bpkg\b", "PKG"),
-        (r"apr[\s-]*emu", "APR-EMU"),
-    ]
-    for pattern, marker in text_markers:
-        if re.search(pattern, text, re.I):
-            add(marker)
-
-    # Backport + firmware éventuel (ex. "Backport 4.xx", "Backport 7.xx")
-    for fw in re.findall(r"backport\s*(\d+\.xx)", text, re.I):
-        add(f"Backport {fw.lower()}")
-    if "backport" in text.lower() and not any(f.startswith("Backport") for f in found):
-        add("Backport")
-
-    # --- 2) extension de fichier dans les URLs ---
-    url_ext = [
-        (".pkg", "PKG"),
-        (".rar", "RAR"),
-        (".7z", "7z"),
-        (".zip", "ZIP"),
-        (".exfat", "exFAT"),
-        (".ffpkg", "FFPKG"),
-        (".ffpfsc", "FFPFSC"),
-    ]
-    for link in download_links:
-        url = (link.get("url") or "").lower()
-        for ext, marker in url_ext:
-            if ext in url:
-                add(marker)
-
-    return found or ["unknown"]
+    # Les labels de groupe (ex. "exFAT", "Backport 4.xx") sont aussi du signal.
+    group_labels = [label for label, _ in groups if label]
+    urls = [link.get("url") or "" for link in download_links]
+    return detect_formats([text, *group_labels], urls=urls)
 
 
 def build_download_links(

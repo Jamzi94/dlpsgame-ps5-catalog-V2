@@ -51,6 +51,8 @@ try:
 except ImportError:
     ScrapeManifest = None  # type: ignore[assignment,misc]
 
+from formats import detect_formats
+
 try:
     from bs4 import BeautifulSoup
 except ImportError:
@@ -170,20 +172,125 @@ def setup_logging(verbose: bool) -> None:
 
 
 # ---------------------------------------------------------------------------
-# HTTP helpers (using urllib — no Cloudflare on API endpoints)
+# FlareSolverr support (fallback when Cloudflare blocks the API on CI)
 # ---------------------------------------------------------------------------
+
+_FLARESOLVERR_URL: str | None = None
+_FS_SESSION_ID: str | None = None
+
+
+def _fs_post(url: str, payload: dict, *, timeout: int = 120) -> dict:
+    """Send a JSON POST to FlareSolverr and return the parsed response."""
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        url, data=data,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except (urllib.error.URLError, OSError) as exc:
+        raise RuntimeError(f"FlareSolverr unreachable at {url}: {exc}") from exc
+
+
+def _fs_init() -> None:
+    """Create a FlareSolverr session and warm it up."""
+    global _FS_SESSION_ID
+    if not _FLARESOLVERR_URL or _FS_SESSION_ID:
+        return
+    timestamp = int(time.time())
+    _FS_SESSION_ID = f"wp-api-{timestamp}"
+    log.info("  FlareSolverr: creating session %s on %s", _FS_SESSION_ID, _FLARESOLVERR_URL)
+    _fs_post(_FLARESOLVERR_URL, {"cmd": "sessions.create", "session": _FS_SESSION_ID})
+    # Warm up: resolve CF challenge
+    warmup_url = f"{BASE_URL}/wp-json/wp/v2/posts?per_page=1"
+    _fs_request_get(warmup_url, max_timeout=60_000)
+    log.info("  FlareSolverr session warmed up")
+
+
+def _fs_request_get(url: str, *, max_timeout: int = 90_000) -> tuple[int, str, str]:
+    """GET via FlareSolverr session. Returns (status, body, final_url)."""
+    if not _FLARESOLVERR_URL or not _FS_SESSION_ID:
+        raise RuntimeError("FlareSolverr not initialized")
+    payload = {
+        "cmd": "request.get",
+        "url": url,
+        "maxTimeout": max_timeout,
+        "session": _FS_SESSION_ID,
+    }
+    post_timeout = (max_timeout // 1000) + 30
+    data = _fs_post(_FLARESOLVERR_URL, payload, timeout=post_timeout)
+    if data.get("status") != "ok":
+        raise RuntimeError(f"FlareSolverr error: {data.get('message', 'unknown')}")
+    solution = data.get("solution", {})
+    status = solution.get("status", 200)
+    html = solution.get("response", "")
+    final_url = solution.get("url", url)
+    # Safety: check if CF challenge still present
+    if html and ("Just a moment" in html[:500] or "challenge-platform" in html[:2000]):
+        raise RuntimeError("FlareSolverr could not resolve Cloudflare challenge")
+    return status, html, final_url
+
+
+def _fs_destroy() -> None:
+    """Destroy the FlareSolverr session."""
+    global _FS_SESSION_ID
+    if _FLARESOLVERR_URL and _FS_SESSION_ID:
+        try:
+            _fs_post(_FLARESOLVERR_URL, {"cmd": "sessions.destroy", "session": _FS_SESSION_ID})
+            log.info("  FlareSolverr session destroyed")
+        except Exception:
+            pass
+        _FS_SESSION_ID = None
+
+
+# ---------------------------------------------------------------------------
+# HTTP helpers (urllib primary, FlareSolverr fallback for CI)
+# ---------------------------------------------------------------------------
+
+def _decompress_body(raw: bytes, content_encoding: str) -> str:
+    """Decompress HTTP response body if needed, then decode to UTF-8.
+
+    Handles gzip, deflate, and brotli content encodings.  Falls back to
+    raw UTF-8 decode if decompression fails (the response may already be
+    plain text).
+    """
+    import gzip
+    import zlib
+
+    try:
+        if "gzip" in content_encoding:
+            raw = gzip.decompress(raw)
+        elif "deflate" in content_encoding:
+            raw = zlib.decompress(raw)
+        elif "br" in content_encoding:
+            try:
+                import brotli  # type: ignore[import-untyped]
+                raw = brotli.decompress(raw)
+            except ImportError:
+                log.warning("brotli module not installed — cannot decompress br response")
+    except Exception as exc:
+        log.debug("Decompression failed (%s), trying raw decode: %s", content_encoding, exc)
+
+    return raw.decode("utf-8", errors="replace")
 
 def _urllib_get(url: str, *, timeout: int = API_TIMEOUT, headers: dict | None = None) -> tuple[int, str, dict]:
     """Simple GET via urllib. Returns (status, body, response_headers).
 
-    No Cloudflare challenge on the WP API endpoint, so we can use plain urllib.
+    Works when Cloudflare is not active (local / residential IPs).
+    On CI (datacenter IPs), Cloudflare may block even the API —
+    the caller must detect non-JSON responses and fall back to FlareSolverr.
     """
     req_headers = {
         "User-Agent": USER_AGENT,
         "Accept": "application/json, */*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Cache-Control": "no-cache",
+        # NOTE: Do NOT set Accept-Encoding explicitly.  When omitted,
+        # urllib automatically adds "Accept-Encoding: gzip" and handles
+        # decompression transparently.  Setting it manually disables this
+        # auto-decompression, causing gzip bytes to be decoded as UTF-8
+        # which produces garbled output and "invalid JSON" errors.
     }
     if headers:
         req_headers.update(headers)
@@ -191,14 +298,18 @@ def _urllib_get(url: str, *, timeout: int = API_TIMEOUT, headers: dict | None = 
     req = urllib.request.Request(url, headers=req_headers, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read().decode("utf-8", errors="replace")
+            raw = resp.read()
+            encoding = resp.headers.get("Content-Encoding", "").lower()
+            body = _decompress_body(raw, encoding)
             status = resp.status
             resp_headers = {k.lower(): v for k, v in resp.headers.items()}
             return status, body, resp_headers
     except urllib.error.HTTPError as exc:
         body = ""
         try:
-            body = exc.read().decode("utf-8", errors="replace")
+            raw = exc.read()
+            encoding = exc.headers.get("Content-Encoding", "").lower() if exc.headers else ""
+            body = _decompress_body(raw, encoding)
         except Exception:
             pass
         return exc.code, body, {}
@@ -206,21 +317,78 @@ def _urllib_get(url: str, *, timeout: int = API_TIMEOUT, headers: dict | None = 
         raise RuntimeError(f"HTTP request failed for {url}: {exc}") from exc
 
 
+def _is_cloudflare_block(status: int, body: str) -> bool:
+    """Detect if the response is a Cloudflare challenge/block page."""
+    if status in (403, 503):
+        if "Just a moment" in body[:2000] or "challenge-platform" in body[:3000]:
+            return True
+        if "cf-browser-verification" in body[:3000]:
+            return True
+    return False
+
+
 def api_get(url: str, *, timeout: int = API_TIMEOUT) -> tuple[int, str, dict]:
-    """GET with retry and exponential backoff on 429/503."""
+    """GET with retry, exponential backoff, and FlareSolverr fallback.
+
+    Strategy:
+      1. Try urllib (fast, works on residential IPs / no CF)
+      2. If the response is a Cloudflare block page, fall back to FlareSolverr
+      3. If FlareSolverr is not configured, retry urllib with backoff
+    """
     backoff_table = [2, 5, 15, 30, 60]
     last_exc: Exception | None = None
+    fs_used = False
 
     for attempt in range(1, API_RETRIES + 1):
         try:
-            status, body, headers = _urllib_get(url, timeout=timeout)
-            if status in (429, 503):
-                wait = backoff_table[min(attempt - 1, len(backoff_table) - 1)]
-                log.warning("  HTTP %d on %s — wait %ds (attempt %d/%d)",
-                            status, url, wait, attempt, API_RETRIES)
-                time.sleep(wait)
-                continue
-            return status, body, headers
+            # Try urllib first (unless we already know we need FlareSolverr)
+            if not fs_used:
+                status, body, headers = _urllib_get(url, timeout=timeout)
+
+                # Detect Cloudflare block
+                if _is_cloudflare_block(status, body):
+                    log.warning("  Cloudflare block detected (HTTP %d) on %s", status, url)
+                    if _FLARESOLVERR_URL:
+                        log.info("  Falling back to FlareSolverr for API requests")
+                        _fs_init()
+                        fs_used = True
+                    else:
+                        log.warning("  FlareSolverr not configured — cannot bypass Cloudflare")
+                        wait = backoff_table[min(attempt - 1, len(backoff_table) - 1)]
+                        time.sleep(wait)
+                        continue
+
+                # Detect non-JSON response (might be HTML error page or CF)
+                if status == 200:
+                    body_stripped = body.strip()
+                    if body_stripped and not body_stripped.startswith(('[', '{')):
+                        log.warning("  Non-JSON response from API (starts with: %r)", body_stripped[:100])
+                        if _FLARESOLVERR_URL:
+                            log.info("  Trying FlareSolverr fallback")
+                            _fs_init()
+                            fs_used = True
+                        else:
+                            wait = backoff_table[min(attempt - 1, len(backoff_table) - 1)]
+                            time.sleep(wait)
+                            continue
+
+                if status in (429, 503):
+                    wait = backoff_table[min(attempt - 1, len(backoff_table) - 1)]
+                    log.warning("  HTTP %d on %s — wait %ds (attempt %d/%d)",
+                                status, url, wait, attempt, API_RETRIES)
+                    time.sleep(wait)
+                    continue
+
+                return status, body, headers
+
+            # FlareSolverr path
+            if fs_used and _FS_SESSION_ID:
+                fs_status, fs_body, fs_url = _fs_request_get(url)
+                # Extract pagination headers from FlareSolverr response isn't possible
+                # (they're in HTTP headers, not HTML). We'll parse total from JSON body.
+                headers = {"content-type": "application/json"}
+                return fs_status, fs_body, headers
+
         except RuntimeError as exc:
             last_exc = exc
             wait = backoff_table[min(attempt - 1, len(backoff_table) - 1)]
@@ -587,14 +755,50 @@ def fetch_api_page(page: int, *, per_page: int = API_PER_PAGE, fields: str = "fu
         log.warning("  API page %d returned HTTP %d", page, status)
         return [], 0, 0
 
+    # When FlareSolverr is used, the response is the full HTML page rendered
+    # by the browser (the JSON is embedded in the <pre> or <body> tag).
+    # We need to extract the JSON from the HTML.
+    json_body = body.strip()
+    if json_body.startswith("<") or json_body.startswith("<!DOCTYPE"):
+        log.debug("  API page %d: FlareSolverr returned HTML — extracting JSON", page)
+        # Try to find JSON in <pre> tag (browser renders JSON as formatted text)
+        pre_match = re.search(r'<pre[^>]*>(.*?)</pre>', json_body, re.DOTALL)
+        if pre_match:
+            json_body = pre_match.group(1).strip()
+        else:
+            # Try the <body> content (some browsers wrap JSON in body)
+            body_match = re.search(r'<body[^>]*>(.*?)</body>', json_body, re.DOTALL)
+            if body_match:
+                json_body = body_match.group(1).strip()
+            else:
+                # Last resort: try to find a JSON array start
+                json_start = json_body.find("[")
+                if json_start >= 0:
+                    json_body = json_body[json_start:]
+
     try:
-        posts = json.loads(body)
+        posts = json.loads(json_body)
     except json.JSONDecodeError as exc:
-        log.error("  API page %d: invalid JSON — %s", page, exc)
+        log.error("  API page %d: invalid JSON — %s (body starts with: %r)",
+                  page, exc, json_body[:200])
         return [], 0, 0
 
+    # Pagination headers are only available via urllib (HTTP headers).
+    # When FlareSolverr is used, we don't have them, so we estimate.
     total_posts = int(headers.get("x-wp-total", 0))
     total_pages = int(headers.get("x-wp-totalpages", 0))
+
+    # If no pagination headers (FlareSolverr path), estimate from current page
+    if not total_posts and isinstance(posts, list):
+        if len(posts) < per_page:
+            # Less than a full page — this is the last page
+            total_posts = (page - 1) * per_page + len(posts)
+            total_pages = page
+        else:
+            # Full page — there might be more pages
+            total_posts = page * per_page
+            total_pages = page + 1  # will be corrected by next fetch
+        log.debug("  Estimated pagination: total=%d, pages=%d", total_posts, total_pages)
 
     log.debug("  API page %d: %d posts (total: %d, pages: %d)", page, len(posts), total_posts, total_pages)
     return posts, total_posts, total_pages
@@ -931,43 +1135,13 @@ def extract_metadata_from_post(
 # ---------------------------------------------------------------------------
 
 def detect_file_format(decoded_texts: list[str], download_links: list[dict]) -> list[str]:
-    """Detect file format/distribution type from decoded text and download URLs."""
-    text = " ".join(decoded_texts)
-    found: list[str] = []
+    """Detect file format/distribution type from decoded text and download URLs.
 
-    def add(marker: str) -> None:
-        if marker not in found:
-            found.append(marker)
-
-    text_markers = [
-        (r"\bexfat\b", "exFAT"),
-        (r"\bffpkg\b", "FFPKG"),
-        (r"\bffpfsc\b", "FFPFSC"),
-        (r"\bffpfs\b", "FFPFS"),
-        (r"\bfpkg\b", "FPKG"),
-        (r"\bpkg\b", "PKG"),
-        (r"apr[\s-]*emu", "APR-EMU"),
-    ]
-    for pattern, marker in text_markers:
-        if re.search(pattern, text, re.I):
-            add(marker)
-
-    for fw in re.findall(r"backport\s*(\d+\.xx)", text, re.I):
-        add(f"Backport {fw.lower()}")
-    if "backport" in text.lower() and not any(f.startswith("Backport") for f in found):
-        add("Backport")
-
-    url_ext = [
-        (".pkg", "PKG"), (".rar", "RAR"), (".7z", "7z"), (".zip", "ZIP"),
-        (".exfat", "exFAT"), (".ffpkg", "FFPKG"), (".ffpfsc", "FFPFSC"),
-    ]
-    for link in download_links:
-        url = (link.get("url") or "").lower()
-        for ext, marker in url_ext:
-            if ext in url:
-                add(marker)
-
-    return found or ["unknown"]
+    Délègue au module centralisé ``formats`` (libellés canoniques :
+    FPKG, FFPKG, FFPFSC, exFAT, Folder, PKG, APR-EMU, Backport x.xx, RAR…).
+    """
+    urls = [link.get("url") or "" for link in download_links]
+    return detect_formats(decoded_texts, urls=urls)
 
 
 # ---------------------------------------------------------------------------
@@ -1277,6 +1451,11 @@ def main(argv: list[str] | None = None) -> int:
              "(default: .scrape_manifest_api.json)",
     )
     parser.add_argument(
+        "--flaresolverr-url", default=None,
+        help="FlareSolverr URL for Cloudflare bypass "
+             "(default: env FLARESOLVERR_URL or http://localhost:8191/v1)",
+    )
+    parser.add_argument(
         "--verbose", action="store_true",
         help="Debug logging",
     )
@@ -1286,10 +1465,18 @@ def main(argv: list[str] | None = None) -> int:
     setup_logging(args.verbose)
 
     # Configure disk cache
-    global DISK_CACHE_ENABLED
+    global DISK_CACHE_ENABLED, _FLARESOLVERR_URL
     if args.no_cache:
         DISK_CACHE_ENABLED = False
         log.info("Disk cache disabled")
+
+    # Configure FlareSolverr fallback
+    fs_url = args.flaresolverr_url or os.environ.get("FLARESOLVERR_URL", "").strip()
+    if fs_url:
+        _FLARESOLVERR_URL = fs_url
+        log.info("  FlareSolverr:  %s (fallback if Cloudflare blocks API)", fs_url)
+    else:
+        log.info("  FlareSolverr:  not configured (urllib only)")
 
     log.info("Starting WP REST API scraper for dlpsgame.com PS5 catalog")
     log.info("  API endpoint: %s", WP_API_URL)
@@ -1404,6 +1591,9 @@ def main(argv: list[str] | None = None) -> int:
     log.info("  With size info:      %d", with_size)
     log.info("  Warnings file:       %s",
              args.out.with_suffix(".warnings.txt") if warnings else "(none)")
+
+    # Cleanup FlareSolverr session
+    _fs_destroy()
 
     return 0
 

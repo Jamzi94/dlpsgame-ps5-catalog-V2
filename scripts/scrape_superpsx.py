@@ -53,6 +53,8 @@ from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup, Tag
 
+from formats import detect_formats, normalize_formats
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -1026,26 +1028,17 @@ def parse_dll_page(url: str) -> dict | None:
         if ver_match:
             version = normalize_version(full_text)
 
-    # Detect file formats from page text if not already found
-    if not file_formats:
-        full_text = soup.get_text(" ", strip=True)
-        for tag_match in FORMAT_TAG_RE.finditer(full_text):
-            tag = tag_match.group(1)
-            if tag not in file_formats and tag not in ("PS5", "PS4", "PKG"):
-                file_formats.append(tag)
-
-        # Fallback: check for format keywords
-        if "apr-emu" in full_text.lower() or "ampr-emu" in full_text.lower():
-            if "APR-EMU" not in file_formats:
-                file_formats.append("APR-EMU")
-        if "fpkg" in full_text.lower():
-            if "FPKG" not in file_formats:
-                file_formats.append("FPKG")
-        if "pkg" in full_text.lower() and "PKG" not in file_formats:
-            file_formats.append("PKG")
-
-    if not file_formats:
-        file_formats = ["unknown"]
+    # Centraliser via le module formats : on canonicalise les tags [..] déjà
+    # collectés sur les lignes "Game" et on complète par une détection sur le
+    # texte complet de la page + les URLs des liens (libellés canoniques :
+    # FPKG, FFPFSC, exFAT, Folder, PKG, APR-EMU, Backport x.xx, RAR…).
+    full_text = soup.get_text(" ", strip=True)
+    link_urls = [l.get("url") or "" for l in all_links]
+    merged = normalize_formats(file_formats)
+    for fmt in detect_formats([full_text], urls=link_urls):
+        if fmt != "unknown" and fmt not in merged:
+            merged.append(fmt)
+    file_formats = merged or ["unknown"]
 
     return {
         "links": all_links,
@@ -1403,6 +1396,11 @@ Examples:
         help="Disable disk cache (.scrape_cache_superpsx/) — force full re-scrape",
     )
     parser.add_argument(
+        "--mode", choices=["full", "incremental"], default="full",
+        help="Scrape mode: 'full' (re-scrape everything) or 'incremental' "
+             "(only new/updated games). Default: full",
+    )
+    parser.add_argument(
         "--verbose", action="store_true",
         help="Enable debug-level logging",
     )
@@ -1425,9 +1423,23 @@ Examples:
         args.concurrency = 1
 
     log.info(
-        "Starting SuperPSX scraper (backend: %s, concurrency: %d, delay: %.1fs)",
-        _HTTP_BACKEND, args.concurrency, PAGE_DELAY,
+        "Starting SuperPSX scraper (backend: %s, concurrency: %d, delay: %.1fs, mode: %s)",
+        _HTTP_BACKEND, args.concurrency, PAGE_DELAY, args.mode,
     )
+
+    # Load manifest for incremental mode
+    manifest = None
+    if args.mode == "incremental":
+        try:
+            from scrape_manifest import ScrapeManifest
+        except ImportError:
+            ScrapeManifest = None  # type: ignore[assignment,misc]
+        if ScrapeManifest:
+            manifest = ScrapeManifest(path=".scrape_manifest_superpsx.json")
+            log.info("Incremental mode: manifest has %d entries",
+                     len(manifest._data.get("entries", {})))
+        else:
+            log.warning("scrape_manifest module not found — running in full mode")
 
     try:
         packages, warnings = scrape_all(
@@ -1441,6 +1453,15 @@ Examples:
     except Exception as exc:
         log.error("Fatal error: %s", exc)
         return 1
+
+    # Save manifest with scraped packages
+    if manifest:
+        for pkg in packages:
+            source_url = pkg.get("downloadSource", "")
+            if source_url:
+                manifest.record(source_url, json.dumps(pkg, ensure_ascii=False), package=pkg)
+        manifest.save()
+        log.info("Manifest saved with %d entries", len(manifest._data.get("entries", {})))
 
     catalog = build_catalog(packages)
 

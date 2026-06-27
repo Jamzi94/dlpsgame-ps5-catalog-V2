@@ -1,0 +1,31 @@
+# Scrape cache directories
+.scrape_cache/
+.scrape_cache_api/
+.scrape_cache_superpsx/
+
+# Incremental manifests
+.scrape_manifest.json
+.scrape_manifest_api.json
+.scrape_manifest_superpsx.json
+
+# Intermediate / temporary files
+dlpsgame-ps5.fresh.json
+superpsx-ps5.fresh.json
+exfat-ps5.fresh.json
+dlpsgame-ps5.previous.json
+dlpsgame-ps5.merged.json
+dlpsgame-ps5.fresh.warnings.txt
+
+# Metrics & diff reports (regenerated each run)
+scrape-metrics.json
+diff-report.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db

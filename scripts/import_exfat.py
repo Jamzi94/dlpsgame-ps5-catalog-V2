@@ -18,6 +18,8 @@ from urllib.request import Request, urlopen
 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
+from formats import detect_formats, normalize_formats
+
 DEFAULT_URL = "https://pippo26442999.github.io/.exFAT/exFAT.json"
 DEFAULT_OUT = Path("exfat-ps5.fresh.json")
 REQUEST_TIMEOUT = 25
@@ -391,6 +393,18 @@ def build_package(record: dict[str, Any]) -> dict[str, Any] | None:
     if is_fake_entry(record, extracted_links):
         return None
 
+    # Format canonique (source exFAT → souvent exFAT/FFPFSC, mais on détecte).
+    rec_fmt = record.get("fileFormat")
+    if rec_fmt:
+        file_format = normalize_formats(rec_fmt) or ["exFAT"]
+    else:
+        file_format = detect_formats(
+            [title, description, str(record.get("tags") or "")],
+            urls=[l["url"] for l in extracted_links],
+        )
+        if file_format == ["unknown"]:
+            file_format = ["exFAT"]
+
     return {
         "titleId": title_id,
         "title": title,
@@ -402,7 +416,7 @@ def build_package(record: dict[str, Any]) -> dict[str, Any] | None:
         "sizeBytes": size_bytes,
         "downloadSource": source_url,
         "source": "exFAT",
-        "fileFormat": str(record.get("fileFormat") or "pkg"),
+        "fileFormat": file_format,
     }
 
 
