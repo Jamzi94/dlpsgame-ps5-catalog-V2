@@ -5464,8 +5464,12 @@
       ],
       "sizeBytes": 8589934592,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA27616",
@@ -6963,8 +6967,12 @@
       ],
       "sizeBytes": 28991029248,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA01503",
@@ -20353,8 +20361,12 @@
       ],
       "sizeBytes": 3221225472,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA02981",
@@ -21027,8 +21039,12 @@
       ],
       "sizeBytes": 8589934592,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA16911",
@@ -22151,8 +22167,12 @@
       ],
       "sizeBytes": 144955146240,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA13428",
@@ -31563,8 +31583,12 @@
       ],
       "sizeBytes": 404800667648,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA02449",
@@ -32843,8 +32867,12 @@
       ],
       "sizeBytes": 79456894976,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA02110",
@@ -33568,8 +33596,12 @@
       ],
       "sizeBytes": 28991029248,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA09850",
@@ -38309,8 +38341,12 @@
       ],
       "sizeBytes": 13958643712,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA01599",
@@ -44964,8 +45000,12 @@
       ],
       "sizeBytes": 6442450944,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA02457",
@@ -45775,8 +45815,12 @@
       ],
       "sizeBytes": 18253611008,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA06323",
@@ -50607,8 +50651,12 @@
       ],
       "sizeBytes": 19327352832,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA17732",
@@ -53474,8 +53522,12 @@
       ],
       "sizeBytes": 1073741824,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "GAME_36182",
@@ -55429,8 +55481,12 @@
       ],
       "sizeBytes": 23622320128,
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
-      "source": "exFAT",
-      "fileFormat": "pkg"
+      "source": [
+        "exFAT"
+      ],
+      "fileFormat": [
+        "pkg"
+      ]
     },
     {
       "titleId": "PPSA01500",
