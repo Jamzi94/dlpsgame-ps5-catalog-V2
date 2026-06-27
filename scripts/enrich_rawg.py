@@ -18,17 +18,51 @@ pipeline reste fonctionnel même sans clé configurée.
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
 import datetime as dt
 import json
 import os
+import random
 import re
 import sys
+import threading
 import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
 RAWG_SEARCH = "https://api.rawg.io/api/games"
+
+# Budget RAWG : ~5 req/s côté API (gratuit). On reste poliment en dessous.
+RAWG_RATE_PER_SEC = 5.0
+
+
+# ---------------------------------------------------------------------------
+# Token-bucket partagé (thread-safe) — borne le débit global quel que soit le
+# nombre de threads. Chaque appel consomme 1 jeton ; les jetons se régénèrent
+# à `rate` par seconde (capacité = rate, pas de rafale supérieure à 1s).
+# ---------------------------------------------------------------------------
+class TokenBucket:
+    def __init__(self, rate: float, capacity: float | None = None) -> None:
+        self.rate = float(rate)
+        self.capacity = float(capacity if capacity is not None else rate)
+        self._tokens = self.capacity
+        self._last = time.monotonic()
+        self._lock = threading.Lock()
+
+    def acquire(self) -> None:
+        """Bloque jusqu'à ce qu'un jeton soit disponible, puis le consomme."""
+        while True:
+            with self._lock:
+                now = time.monotonic()
+                self._tokens = min(self.capacity,
+                                   self._tokens + (now - self._last) * self.rate)
+                self._last = now
+                if self._tokens >= 1.0:
+                    self._tokens -= 1.0
+                    return
+                wait = (1.0 - self._tokens) / self.rate
+            time.sleep(wait)
 USER_AGENT = "dlpsgame-pegasus-enricher/1.0"
 
 # ID de plateforme RAWG pour "PlayStation 5" (vérifié). On filtre la recherche
@@ -180,13 +214,17 @@ def _prioritize_packages(packages: list[dict]) -> list[dict]:
 
 
 def enrich_catalog(catalog: dict, api_key: str, *, ttl_days: int,
-                   max_calls: int, delay: float) -> dict:
+                   max_calls: int, delay: float, concurrency: int = 4) -> dict:
     packages = catalog.get("packages", [])
     # Prioriser : jeux jamais enrichis en premier
     packages = _prioritize_packages(packages)
     stats = {"total": len(packages), "fresh": 0, "enriched": 0,
              "matched": 0, "unmatched": 0, "errors": 0, "calls": 0, "capped": 0}
 
+    # Présélection (mono-thread, déterministe) : on ne garde que les jeux à
+    # enrichir et on applique le plafond --max-calls AVANT de paralléliser, pour
+    # un budget d'appels strict et reproductible.
+    todo: list[dict] = []
     for pkg in packages:
         title = (pkg.get("title") or "").strip()
         if not title:
@@ -196,25 +234,53 @@ def enrich_catalog(catalog: dict, api_key: str, *, ttl_days: int,
         if is_fresh(pkg, effective_ttl):
             stats["fresh"] += 1
             continue
-        if max_calls and stats["calls"] >= max_calls:
+        if max_calls and len(todo) >= max_calls:
             stats["capped"] += 1
             continue  # plafond atteint : on laissera ce jeu au prochain run
+        todo.append(pkg)
 
+    if not todo:
+        return stats
+
+    # Token-bucket partagé : borne le débit global ~5 req/s quel que soit le
+    # nombre de threads. La sérialisation JSON finale reste mono-thread.
+    bucket = TokenBucket(RAWG_RATE_PER_SEC)
+    workers = max(1, concurrency)
+
+    def _do(pkg: dict) -> tuple[dict, dict | None, Exception | None]:
+        title = (pkg.get("title") or "").strip()
+        bucket.acquire()
+        # Jitter léger pour désynchroniser les threads et lisser les rafales.
+        time.sleep(random.uniform(0.1, 0.3))
         try:
-            result = fetch_rawg(title, api_key)
-            stats["calls"] += 1
-            apply_rawg(pkg, result)
-            stats["enriched"] += 1
-            if pkg.get("_rawgMatched"):
-                stats["matched"] += 1
-            else:
-                stats["unmatched"] += 1
-        except Exception as exc:
+            return pkg, fetch_rawg(title, api_key), None
+        except Exception as exc:  # noqa: BLE001
+            return pkg, None, exc
+
+    if workers <= 1:
+        results_iter = (_do(p) for p in todo)
+    else:
+        pool = cf.ThreadPoolExecutor(max_workers=workers)
+        results_iter = pool.map(_do, todo)
+
+    # Consommation mono-thread des résultats (mutation pkg + stats sûre).
+    for pkg, result, exc in results_iter:
+        title = (pkg.get("title") or "").strip()
+        stats["calls"] += 1
+        if exc is not None:
             stats["errors"] += 1
             print(f"  [warn] {title}: {exc}", file=sys.stderr)
             # on n'écrit pas _enrichedAt => sera retenté au prochain run
-        if delay:
-            time.sleep(delay)
+            continue
+        apply_rawg(pkg, result)
+        stats["enriched"] += 1
+        if pkg.get("_rawgMatched"):
+            stats["matched"] += 1
+        else:
+            stats["unmatched"] += 1
+
+    if workers > 1:
+        pool.shutdown(wait=True)
 
     return stats
 
@@ -227,6 +293,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--max-calls", type=int, default=900,
                     help="Plafond d'appels API par run (sécurité quota, défaut 900 ; 0 = illimité)")
     ap.add_argument("--delay", type=float, default=0.2, help="Délai entre appels en secondes (défaut 0.2)")
+    ap.add_argument("--concurrency", type=int, default=4,
+                    help="Nb de threads d'enrichissement parallèles (défaut 4 ; "
+                         "le débit global reste borné ~5 req/s par token-bucket)")
     args = ap.parse_args(argv)
 
     api_key = os.environ.get("RAWG_API_KEY", "").strip()
@@ -240,7 +309,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     stats = enrich_catalog(catalog, api_key, ttl_days=args.ttl_days,
-                           max_calls=args.max_calls, delay=args.delay)
+                           max_calls=args.max_calls, delay=args.delay,
+                           concurrency=args.concurrency)
 
     out = args.out or args.catalog
     out.write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -54,6 +54,19 @@ LOG = logging.getLogger("scrape_manifest")
 # Content hashing
 # ---------------------------------------------------------------------------
 
+def _parse_iso(value: str) -> dt.datetime:
+    """Parse une date ISO 8601 en datetime *aware* (UTC par défaut).
+
+    L'API WordPress renvoie 'modified' sans suffixe de fuseau (heure locale
+    du serveur) ; on le normalise en UTC pour permettre des comparaisons
+    cohérentes entre runs.
+    """
+    parsed = dt.datetime.fromisoformat(value)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return parsed
+
+
 def content_hash(html: str) -> str:
     """Compute a short content hash of HTML.
 
@@ -82,6 +95,7 @@ class ScrapeManifest:
         self._data: dict[str, Any] = {
             "version": MANIFEST_VERSION,
             "updated_at": None,
+            "last_run": None,
             "entries": {},
         }
         self._load()
@@ -131,13 +145,22 @@ class ScrapeManifest:
     # Core logic
     # ------------------------------------------------------------------
 
-    def needs_scrape(self, url: str, mode: str = "incremental") -> bool:
+    def needs_scrape(
+        self,
+        url: str,
+        mode: str = "incremental",
+        modified: str | None = None,
+    ) -> bool:
         """Determine whether *url* needs to be (re-)scraped.
 
         Args:
             url: The game page URL.
             mode: ``"full"`` forces re-scraping everything;
-                  ``"incremental"`` skips unchanged recent pages.
+                  ``"incremental"`` skips unchanged pages.
+            modified: Le champ ``modified`` du post (ISO 8601) renvoyé par
+                  l'API WordPress.  En mode incrémental, le re-scrape est
+                  piloté par ce champ : on re-scrape si ``modified`` est
+                  strictement postérieur au ``modified`` déjà stocké.
 
         Returns:
             True if the page should be scraped.
@@ -147,10 +170,34 @@ class ScrapeManifest:
 
         entry = self._data["entries"].get(url)
         if entry is None:
-            # New URL — must scrape
+            # Nouvelle URL — jamais vue : on doit la scraper (filet de sécurité).
             return True
 
-        # Check staleness: older than INCREMENTAL_MAX_AGE_DAYS
+        # --- Décision pilotée par le champ 'modified' de l'API ---
+        # C'est le critère principal : on re-scrape uniquement si le post a
+        # été édité depuis la dernière fois qu'on l'a vu.
+        if modified:
+            last_modified = entry.get("modified")
+            if not last_modified:
+                # Jamais stocké 'modified' pour cette entrée — re-scrape par sûreté.
+                LOG.debug("No stored 'modified' for %s — will re-scrape", url)
+                return True
+            try:
+                if _parse_iso(modified) > _parse_iso(last_modified):
+                    LOG.debug(
+                        "Post edited (%s > %s): %s", modified, last_modified, url
+                    )
+                    return True
+                # Non modifié depuis la dernière fois — on saute.
+                return False
+            except (ValueError, TypeError):
+                LOG.warning(
+                    "Invalid 'modified' timestamp for %s — will re-scrape", url
+                )
+                return True
+
+        # --- Pas de 'modified' fourni : filet de sécurité sur la péremption ---
+        # (rétro-compatibilité avec les appels sans champ 'modified').
         last_seen_str = entry.get("last_seen")
         if last_seen_str:
             try:
@@ -168,17 +215,15 @@ class ScrapeManifest:
             # No last_seen — re-scrape
             return True
 
-        # Content hash change is detected by ``record()`` comparing
-        # the new hash to the stored one.  At query time we only
-        # check staleness; if the hash *has* changed, ``record()``
-        # will update it and the next ``needs_scrape`` call within the
-        # same run will already see the new hash.
-        # However, if we *already know* the hash changed (record was
-        # called previously in this session), we still return False
-        # here because the data is fresh.
         return False
 
-    def record(self, url: str, html: str, package: dict | None = None) -> None:
+    def record(
+        self,
+        url: str,
+        html: str,
+        package: dict | None = None,
+        modified: str | None = None,
+    ) -> None:
         """Record a scrape result for *url*.
 
         Args:
@@ -187,6 +232,8 @@ class ScrapeManifest:
             package: The parsed package dict (titleId, title, downloadLinks, …).
                      Stored as the cached ``package`` value so it can be
                      reused without re-parsing.
+            modified: Le champ ``modified`` du post (ISO 8601), stocké par
+                     entrée pour piloter l'incrémental au prochain run.
         """
         new_hash = content_hash(html)
         link_count = 0
@@ -206,8 +253,31 @@ class ScrapeManifest:
             "link_count": link_count,
             "package": package,
         }
+        if modified:
+            entry["modified"] = modified
         self._data["entries"][url] = entry
-        LOG.debug("Recorded %s — hash=%s links=%d", url, new_hash, link_count)
+        LOG.debug(
+            "Recorded %s — hash=%s links=%d modified=%s",
+            url, new_hash, link_count, modified or "?",
+        )
+
+    # ------------------------------------------------------------------
+    # Suivi du dernier run (pour le mode incrémental piloté par 'modified')
+    # ------------------------------------------------------------------
+
+    def get_last_run(self) -> str | None:
+        """Renvoie l'horodatage ISO 8601 du dernier run réussi, ou None."""
+        return self._data.get("last_run")
+
+    def set_last_run(self, timestamp: str | None = None) -> None:
+        """Mémorise l'horodatage du run courant.
+
+        Args:
+            timestamp: ISO 8601 ; par défaut, l'instant présent en UTC.
+        """
+        self._data["last_run"] = (
+            timestamp or dt.datetime.now(dt.timezone.utc).isoformat()
+        )
 
     def filter_urls(self, urls: list[str], mode: str = "incremental") -> list[str]:
         """Filter *urls* to only those that need scraping under *mode*.

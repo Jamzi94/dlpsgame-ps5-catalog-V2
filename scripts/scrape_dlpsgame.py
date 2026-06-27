@@ -270,6 +270,13 @@ FLARESOLVERR_URL = "http://localhost:8191/v1"
 # Session FlareSolverr persistante (garde Chrome ouvert avec les cookies CF)
 _FS_SESSION_ID: str | None = None
 
+# Pool multi-instances FlareSolverr (chemin de FALLBACK HTML uniquement).
+# Renseigné par init_flaresolverr_session() quand FLARESOLVERR_URLS contient
+# plusieurs URLs (round-robin sur N conteneurs Docker → N× débit). Avec une
+# seule URL, on reste sur la session unique historique (_FS_SESSION_ID) pour
+# garantir un comportement strictement identique à aujourd'hui.
+_FS_POOL = None  # type: "FlareSolverrPool | None"
+
 
 class CurlResponse:
     """Wrapper léger pour ressembler à requests.Response."""
@@ -402,6 +409,17 @@ def _flaresolverr_get(url: str, *, max_time: int | None = None,
                      `waitForSelector` dans son API.)
     """
     timeout = max_time or FS_REQUEST_TIMEOUT
+
+    # Chemin pool multi-instances : si un FlareSolverrPool est actif (plusieurs
+    # conteneurs), on délègue le GET au pool qui répartit en round-robin sur ses
+    # sessions. CurlResponse du pool est API-compatible (.status_code/.text/.url).
+    if _FS_POOL is not None:
+        return _FS_POOL.get(
+            url,
+            max_timeout=FS_MAX_TIMEOUT,
+            wait_seconds=wait_seconds,
+        )
+
     payload: dict = {
         "cmd": "request.get",
         "url": url,
@@ -485,9 +503,31 @@ def init_flaresolverr_session() -> None:
     La session garde une instance Chrome ouverte avec les cookies Cloudflare
     valides, ce qui évite de relancer le navigateur à chaque requête.
     Toutes les requêtes suivantes réutiliseront cette session."""
-    global _FS_SESSION_ID
+    global _FS_SESSION_ID, _FS_POOL
     if _HTTP_BACKEND != "flaresolverr":
         return
+
+    # Détection multi-instances : FLARESOLVERR_URLS (CSV) prioritaire, sinon
+    # FLARESOLVERR_URL unique. Avec ≥ 2 URLs distinctes, on monte un pool
+    # round-robin pour le FALLBACK HTML ; avec une seule URL, on garde le
+    # comportement historique (session unique) pour ne rien régresser.
+    try:
+        from flaresolverr_pool import FlareSolverrPool, parse_flaresolverr_urls
+        fs_urls = parse_flaresolverr_urls()
+    except Exception as exc:
+        log.debug("  pool FlareSolverr indisponible (%s) — session unique", exc)
+        fs_urls = []
+
+    if len(fs_urls) > 1:
+        log.info("Création pool FlareSolverr multi-instances (%d URLs)...", len(fs_urls))
+        try:
+            _FS_POOL = FlareSolverrPool(fs_urls, verbose=False)
+            log.info("  ✓ Pool FlareSolverr prêt : %d instance(s) active(s)",
+                     _FS_POOL.size)
+            return
+        except Exception as exc:
+            log.warning("  ⚠ Échec init pool (%s) — repli sur session unique", exc)
+            _FS_POOL = None
 
     session_id = f"dlpsgame-{int(time.time())}"
     log.info("Création session FlareSolverr persistante...")
@@ -511,8 +551,15 @@ def init_flaresolverr_session() -> None:
 
 
 def destroy_flaresolverr_session() -> None:
-    """Détruit la session FlareSolverr à la fin du scrape."""
-    global _FS_SESSION_ID
+    """Détruit la session FlareSolverr (ou le pool) à la fin du scrape."""
+    global _FS_SESSION_ID, _FS_POOL
+    if _FS_POOL is not None:
+        try:
+            _FS_POOL.destroy_all()
+        except Exception:
+            pass
+        _FS_POOL = None
+        return
     if not _FS_SESSION_ID:
         return
     try:
@@ -1425,20 +1472,30 @@ def main(argv: Iterable[str] | None = None) -> int:
     if args.flaresolverr_url:
         FLARESOLVERR_URL = args.flaresolverr_url
 
-    # FlareSolverr ne supporte pas le parallélisme sur une seule session
-    # (les requêtes concurrentes sont mises en file d'attente).
-    # On force concurrency=1 pour éviter des timeouts.
+    # En mode FlareSolverr, on crée d'abord la session (ou le pool multi-instances)
+    # pour réutiliser la/les instance(s) Chrome (beaucoup plus rapide).
+    if _HTTP_BACKEND == "flaresolverr":
+        init_flaresolverr_session()
+
+    # FlareSolverr est mono-session par instance : une seule session ne supporte
+    # pas le parallélisme (les requêtes concurrentes sont sérialisées). On force
+    # donc concurrency=1 SAUF si un pool multi-instances est actif : dans ce cas
+    # on autorise jusqu'à min(concurrency demandée, taille du pool) requêtes en
+    # parallèle (round-robin sur les conteneurs).
     if _HTTP_BACKEND == "flaresolverr" and args.concurrency > 1:
-        log.warning("FlareSolverr ne supporte pas le parallélisme — concurrency forcé à 1")
-        args.concurrency = 1
+        if _FS_POOL is not None and _FS_POOL.size > 1:
+            new_conc = min(args.concurrency, _FS_POOL.size)
+            if new_conc != args.concurrency:
+                log.warning("Pool FlareSolverr de %d instance(s) — concurrency ramené à %d",
+                            _FS_POOL.size, new_conc)
+            args.concurrency = new_conc
+        else:
+            log.warning("FlareSolverr (session unique) ne supporte pas le parallélisme "
+                        "— concurrency forcé à 1")
+            args.concurrency = 1
 
     log.info("Démarrage scraper dlpsgame.com/category/ps5 (backend: %s, concurrency: %d)",
              _HTTP_BACKEND, args.concurrency)
-
-    # En mode FlareSolverr, on crée une session persistante pour réutiliser
-    # la même instance Chrome (beaucoup plus rapide)
-    if _HTTP_BACKEND == "flaresolverr":
-        init_flaresolverr_session()
 
     try:
         packages, warnings = scrape_all(

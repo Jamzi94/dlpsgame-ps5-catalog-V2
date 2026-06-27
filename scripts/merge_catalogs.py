@@ -4,6 +4,15 @@ Fusionne plusieurs catalogues au format Pegasus DL en un seul.
 
 Usage :
   python merge_catalogs.py sortie.json catalogue_a.json catalogue_b.json [...]
+  python merge_catalogs.py sortie.json FRAÎCHE1.json [FRAÎCHE2…] EXISTANT.json
+
+  Convention CI : sources fraîches d'abord, catalogue existant en dernier.
+
+Garde-fou anti-corruption (item 6) :
+  - Chaque source FRAÎCHE doit exposer 'packages' comme une LISTE (sinon rejet).
+  - Seuil : si total(packages frais) < --min-fresh-ratio × taille(existant), la
+    fusion est REFUSÉE (rc=3) et l'existant conservé intact. Bypass : --allow-shrink
+    (tolère, avertit) ou --full (désactive le seuil).
 
 Règles de fusion :
   - Clé d'unicité : titleId réel (ex. PPSA01668) si présent, sinon le titre
@@ -17,10 +26,14 @@ Règles de fusion :
 """
 from __future__ import annotations
 
+import argparse
 import json
+import logging
 import re
 import sys
 from pathlib import Path
+
+LOG = logging.getLogger("merge_catalogs")
 
 # Un vrai identifiant ressemble à PPSA01668 / CUSA12345 (4 lettres + chiffres).
 REAL_TITLEID_RE = re.compile(r"^[A-Z]{4}\d{3,}$")
@@ -156,27 +169,162 @@ def merge_package(base: dict, extra: dict) -> dict:
     return merged
 
 
-def load_catalog(path: Path) -> dict:
+def load_catalog(path: Path, *, fresh: bool = False) -> dict:
+    """Charge un catalogue et valide sa structure.
+
+    Garde-fou (item 6) : une source FRAÎCHE doit impérativement exposer une clé
+    'packages' qui est une LISTE. Un scrape partiel ou corrompu (objet, null,
+    clé absente) est rejeté avec un message clair plutôt que de produire une
+    fusion silencieusement dégradée.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
-    if "packages" not in data or not isinstance(data["packages"], list):
-        raise ValueError(f"{path} : pas un catalogue Pegasus valide (clé 'packages' absente)")
+    if not isinstance(data, dict) or "packages" not in data:
+        kind = "source fraîche" if fresh else "catalogue"
+        raise ValueError(
+            f"{path} : {kind} invalide — clé 'packages' absente "
+            "(pas un catalogue Pegasus DL valide)."
+        )
+    if not isinstance(data["packages"], list):
+        kind = "source fraîche" if fresh else "catalogue"
+        got = type(data["packages"]).__name__
+        raise ValueError(
+            f"{path} : {kind} invalide — 'packages' doit être une LISTE "
+            f"(reçu : {got}). Scrape partiel ou fichier corrompu, rejeté."
+        )
     return data
 
 
+# Code de sortie dédié quand le merge est REFUSÉ pour cause de seuil : permet au
+# workflow CI de conditionner le « Commit & push » (rc==0 -> commit, rc==3 -> skip).
+RC_OK = 0
+RC_USAGE = 2
+RC_REFUSED = 3
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Fusionne plusieurs catalogues Pegasus DL en un seul.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__,
+    )
+    parser.add_argument("output", help="Fichier de sortie (catalogue fusionné).")
+    parser.add_argument(
+        "inputs", nargs="+",
+        help="Catalogues d'entrée : sources fraîches d'abord, catalogue existant "
+             "ensuite (le dernier si plusieurs entrées, sauf --existing).",
+    )
+    parser.add_argument(
+        "--existing", default=None,
+        help="Chemin explicite du catalogue EXISTANT (référence du seuil). "
+             "Par défaut : la dernière entrée quand il y en a plusieurs.",
+    )
+    parser.add_argument(
+        "--min-fresh-ratio", type=float, default=0.5,
+        help="Seuil anti-run-dégradé : refuse la fusion si le total des packages "
+             "frais < ratio × taille du catalogue existant (défaut : 0.5).",
+    )
+    parser.add_argument(
+        "--allow-shrink", action="store_true",
+        help="Bypass du seuil : autorise un total frais inférieur (catalogue qui "
+             "rétrécit légitimement). N'AVERTIT plus, fusionne quand même.",
+    )
+    parser.add_argument(
+        "--full", action="store_true",
+        help="Mode full explicite : désactive entièrement le seuil anti-dégradé "
+             "(scrape complet attendu, pas d'incrémental).",
+    )
+    return parser
+
+
 def main(argv: list[str]) -> int:
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s",
+    )
+    # Rétro-compat : ancien appel positionnel « out a.json b.json … » conservé,
+    # mais on exige au moins une entrée. (anciennement : argv < 3 -> usage.)
     if len(argv) < 3:
-        print(__doc__)
-        return 2
-    out_path = Path(argv[1])
-    in_paths = [Path(p) for p in argv[2:]]
+        build_parser().print_help()
+        return RC_USAGE
+    args = build_parser().parse_args(argv[1:])
+
+    out_path = Path(args.output)
+    in_paths = [Path(p) for p in args.inputs]
+
+    # Détermination de la source EXISTANTE (référence du seuil) vs les FRAÎCHES.
+    # Convention CI : « out FRESH… EXISTING » -> l'existant est la dernière entrée.
+    existing_path: Path | None = None
+    if args.existing:
+        existing_path = Path(args.existing)
+        fresh_paths = [p for p in in_paths if p != existing_path]
+        if existing_path not in in_paths:
+            # --existing peut désigner un fichier hors liste positionnelle :
+            # on l'ajoute en queue (fusionné en dernier, comme l'existant).
+            fresh_paths = list(in_paths)
+    elif len(in_paths) > 1:
+        existing_path = in_paths[-1]
+        fresh_paths = in_paths[:-1]
+    else:
+        # Premier run : une seule entrée, tout est « frais », pas de seuil.
+        fresh_paths = list(in_paths)
+
+    # 1) Validation stricte des sources FRAÎCHES (packages == LISTE, sinon rejet).
+    # On capture les erreurs de structure pour émettre un message propre (sans
+    # traceback) et un code de sortie contrôlé plutôt qu'un crash.
+    fresh_catalogs: list[tuple[Path, dict]] = []
+    fresh_total = 0
+    try:
+        for path in fresh_paths:
+            cat = load_catalog(path, fresh=True)
+            fresh_catalogs.append((path, cat))
+            fresh_total += len(cat["packages"])
+
+        existing_cat: dict | None = None
+        if existing_path is not None:
+            existing_cat = load_catalog(existing_path, fresh=False)
+    except (ValueError, json.JSONDecodeError) as exc:
+        LOG.error("MERGE REFUSÉ : %s", exc)
+        return RC_USAGE
+
+    # 2) Seuil anti-corruption : on compare le total frais à la taille de l'existant.
+    if existing_cat is not None and existing_path is not None:
+        existing_total = len(existing_cat["packages"])
+        threshold = args.min_fresh_ratio * existing_total
+
+        if args.full:
+            LOG.info(
+                "Mode --full : seuil anti-dégradé désactivé "
+                "(frais=%d, existant=%d).", fresh_total, existing_total,
+            )
+        elif existing_total > 0 and fresh_total < threshold:
+            if args.allow_shrink:
+                LOG.warning(
+                    "Run dégradé toléré (--allow-shrink) : %d packages frais "
+                    "< %.0f%% × %d existants. Fusion poursuivie.",
+                    fresh_total, args.min_fresh_ratio * 100, existing_total,
+                )
+            else:
+                LOG.error(
+                    "MERGE REFUSÉ : %d packages frais < %.0f%% × %d existants "
+                    "(seuil=%.0f). Scrape probablement partiel (timeout Cloudflare ?). "
+                    "Catalogue existant CONSERVÉ intact. "
+                    "Utilisez --allow-shrink ou --full pour forcer.",
+                    fresh_total, args.min_fresh_ratio * 100, existing_total,
+                    threshold,
+                )
+                return RC_REFUSED
 
     by_key: dict[str, dict] = {}
     order: list[str] = []
     stats = []
     catalog_name = "Catalogue fusionné"
 
-    for idx, path in enumerate(in_paths):
-        cat = load_catalog(path)
+    # Ordre de fusion : sources fraîches d'abord (canonique/à jour), existant
+    # ensuite (préserve jeux disparus, miroirs, enrichissement RAWG/IGDB).
+    merge_inputs: list[tuple[Path, dict]] = list(fresh_catalogs)
+    if existing_cat is not None and existing_path is not None:
+        merge_inputs.append((existing_path, existing_cat))
+
+    for idx, (path, cat) in enumerate(merge_inputs):
         if idx == 0 and cat.get("name"):
             catalog_name = cat["name"]
         added = updated = 0
@@ -210,7 +358,7 @@ def main(argv: list[str]) -> int:
     for name, total, added, updated in stats:
         print(f"  - {name:32s} {total:5d} jeux  (+{added} nouveaux, {updated} fusionnés)")
     print(f"  => {out_path} : {len(packages)} jeux uniques")
-    return 0
+    return RC_OK
 
 
 if __name__ == "__main__":

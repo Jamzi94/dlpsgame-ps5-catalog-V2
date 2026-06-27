@@ -33,6 +33,13 @@ sources:
 flaresolverr:
   default_url: "http://localhost:8191/v1"
   urls_env_var: "FLARESOLVERR_URLS"  # comma-separated for multi-instance
+  # pool_instances : nombre de conteneurs FlareSolverr à lancer en CI.
+  # Lu par le WORKFLOW (.github/workflows) qui démarre N conteneurs et exporte
+  # FLARESOLVERR_URLS. Côté scrapers, le pool est piloté UNIQUEMENT par la
+  # variable d'env FLARESOLVERR_URLS (cf. scripts/flaresolverr_pool.py,
+  # parse_flaresolverr_urls) sur le chemin de fallback HTML de
+  # scripts/scrape_dlpsgame.py. Garder cette valeur cohérente avec le nombre
+  # d'URLs exportées dans FLARESOLVERR_URLS.
   pool_instances: 3  # number of Docker containers for parallel scraping
   health_retries: 10
   health_interval: 10
@@ -85,6 +92,13 @@ mirror_patterns:
 
 scraping:
   mode: "incremental"  # "full" or "incremental"
+  # concurrency : valeur de référence du parallélisme des scrapers de fiches.
+  # Passée en CLI via --concurrency (le workflow lit cette clé et la propage) :
+  #   - scripts/scrape_superpsx.py  (--concurrency, défaut 2, curl sans Cloudflare)
+  #   - scripts/scrape_dlpsgame.py  (--concurrency, plafonné à la taille du pool
+  #     FlareSolverr sur le chemin fallback HTML)
+  # 3-4 reste sûr pour SuperPSX ; pour dlpsgame le plafond effectif = nb d'URLs
+  # FlareSolverr (FLARESOLVERR_URLS).
   concurrency: 2
   checkpoint_every: 50
   incremental_max_age_days: 7

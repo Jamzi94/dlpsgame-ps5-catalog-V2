@@ -4,10 +4,11 @@
 .scrape_cache_superpsx/
 .scrape_cache_sizes/
 
-# Incremental manifests
-.scrape_manifest.json
-.scrape_manifest_api.json
-.scrape_manifest_superpsx.json
+# Incremental manifests : VOLONTAIREMENT versionnés (commit entre runs)
+# pour piloter le vrai incrémental (champ 'modified' + last_run). NE PAS ignorer.
+# .scrape_manifest.json
+# .scrape_manifest_api.json
+# .scrape_manifest_superpsx.json
 
 # Intermediate / temporary files
 dlpsgame-ps5.fresh.json

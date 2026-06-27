@@ -27,10 +27,14 @@ CLI :
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
+import datetime as dt
 import hashlib
 import json
+import random
 import re
 import sys
+import threading
 import time
 import urllib.parse
 import urllib.request
@@ -42,6 +46,14 @@ HTTP_TIMEOUT = 25
 CACHE_DIR = Path(".scrape_cache_sizes")
 CACHE_ENABLED = True
 MAX_SANE_BYTES = 900 * 1024 ** 3  # garde-fou : > 900 Go = aberrant (cf. pegasus_finalize)
+
+# Hôtes que l'on sait sonder (cf. RESOLVERS). Un jeu sans aucun de ces miroirs
+# est « insondable » : inutile de l'inclure dans le budget --max.
+PROBEABLE_HOSTS = ("vikingfile.com", "mega.nz", "mega.co.nz", "gofile.io")
+
+# TTL (jours) de ré-essai pour un jeu sondé SANS succès : on évite de re-sonder
+# en boucle les ~49 insondables à chaque run.
+PROBE_RETRY_TTL_DAYS = 14
 
 
 # ---------------------------------------------------------------------------
@@ -243,10 +255,44 @@ def probe_size(url: str) -> int | None:
     return size
 
 
+def _package_urls(pkg: dict) -> list[str]:
+    links = pkg.get("downloadLinks") or []
+    return [l.get("url") for l in links if isinstance(l, dict) and l.get("url")]
+
+
+def has_probeable_mirror(pkg: dict) -> bool:
+    """Le package a-t-il au moins un miroir vikingfile/mega/gofile ?
+
+    Un jeu sans aucun de ces hôtes est insondable : on le saute d'emblée et on
+    ne le compte PAS dans le budget --max."""
+    for u in _package_urls(pkg):
+        if _host(u) in PROBEABLE_HOSTS:
+            return True
+    return False
+
+
+def _probed_recently(pkg: dict, ttl_days: int) -> bool:
+    """Le package a-t-il été sondé-sans-succès il y a moins de ttl_days jours ?
+
+    S'appuie sur `_sizeProbedAt` (timestamp ISO). Permet d'exclure pendant un TTL
+    les jeux insondables déjà tentés (évite de re-sonder en boucle)."""
+    if ttl_days <= 0:
+        return False
+    ts = pkg.get("_sizeProbedAt")
+    if not ts:
+        return False
+    try:
+        when = dt.datetime.fromisoformat(ts)
+    except (ValueError, TypeError):
+        return False
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=dt.timezone.utc)
+    return (dt.datetime.now(dt.timezone.utc) - when) < dt.timedelta(days=ttl_days)
+
+
 def probe_package_size(pkg: dict) -> int | None:
     """Sonde la taille via les downloadLinks d'un package (miroirs fiables d'abord)."""
-    links = pkg.get("downloadLinks") or []
-    urls = [l.get("url") for l in links if isinstance(l, dict) and l.get("url")]
+    urls = _package_urls(pkg)
 
     def rank(u: str) -> int:
         h = _host(u)
@@ -262,23 +308,66 @@ def probe_package_size(pkg: dict) -> int | None:
 # ---------------------------------------------------------------------------
 # Batch : remplir les sizeBytes manquants d'un catalogue
 # ---------------------------------------------------------------------------
-def fill_missing_sizes(catalog: dict, *, max_probe: int = 0, delay: float = 0.3) -> dict:
-    stats = {"total": 0, "already": 0, "probed": 0, "filled": 0}
+def fill_missing_sizes(catalog: dict, *, max_probe: int = 0, delay: float = 0.3,
+                       concurrency: int = 6, retry_ttl_days: int = PROBE_RETRY_TTL_DAYS) -> dict:
+    stats = {"total": 0, "already": 0, "probed": 0, "filled": 0,
+             "skipped_nomirror": 0, "skipped_ttl": 0}
     pkgs = catalog.get("packages", [])
     stats["total"] = len(pkgs)
+
+    # Présélection mono-thread (déterministe) : on filtre les jeux à sonder et on
+    # applique le budget --max AVANT de paralléliser.
+    #  - sizeBytes déjà connu  -> déjà
+    #  - aucun miroir sondable -> sauté (NON compté dans le budget)
+    #  - sondé-sans-succès récemment -> exclu pendant le TTL
+    todo: list[dict] = []
     for pkg in pkgs:
         if pkg.get("sizeBytes"):
             stats["already"] += 1
             continue
-        if max_probe and stats["probed"] >= max_probe:
+        if not has_probeable_mirror(pkg):
+            stats["skipped_nomirror"] += 1
             continue
+        if _probed_recently(pkg, retry_ttl_days):
+            stats["skipped_ttl"] += 1
+            continue
+        if max_probe and len(todo) >= max_probe:
+            continue
+        todo.append(pkg)
+
+    if not todo:
+        return stats
+
+    now_iso = dt.datetime.now(dt.timezone.utc).isoformat()
+    workers = max(1, concurrency)
+
+    def _do(pkg: dict) -> tuple[dict, int | None]:
+        # Jitter pour rester poli (pas de rate-limit strict côté hébergeurs).
+        time.sleep(random.uniform(0.1, 0.3))
+        try:
+            return pkg, probe_package_size(pkg)
+        except Exception:  # noqa: BLE001
+            return pkg, None
+
+    if workers <= 1:
+        results_iter = (_do(p) for p in todo)
+    else:
+        pool = cf.ThreadPoolExecutor(max_workers=workers)
+        results_iter = pool.map(_do, todo)
+
+    # Consommation mono-thread des résultats (mutation pkg + stats sûre).
+    for pkg, size in results_iter:
         stats["probed"] += 1
-        size = probe_package_size(pkg)
         if size:
             pkg["sizeBytes"] = int(size)
             stats["filled"] += 1
-        if delay:
-            time.sleep(delay)
+            pkg.pop("_sizeProbedAt", None)  # succès : on efface le marqueur d'échec
+        else:
+            # Marque le jeu sondé-sans-succès pour l'exclure pendant le TTL.
+            pkg["_sizeProbedAt"] = now_iso
+
+    if workers > 1:
+        pool.shutdown(wait=True)
     return stats
 
 
@@ -289,6 +378,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--catalog", type=Path, help="Catalogue : remplir les sizeBytes manquants")
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--max", type=int, default=0, help="Nb max de jeux à sonder (0 = tous)")
+    ap.add_argument("--concurrency", type=int, default=6,
+                    help="Nb de threads de sondage parallèles (défaut 6)")
+    ap.add_argument("--retry-ttl-days", type=int, default=PROBE_RETRY_TTL_DAYS,
+                    help=f"TTL (jours) avant de re-sonder un jeu sans succès "
+                         f"(défaut {PROBE_RETRY_TTL_DAYS} ; 0 = re-sonder à chaque run)")
     ap.add_argument("--no-cache", action="store_true")
     args = ap.parse_args(argv)
 
@@ -298,11 +392,15 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.catalog:
         catalog = json.loads(args.catalog.read_text(encoding="utf-8"))
-        stats = fill_missing_sizes(catalog, max_probe=args.max)
+        stats = fill_missing_sizes(catalog, max_probe=args.max,
+                                   concurrency=args.concurrency,
+                                   retry_ttl_days=args.retry_ttl_days)
         out = args.out or args.catalog
         out.write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Tailles : {stats['total']} jeux | {stats['already']} déjà connues | "
-              f"{stats['probed']} sondés | {stats['filled']} complétés")
+              f"{stats['probed']} sondés | {stats['filled']} complétés | "
+              f"{stats['skipped_nomirror']} sans miroir sondable | "
+              f"{stats['skipped_ttl']} exclus (TTL ré-essai)")
         return 0
 
     if args.url:

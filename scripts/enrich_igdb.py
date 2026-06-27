@@ -24,15 +24,49 @@ Usage :
 from __future__ import annotations
 
 import argparse
+import concurrent.futures as cf
 import datetime as dt
 import json
 import os
+import random
 import re
 import sys
+import threading
 import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
+
+# IGDB impose une limite STRICTE de 4 requêtes/seconde par client.
+IGDB_RATE_PER_SEC = 4.0
+
+
+# ---------------------------------------------------------------------------
+# Token-bucket partagé (thread-safe) — borne le débit global à `rate` req/s
+# quel que soit le nombre de threads (capacité = rate : pas de rafale > 1s).
+# ---------------------------------------------------------------------------
+class TokenBucket:
+    def __init__(self, rate: float, capacity: float | None = None) -> None:
+        self.rate = float(rate)
+        self.capacity = float(capacity if capacity is not None else rate)
+        self._tokens = self.capacity
+        self._last = time.monotonic()
+        self._lock = threading.Lock()
+
+    def acquire(self) -> None:
+        """Bloque jusqu'à ce qu'un jeton soit disponible, puis le consomme."""
+        while True:
+            with self._lock:
+                now = time.monotonic()
+                self._tokens = min(self.capacity,
+                                   self._tokens + (now - self._last) * self.rate)
+                self._last = now
+                if self._tokens >= 1.0:
+                    self._tokens -= 1.0
+                    return
+                wait = (1.0 - self._tokens) / self.rate
+            time.sleep(wait)
+
 
 TWITCH_TOKEN_URL = "https://id.twitch.tv/oauth2/token"
 IGDB_GAMES_URL = "https://api.igdb.com/v4/games"
@@ -173,11 +207,15 @@ def _priority(pkg: dict) -> int:
 
 
 def enrich_catalog(catalog: dict, client_id: str, token: str, *,
-                   ttl_days: int, max_calls: int, delay: float) -> dict:
+                   ttl_days: int, max_calls: int, delay: float,
+                   concurrency: int = 3) -> dict:
     packages = sorted(catalog.get("packages", []), key=_priority)
     stats = {"total": len(packages), "fresh": 0, "calls": 0,
              "matched": 0, "unmatched": 0, "errors": 0, "capped": 0}
 
+    # Présélection mono-thread + plafond --max-calls AVANT parallélisation
+    # (budget d'appels strict et ordre déterministe).
+    todo: list[dict] = []
     for pkg in packages:
         title = (pkg.get("title") or "").strip()
         if not title:
@@ -185,25 +223,53 @@ def enrich_catalog(catalog: dict, client_id: str, token: str, *,
         if is_fresh(pkg, _get_ttl(pkg, ttl_days)):
             stats["fresh"] += 1
             continue
-        if max_calls and stats["calls"] >= max_calls:
+        if max_calls and len(todo) >= max_calls:
             stats["capped"] += 1
             continue
+        todo.append(pkg)
+
+    if not todo:
+        return stats
+
+    # Token-bucket partagé : IGDB est limité STRICTEMENT à 4 req/s.
+    bucket = TokenBucket(IGDB_RATE_PER_SEC)
+    workers = max(1, concurrency)
+
+    def _do(pkg: dict) -> tuple[dict, str | None, Exception | None]:
+        title = (pkg.get("title") or "").strip()
+        bucket.acquire()
+        # Jitter léger pour désynchroniser les threads.
+        time.sleep(random.uniform(0.1, 0.3))
         try:
-            cover = fetch_igdb_cover(title, client_id, token)
-            stats["calls"] += 1
-            pkg["_igdbEnrichedAt"] = dt.datetime.now(dt.timezone.utc).isoformat()
-            if cover:
-                pkg["posterUrl"] = cover  # vraie jaquette portrait
-                pkg["_igdbMatched"] = True
-                stats["matched"] += 1
-            else:
-                pkg["_igdbMatched"] = False
-                stats["unmatched"] += 1
+            return pkg, fetch_igdb_cover(title, client_id, token), None
         except Exception as exc:  # noqa: BLE001
+            return pkg, None, exc
+
+    if workers <= 1:
+        results_iter = (_do(p) for p in todo)
+    else:
+        pool = cf.ThreadPoolExecutor(max_workers=workers)
+        results_iter = pool.map(_do, todo)
+
+    # Consommation mono-thread des résultats (mutation pkg + stats sûre).
+    for pkg, cover, exc in results_iter:
+        title = (pkg.get("title") or "").strip()
+        if exc is not None:
             stats["errors"] += 1
             print(f"  [warn] {title}: {exc}", file=sys.stderr)
-        if delay:
-            time.sleep(delay)
+            continue
+        stats["calls"] += 1
+        pkg["_igdbEnrichedAt"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        if cover:
+            pkg["posterUrl"] = cover  # vraie jaquette portrait
+            pkg["_igdbMatched"] = True
+            stats["matched"] += 1
+        else:
+            pkg["_igdbMatched"] = False
+            stats["unmatched"] += 1
+
+    if workers > 1:
+        pool.shutdown(wait=True)
     return stats
 
 
@@ -217,6 +283,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="Plafond d'appels IGDB par run (défaut 500 ; 0 = illimité)")
     ap.add_argument("--delay", type=float, default=0.28,
                     help="Délai entre appels (défaut 0.28s ; IGDB limite à 4 req/s)")
+    ap.add_argument("--concurrency", type=int, default=3,
+                    help="Nb de threads parallèles (défaut 3 ; débit global borné "
+                         "à 4 req/s par token-bucket — limite IGDB stricte)")
     args = ap.parse_args(argv)
 
     client_id = os.environ.get("TWITCH_CLIENT_ID", "").strip()
@@ -238,7 +307,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0  # non bloquant : on n'altère pas le catalogue
 
     stats = enrich_catalog(catalog, client_id, token,
-                           ttl_days=args.ttl_days, max_calls=args.max_calls, delay=args.delay)
+                           ttl_days=args.ttl_days, max_calls=args.max_calls,
+                           delay=args.delay, concurrency=args.concurrency)
 
     out = args.out or args.catalog
     out.write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")

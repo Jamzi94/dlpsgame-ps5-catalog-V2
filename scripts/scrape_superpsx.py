@@ -42,6 +42,7 @@ import hashlib
 import json
 import logging
 import os
+import random
 import re
 import shutil
 import subprocess
@@ -1255,8 +1256,16 @@ def scrape_all(
                 failed_urls.append(url)
             time.sleep(PAGE_DELAY)
     else:
+        # Parallélisme réel des fiches via ThreadPoolExecutor.
+        # superpsx.com est servi en curl SANS Cloudflare : un parallélisme
+        # modéré (3-4) est sûr. On ajoute un petit jitter (0,1-0,3s) avant
+        # chaque fiche pour lisser les rafales et rester poli avec le serveur.
+        def _scrape_game_jittered(url: str) -> dict | None:
+            time.sleep(random.uniform(0.1, 0.3))
+            return scrape_game(url)
+
         with cf.ThreadPoolExecutor(max_workers=concurrency) as pool:
-            futures = {pool.submit(scrape_game, url): url for url in game_urls}
+            futures = {pool.submit(_scrape_game_jittered, url): url for url in game_urls}
             for fut in cf.as_completed(futures):
                 url = futures[fut]
                 try:
@@ -1366,8 +1375,9 @@ Examples:
         help="Output JSON file path (default: superpsx-ps5.json)",
     )
     parser.add_argument(
-        "--concurrency", type=int, default=1,
-        help="Number of threads for scraping game pages (default: 1)",
+        "--concurrency", type=int, default=2,
+        help="Number of threads for scraping game pages (default: 2). "
+             "superpsx.com is plain curl without Cloudflare, so 3-4 is safe.",
     )
     parser.add_argument(
         "--delay", type=float, default=1.0,

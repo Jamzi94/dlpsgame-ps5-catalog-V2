@@ -48,16 +48,43 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 1200
+    # ITEM 4 : un run réel prend ~3h30 aujourd'hui (avant les optimisations de
+    # parallélisation). On borne à 180 min pour ne pas le tuer pendant la
+    # transition, tout en évitant les jobs zombies (l'ancien 1200 était excessif).
+    timeout-minutes: 180
 
     services:
       # FlareSolverr résout les challenges Cloudflare via un vrai Chrome
       # non-headless. Les IP datacenter de GitHub Actions sont bloquées
       # par Cloudflare (403), donc on a besoin de ce proxy.
+      # ITEM 12 : 3 instances (8191/8192/8193) pour alimenter le pool round-robin
+      # du fallback HTML (FLARESOLVERR_URLS). 8191 reste l'instance nominale.
       flaresolverr:
         image: ghcr.io/flaresolverr/flaresolverr:latest
         ports:
           - 8191:8191
+        env:
+          LOG_LEVEL: info
+        options: >-
+          --health-cmd "curl -fs http://localhost:8191/health | grep -q ok"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      flaresolverr2:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8192:8191
+        env:
+          LOG_LEVEL: info
+        options: >-
+          --health-cmd "curl -fs http://localhost:8191/health | grep -q ok"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      flaresolverr3:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8193:8191
         env:
           LOG_LEVEL: info
         options: >-
@@ -94,10 +121,13 @@ jobs:
       - name: Determine scrape mode
         id: config
         run: |
-          # Mode : incremental par défaut, full le lundi ou si demandé
+          # ITEM 11 : mode incremental par défaut. Le full devient MENSUEL
+          # (1er jour du mois) au lieu d'hebdomadaire (lundi) : l'incrémental réel
+          # piloté par 'modified' rend le full hebdo superflu et coûteux.
+          # workflow_dispatch + choix manuel (scrape_mode=full) restent prioritaires.
           MODE="${{ github.event.inputs.scrape_mode || 'incremental' }}"
-          if [ "$(date +%u)" = "1" ] && [ "$MODE" = "incremental" ]; then
-            echo "  Lundi détecté → mode full forcé"
+          if [ "$(date +%d)" = "01" ] && [ "$MODE" = "incremental" ]; then
+            echo "  1er du mois détecté → mode full mensuel forcé"
             MODE="full"
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
@@ -113,26 +143,51 @@ jobs:
             .scrape_manifest.json
             .scrape_manifest_api.json
             .scrape_manifest_superpsx.json
-          key: scrape-cache-${{ runner.os }}-${{ github.run_id }}
+          # ITEM 2 : clé STABLE (v1) au lieu de github.run_id. Une clé unique par run
+          # ne réutilisait jamais le cache écrit (toujours un miss restauré via
+          # restore-keys, jamais de re-save sur la même clé) → l'incrémental et le
+          # cache de résolution restaient factices. Clé stable = vrai cache entre runs.
+          key: scrape-cache-${{ runner.os }}-v1
           restore-keys: |
             scrape-cache-${{ runner.os }}-
 
       - name: Wait for FlareSolverr
         run: |
-          echo "Attente du démarrage de FlareSolverr..."
-          for i in $(seq 1 60); do
-            if curl -sf http://localhost:8191/health > /dev/null 2>&1; then
-              echo "FlareSolverr est prêt !"
-              curl -s http://localhost:8191/health
-              exit 0
+          # ITEM 12 : on attend les 3 instances (8191/8192/8193). 8191 est
+          # bloquante (instance nominale) ; 8192/8193 alimentent le pool round-robin
+          # du fallback HTML — on les attend aussi pour exporter FLARESOLVERR_URLS.
+          for port in 8191 8192 8193; do
+            echo "Attente du démarrage de FlareSolverr sur le port $port..."
+            ready=0
+            for i in $(seq 1 60); do
+              if curl -sf "http://localhost:${port}/health" > /dev/null 2>&1; then
+                echo "  FlareSolverr ($port) est prêt !"
+                ready=1
+                break
+              fi
+              echo "  tentative $i/60 — FlareSolverr ($port) pas encore prêt..."
+              sleep 5
+            done
+            if [ "$ready" != "1" ]; then
+              if [ "$port" = "8191" ]; then
+                echo "ERREUR: FlareSolverr nominal (8191) n'a pas démarré à temps"
+                exit 1
+              fi
+              echo "::warning::FlareSolverr ($port) indisponible — le pool tournera en mode dégradé."
             fi
-            echo "  tentative $i/60 — FlareSolverr pas encore prêt..."
-            sleep 5
           done
-          echo "ERREUR: FlareSolverr n'a pas démarré à temps"
-          exit 1
+          # Construit la liste CSV des instances RÉELLEMENT en bonne santé pour le pool.
+          URLS=""
+          for port in 8191 8192 8193; do
+            if curl -sf "http://localhost:${port}/health" > /dev/null 2>&1; then
+              URLS="${URLS:+$URLS,}http://localhost:${port}/v1"
+            fi
+          done
+          echo "FLARESOLVERR_URLS=$URLS" >> "$GITHUB_ENV"
+          echo "  Pool FlareSolverr : $URLS"
 
       - name: Test FlareSolverr with dlpsgame.com
+        continue-on-error: true
         run: |
           echo "Test de résolution Cloudflare sur dlpsgame.com..."
           RESPONSE=$(curl -s -X POST http://localhost:8191/v1 \
@@ -157,18 +212,23 @@ jobs:
       # SOURCE 1 : dlpsgame.com via API WordPress (avec fallback FlareSolverr)
       # ──────────────────────────────────────────────────────────────
       - name: Scrape dlpsgame via WP API
+        id: wp_api
         continue-on-error: true
+        timeout-minutes: 120
         env:
           FLARESOLVERR_URL: http://localhost:8191/v1
         run: |
           if [ "${{ github.event.inputs.skip_wp_api }}" = "true" ]; then
             echo "API WordPress ignorée (skip_wp_api=true)"
+            echo "games=0" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           echo "=== Scraping via API WordPress ==="
           ARGS=("--out" "dlpsgame-ps5.fresh.json")
           ARGS+=("--flaresolverr-url" "http://localhost:8191/v1")
           ARGS+=("--mode" "${{ steps.config.outputs.mode }}")
+          # ITEM 8 : pré-résolution concurrente des redirections (le correctif du 3h30).
+          ARGS+=("--redirect-concurrency" "8")
           if [ -n "${{ github.event.inputs.max_pages }}" ]; then
             ARGS+=("--max-pages" "${{ github.event.inputs.max_pages }}")
           fi
@@ -181,16 +241,28 @@ jobs:
           ARGS+=("--verbose")
           python scripts/scrape_wp_api.py "${ARGS[@]}"
 
+          # ITEM 1 : on expose le nombre de jeux produits pour décider du fallback HTML.
+          N=$(python3 -c "import json; print(len(json.load(open('dlpsgame-ps5.fresh.json')).get('packages',[])))" 2>/dev/null || echo 0)
+          echo "  WP API : $N jeux produits"
+          echo "games=$N" >> "$GITHUB_OUTPUT"
+
       # ──────────────────────────────────────────────────────────────
       # SOURCE 1b : dlpsgame.com via scraper HTML (fallback si API échoue)
       # ──────────────────────────────────────────────────────────────
       - name: Scrape dlpsgame via HTML (fallback)
-        if: failure()
+        # ITEM 1 : fallback déclenché si l'API a échoué OU n'a produit aucun jeu
+        # (0), ou si l'opérateur force le HTML via skip_wp_api=true. L'ancien
+        # 'if: failure()' était mort (jamais vrai après le continue-on-error).
+        if: ${{ steps.wp_api.outcome == 'failure' || steps.wp_api.outputs.games == '0' || github.event.inputs.skip_wp_api == 'true' }}
+        timeout-minutes: 150
+        env:
+          FLARESOLVERR_URL: http://localhost:8191/v1
         run: |
-          echo "=== API échouée — fallback vers scraper HTML ==="
+          echo "=== API indisponible/vide — fallback vers scraper HTML ==="
           ARGS=("--http-backend" "flaresolverr")
           ARGS+=("--flaresolverr-url" "http://localhost:8191/v1")
-          ARGS+=("--concurrency" "1")
+          # ITEM 12 : 3 voies via le pool round-robin (FLARESOLVERR_URLS exporté plus haut).
+          ARGS+=("--concurrency" "3")
           ARGS+=("--mode" "${{ steps.config.outputs.mode }}")
           ARGS+=("--checkpoint-every" "50")
           if [ -n "${{ github.event.inputs.max_pages }}" ]; then
@@ -212,10 +284,13 @@ jobs:
       - name: Scrape SuperPSX
         continue-on-error: true
         if: github.event.inputs.skip_superpsx != 'true'
+        timeout-minutes: 60
         run: |
           echo "=== Scraping SuperPSX ==="
           ARGS=("--out" "superpsx-ps5.fresh.json")
           ARGS+=("--mode" "${{ steps.config.outputs.mode }}")
+          # ITEM 10 : parallélisme réel des fiches (curl pur, sans Cloudflare).
+          ARGS+=("--concurrency" "4")
           if [ -n "${{ github.event.inputs.max_games }}" ]; then
             ARGS+=("--max-games" "${{ github.event.inputs.max_games }}")
           fi
@@ -258,6 +333,16 @@ jobs:
             exit 0
           fi
 
+          # ITEM 6 : merge_catalogs.py applique un garde-fou anti-corruption.
+          # Codes de sortie : 0=OK (fusion écrite), 2=entrée invalide,
+          # 3=run dégradé refusé. Sur rc!=0, AUCUN fichier de sortie n'est écrit
+          # et l'existant reste intact → on saute le commit (MERGE_SKIPPED=1).
+          # En full mensuel, on passe --full pour désactiver le seuil de rétrécissement.
+          MERGE_FLAGS=()
+          if [ "${{ steps.config.outputs.mode }}" = "full" ]; then
+            MERGE_FLAGS+=("--full")
+          fi
+
           # Sauvegarder le catalogue existant pour le diff
           if [ -f "$OUT" ]; then
             cp "$OUT" dlpsgame-ps5.previous.json
@@ -265,11 +350,19 @@ jobs:
             # catalogue existant ensuite (préserve jeux disparus, miroirs accumulés,
             # et tout l'enrichissement RAWG via _enrichedAt / metadata).
             echo "Fusion incrémentale dans $OUT (sources : ${FRESHES[*]}, existant)…"
-            python3 scripts/merge_catalogs.py dlpsgame-ps5.merged.json "${FRESHES[@]}" "$OUT"
-            mv dlpsgame-ps5.merged.json "$OUT"
+            if python3 scripts/merge_catalogs.py dlpsgame-ps5.merged.json "${MERGE_FLAGS[@]}" "${FRESHES[@]}" "$OUT"; then
+              mv dlpsgame-ps5.merged.json "$OUT"
+            else
+              rc=$?
+              echo "::warning::Merge refusé (rc=$rc) — catalogue existant conservé intact, commit ignoré."
+              rm -f dlpsgame-ps5.merged.json dlpsgame-ps5.previous.json
+              rm -f dlpsgame-ps5.fresh.json exfat-ps5.fresh.json superpsx-ps5.fresh.json
+              echo "MERGE_SKIPPED=1" >> "$GITHUB_ENV"
+              exit 0
+            fi
           else
             echo "Premier run : initialisation du catalogue depuis les sources fraîches."
-            python3 scripts/merge_catalogs.py "$OUT" "${FRESHES[@]}"
+            python3 scripts/merge_catalogs.py "$OUT" "${MERGE_FLAGS[@]}" "${FRESHES[@]}"
           fi
 
           rm -f dlpsgame-ps5.fresh.json exfat-ps5.fresh.json superpsx-ps5.fresh.json
@@ -284,18 +377,20 @@ jobs:
       # ──────────────────────────────────────────────────────────────
       - name: Enrich metadata (RAWG, dynamic TTL)
         if: env.MERGE_SKIPPED != '1'
+        timeout-minutes: 30
         env:
           RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
         run: |
           # Enrichissement avec TTL dynamique :
           # - Nouveaux jeux : enrichis immédiatement
-          # - Matchés RAWG : rafraîchis tous les 30 jours
+          # - Matchés RAWG : rafraîchis tous les 30 jours (ITEM 3 : ttl 3 → 30)
           # - Non matchés : réessayés tous les 14 jours
           # Sans secret RAWG_API_KEY, le script ne fait rien.
           # NB : RAWG sert UNIQUEMENT aux métadonnées (note, genres, date,
           # metacritic). Il ne fournit PAS de jaquette → ne touche plus posterUrl.
+          # ITEM 9 : --concurrency 4 (débit global auto-borné ~5 req/s par token-bucket).
           if [ -f dlpsgame-ps5.json ]; then
-            python3 scripts/enrich_rawg.py dlpsgame-ps5.json --ttl-days 3 --max-calls 900
+            python3 scripts/enrich_rawg.py dlpsgame-ps5.json --ttl-days 30 --max-calls 900 --concurrency 4
           fi
 
       # ──────────────────────────────────────────────────────────────
@@ -304,6 +399,7 @@ jobs:
       - name: Enrich covers (IGDB)
         if: env.MERGE_SKIPPED != '1'
         continue-on-error: true
+        timeout-minutes: 30
         env:
           TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
@@ -311,8 +407,9 @@ jobs:
           # Récupère la VRAIE jaquette PS5 (cover portrait) depuis IGDB et la
           # pose dans posterUrl. Sans secrets TWITCH_CLIENT_ID/SECRET, no-op.
           # En l'absence de jaquette IGDB, on garde la cover scrapée du site.
+          # ITEM 9 : --concurrency 3 (débit plafonné STRICTEMENT à 4 req/s par token-bucket).
           if [ -f dlpsgame-ps5.json ]; then
-            python3 scripts/enrich_igdb.py dlpsgame-ps5.json --ttl-days 30 --max-calls 500
+            python3 scripts/enrich_igdb.py dlpsgame-ps5.json --ttl-days 30 --max-calls 500 --concurrency 3
           fi
 
       # ──────────────────────────────────────────────────────────────
@@ -321,11 +418,13 @@ jobs:
       - name: Probe hoster sizes
         if: env.MERGE_SKIPPED != '1'
         continue-on-error: true
+        timeout-minutes: 30
         run: |
           # Complète les sizeBytes manquants en interrogeant vikingfile/mega/
           # gofile (octets exacts, sans téléchargement). Non bloquant.
+          # ITEM 9 : --concurrency 6 (hébergeurs distincts, pas de rate-limit strict).
           if [ -f dlpsgame-ps5.json ]; then
-            python3 scripts/hoster_size.py --catalog dlpsgame-ps5.json --max 400
+            python3 scripts/hoster_size.py --catalog dlpsgame-ps5.json --max 400 --concurrency 6
           fi
 
       # ──────────────────────────────────────────────────────────────
@@ -427,6 +526,9 @@ jobs:
           fi
 
       - name: Commit & push
+        # ITEM 6 : on ne committe QUE si la fusion a réussi (MERGE_SKIPPED != 1).
+        # Sur run dégradé/refusé ou aucune source fraîche, l'existant reste intact.
+        if: env.MERGE_SKIPPED != '1'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -439,6 +541,12 @@ jobs:
           git add -f dlpsgame-ps5.json
           [ -f dlpsgame-ps5.warnings.txt ] && git add -f dlpsgame-ps5.warnings.txt || true
           [ -f scrape-metrics.json ] && git add -f scrape-metrics.json || true
+
+          # ITEM 2 : on versionne les manifests incrémentaux (last_run + 'modified'
+          # par entrée) pour piloter le vrai incrémental entre runs.
+          [ -f .scrape_manifest.json ] && git add -f .scrape_manifest.json || true
+          [ -f .scrape_manifest_api.json ] && git add -f .scrape_manifest_api.json || true
+          [ -f .scrape_manifest_superpsx.json ] && git add -f .scrape_manifest_superpsx.json || true
 
           echo "--- git status (apres add) ---"
           git status --short

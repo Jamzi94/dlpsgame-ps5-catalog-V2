@@ -36,9 +36,12 @@ import hashlib
 import json
 import logging
 import os
+import random
 import re
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Iterator
 from urllib.parse import urljoin, urlparse, parse_qs
@@ -85,6 +88,16 @@ API_RETRIES = 5     # retries on 429/503/timeout
 REDIRECT_DELAY = 0.3  # seconds between redirect resolution requests
 REDIRECT_TIMEOUT = 15
 REDIRECT_RETRIES = 3
+
+# Concurrence de résolution des redirections (Item 8).
+# La cible (downloadgameps3.net) n'a PAS de Cloudflare : urllib pur, sûr à
+# paralléliser.  Bornée à [8, 12] workers pour rester courtois.
+REDIRECT_CONCURRENCY_DEFAULT = 8
+REDIRECT_CONCURRENCY_MIN = 8
+REDIRECT_CONCURRENCY_MAX = 12
+# Jitter (s) ajouté avant chaque requête concurrente pour lisser la charge.
+REDIRECT_JITTER_MIN = 0.1
+REDIRECT_JITTER_MAX = 0.3
 
 # Disk cache for API responses and redirect resolutions
 DISK_CACHE_DIR = Path(".scrape_cache_api")
@@ -534,8 +547,17 @@ def _unwrap_shortener(url: str) -> str:
 # Redirect resolution
 # ---------------------------------------------------------------------------
 
-# Global cache for resolved redirect URLs
+# Global cache for resolved redirect URLs (partagé entre threads -> verrou).
 _RESOLVE_CACHE: dict[str, str | None] = {}
+_RESOLVE_CACHE_LOCK = threading.Lock()
+
+
+def _store_resolution(cache_key: str, result: str | None) -> str | None:
+    """Mémorise une résolution (cache mémoire + disque) de façon thread-safe."""
+    with _RESOLVE_CACHE_LOCK:
+        _RESOLVE_CACHE[cache_key] = result
+    _cache_set(f"redirect:{cache_key}", json.dumps(result))
+    return result
 
 
 def _assemble_secure_url(domain: str, path: str) -> str | None:
@@ -561,21 +583,26 @@ def resolve_redirect(url: str, mirror_hint: str | None = None) -> str | None:
         return url
 
     cache_key = f"{url}#{mirror_hint or ''}"
-    if cache_key in _RESOLVE_CACHE:
-        return _RESOLVE_CACHE[cache_key]
+    with _RESOLVE_CACHE_LOCK:
+        if cache_key in _RESOLVE_CACHE:
+            return _RESOLVE_CACHE[cache_key]
 
     # Try disk cache
     cached = _cache_get(f"redirect:{cache_key}")
     if cached is not None:
         try:
             result = json.loads(cached)
-            _RESOLVE_CACHE[cache_key] = result
+            with _RESOLVE_CACHE_LOCK:
+                _RESOLVE_CACHE[cache_key] = result
             return result
         except Exception:
             pass
 
     backoff = [1, 3, 8]
     last_exc: Exception | None = None
+
+    # Jitter pour lisser la charge quand la résolution est parallélisée.
+    time.sleep(random.uniform(REDIRECT_JITTER_MIN, REDIRECT_JITTER_MAX))
 
     for attempt in range(1, REDIRECT_RETRIES + 1):
         try:
@@ -625,9 +652,7 @@ def resolve_redirect(url: str, mirror_hint: str | None = None) -> str | None:
             # 1) If the final URL after redirects points to a known hoster
             if final_url and not is_non_host_url(final_url) and not any(host in final_url for host in REDIRECT_HOSTS):
                 if any(p in final_url for p, _ in MIRROR_PATTERNS):
-                    _RESOLVE_CACHE[cache_key] = final_url
-                    _cache_set(f"redirect:{cache_key}", json.dumps(final_url))
-                    return final_url
+                    return _store_resolution(cache_key, final_url)
 
             # 2) Parse the HTML for secure-lnk (data-domain + data-path)
             if body:
@@ -657,26 +682,20 @@ def resolve_redirect(url: str, mirror_hint: str | None = None) -> str | None:
                             if target_pattern in domain.lower() or target_pattern in path_val.lower():
                                 resolved = _assemble_secure_url(domain, path_val)
                                 if resolved:
-                                    _RESOLVE_CACHE[cache_key] = resolved
-                                    _cache_set(f"redirect:{cache_key}", json.dumps(resolved))
-                                    return resolved
+                                    return _store_resolution(cache_key, resolved)
 
                     # Take the first secure link pointing to a known hoster
                     for domain, path_val, _text in secure_links:
                         full = _assemble_secure_url(domain, path_val)
                         if full and any(p in full for p, _ in MIRROR_PATTERNS):
-                            _RESOLVE_CACHE[cache_key] = full
-                            _cache_set(f"redirect:{cache_key}", json.dumps(full))
-                            return full
+                            return _store_resolution(cache_key, full)
 
                     # Fallback: look for direct <a href> to known hosters
                     for a in soup.find_all("a", href=True):
                         href = a["href"]
                         if href.startswith("http") and not any(h in href for h in REDIRECT_HOSTS):
                             if any(p in href for p, _ in MIRROR_PATTERNS):
-                                _RESOLVE_CACHE[cache_key] = href
-                                _cache_set(f"redirect:{cache_key}", json.dumps(href))
-                                return href
+                                return _store_resolution(cache_key, href)
 
                     # Check meta refresh
                     meta = soup.find("meta", attrs={"http-equiv": re.compile("refresh", re.I)})
@@ -688,18 +707,14 @@ def resolve_redirect(url: str, mirror_hint: str | None = None) -> str | None:
                                 target = urljoin(final_url or url, target)
                             if not any(h in target for h in REDIRECT_HOSTS):
                                 if any(p in target for p, _ in MIRROR_PATTERNS):
-                                    _RESOLVE_CACHE[cache_key] = target
-                                    _cache_set(f"redirect:{cache_key}", json.dumps(target))
-                                    return target
+                                    return _store_resolution(cache_key, target)
                 else:
                     # Fallback without BeautifulSoup: regex for secure-lnk
                     for match in SECURE_LNK_RE.finditer(body):
                         domain, path_val, text = match.group(1), match.group(2), match.group(3)
                         full = _assemble_secure_url(domain, path_val)
                         if full and any(p in full for p, _ in MIRROR_PATTERNS):
-                            _RESOLVE_CACHE[cache_key] = full
-                            _cache_set(f"redirect:{cache_key}", json.dumps(full))
-                            return full
+                            return _store_resolution(cache_key, full)
 
             # Could not resolve
             break
@@ -708,33 +723,52 @@ def resolve_redirect(url: str, mirror_hint: str | None = None) -> str | None:
             last_exc = exc
             log.debug("    resolve_redirect exception for %s: %s", url, exc)
 
-    _RESOLVE_CACHE[cache_key] = None
     log.debug("    could not resolve redirect: %s", url)
-    return None
+    return _store_resolution(cache_key, None)
 
 
 # ---------------------------------------------------------------------------
 # WP API: Fetch paginated posts
 # ---------------------------------------------------------------------------
 
-def fetch_api_page(page: int, *, per_page: int = API_PER_PAGE, fields: str = "full") -> tuple[list[dict], int, int]:
+def fetch_api_page(
+    page: int,
+    *,
+    per_page: int = API_PER_PAGE,
+    fields: str = "full",
+    modified_after: str | None = None,
+    incremental: bool = False,
+) -> tuple[list[dict], int, int]:
     """Fetch one page of posts from the WP REST API.
 
     Args:
         page: Page number (1-indexed).
         per_page: Number of posts per page (max 100).
         fields: "full" to include content.rendered, "light" for excerpt only.
+        modified_after: ISO 8601 ; ne renvoyer que les posts modifiés après
+            cette date (mode incrémental).  L'API trie alors par 'modified'
+            décroissant pour permettre un arrêt anticipé.
+        incremental: si True, ajoute orderby=modified&order=desc (utile même
+            sans modified_after pour arrêter la pagination tôt côté appelant).
 
     Returns:
         (posts, total_posts, total_pages)
     """
-    # Build the _fields parameter to minimize response size
+    # Build the _fields parameter to minimize response size.
+    # On ajoute 'modified' (Item 7) pour piloter l'incrémental.
     if fields == "light":
-        api_fields = "id,date,slug,link,title,excerpt,categories,tags"
+        api_fields = "id,date,modified,slug,link,title,excerpt,categories,tags"
     else:
-        api_fields = "id,date,slug,link,title,content,excerpt,categories,tags,yoast_head_json"
+        api_fields = "id,date,modified,slug,link,title,content,excerpt,categories,tags,yoast_head_json"
 
     params = f"?categories={PS5_CATEGORY_ID}&per_page={per_page}&page={page}&_fields={api_fields}"
+    # En incrémental : tri par date de modification décroissante pour pouvoir
+    # arrêter la pagination dès qu'on atteint un post plus ancien que le run.
+    if incremental or modified_after:
+        params += "&orderby=modified&order=desc"
+    if modified_after:
+        # WP attend une date ISO 8601 sans suffixe de fuseau (heure du serveur).
+        params += f"&modified_after={modified_after}"
     url = WP_API_URL + params
 
     log.debug("  API request: page %d — %s", page, url)
@@ -798,6 +832,7 @@ def fetch_all_posts(
     max_pages: int | None = None,
     max_games: int | None = None,
     fields: str = "full",
+    modified_after: str | None = None,
 ) -> list[dict]:
     """Fetch all PS5 posts via the WP REST API (paginated).
 
@@ -805,29 +840,58 @@ def fetch_all_posts(
         max_pages: Limit the number of API pages to fetch.
         max_games: Limit total number of games.
         fields: "full" for content.rendered, "light" for excerpt only.
+        modified_after: ISO 8601 ; en mode incrémental, ne tire que les posts
+            modifiés après cette date.  Le tri 'modified desc' permet d'arrêter
+            la pagination dès qu'un post plus ancien apparaît (filet en cas où
+            l'API ignorerait modified_after).
 
     Returns:
         List of WP post objects.
     """
+    incremental = modified_after is not None
     all_posts: list[dict] = []
     total_posts = 0
     total_pages = 0
     page = 1
+    stop = False
 
     while True:
         if max_pages is not None and page > max_pages:
             break
 
-        posts, total_posts, total_pages = fetch_api_page(page, fields=fields)
+        posts, total_posts, total_pages = fetch_api_page(
+            page,
+            fields=fields,
+            modified_after=modified_after,
+            incremental=incremental,
+        )
 
         if not posts:
             break
 
-        all_posts.extend(posts)
+        # En incrémental, on s'arrête dès qu'un post a modified < modified_after
+        # (tri décroissant : tous les suivants sont plus anciens).
+        if incremental and modified_after:
+            # Compare sur la partie 'YYYY-MM-DDTHH:MM:SS' (19 car.) pour rester
+            # robuste aux différences de suffixe de fuseau entre les chaînes.
+            cutoff = modified_after[:19]
+            kept: list[dict] = []
+            for post in posts:
+                post_mod = (post.get("modified") or "")[:19]
+                if post_mod and post_mod <= cutoff:
+                    stop = True
+                    break
+                kept.append(post)
+            all_posts.extend(kept)
+        else:
+            all_posts.extend(posts)
 
         # Respect max_games limit
         if max_games is not None and len(all_posts) >= max_games:
             all_posts = all_posts[:max_games]
+            break
+
+        if stop:
             break
 
         # If we've fetched all pages, stop
@@ -837,8 +901,9 @@ def fetch_all_posts(
         page += 1
         time.sleep(API_DELAY)
 
-    log.info("Fetched %d posts across %d page(s) (total on site: %d)",
-             len(all_posts), min(page, total_pages or page), total_posts)
+    log.info("Fetched %d posts across %d page(s) (total on site: %d)%s",
+             len(all_posts), min(page, total_pages or page), total_posts,
+             " [incremental]" if incremental else "")
     return all_posts
 
 
@@ -893,6 +958,107 @@ def extract_links_from_html(html_fragment: str, base_url: str) -> list[tuple[str
             out.append((text, href))
 
     return out
+
+
+# ---------------------------------------------------------------------------
+# Résolution concurrente des redirections (Item 8)
+# ---------------------------------------------------------------------------
+
+def collect_redirect_jobs(post: dict) -> list[tuple[str, str]]:
+    """Collecte les (href, mirror_hint) à résoudre pour un post.
+
+    Reproduit exactement le chemin d'extraction de
+    ``build_download_links_from_payloads`` afin que les résolutions
+    pré-calculées atterrissent dans le même ``cache_key`` que celui utilisé
+    plus tard par ``resolve_redirect`` (donc des cache-hits garantis).
+
+    Ne renvoie que les liens pointant vers un hôte de redirection (les autres
+    ne déclenchent aucune requête réseau dans ``resolve_redirect``).
+    """
+    content_rendered = (post.get("content") or {}).get("rendered", "")
+    payloads = extract_payloads_from_content(content_rendered)
+    if not payloads:
+        return []
+
+    page_url = post.get("link", f"{BASE_URL}/{post.get('slug', '')}/")
+    jobs: list[tuple[str, str]] = []
+    seen: set[str] = set()
+
+    for payload_b64 in payloads:
+        decoded = decode_payload(payload_b64)
+        if not decoded or not decoded.strip():
+            continue
+        for text, href in extract_links_from_html(decoded, page_url):
+            unwrapped = _unwrap_shortener(href)
+            if not any(host in unwrapped for host in REDIRECT_HOSTS):
+                continue  # pas de requête réseau pour ces liens
+            mirror_hint = extract_mirror_name(href, text).lower()
+            key = f"{href}#{mirror_hint}"
+            if key in seen:
+                continue
+            seen.add(key)
+            jobs.append((href, mirror_hint))
+
+    return jobs
+
+
+def prewarm_redirects(
+    posts: list[dict],
+    *,
+    concurrency: int = REDIRECT_CONCURRENCY_DEFAULT,
+) -> int:
+    """Pré-résout en parallèle toutes les redirections de tous les posts.
+
+    Remplit ``_RESOLVE_CACHE`` (et le cache disque) en amont, via un
+    ``ThreadPoolExecutor``.  Le traitement séquentiel ultérieur des posts ne
+    fait alors plus que des cache-hits sur ``resolve_redirect``.
+
+    C'EST le correctif des ~8200 résolutions séquentielles (run ~3h30).
+
+    Args:
+        posts: posts WP bruts (avec content.rendered).
+        concurrency: nombre de workers, borné à [8, 12].
+
+    Returns:
+        Nombre de liens uniques résolus.
+    """
+    # Borne de sécurité : downloadgameps3.net n'a pas de Cloudflare, mais on
+    # reste courtois.
+    workers = max(REDIRECT_CONCURRENCY_MIN, min(REDIRECT_CONCURRENCY_MAX, concurrency))
+
+    # Collecte globale, dédupliquée par cache_key (href#hint).
+    jobs: dict[str, tuple[str, str]] = {}
+    for post in posts:
+        for href, hint in collect_redirect_jobs(post):
+            jobs[f"{href}#{hint}"] = (href, hint)
+
+    total = len(jobs)
+    if not total:
+        log.info("Pré-résolution des redirections : rien à résoudre")
+        return 0
+
+    log.info(
+        "Pré-résolution de %d lien(s) de redirection avec %d worker(s)…",
+        total, workers,
+    )
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {
+            pool.submit(resolve_redirect, href, hint): key
+            for key, (href, hint) in jobs.items()
+        }
+        for fut in as_completed(futures):
+            done += 1
+            try:
+                fut.result()
+            except Exception as exc:  # déjà loggé dans resolve_redirect
+                log.debug("    pré-résolution échouée pour %s: %s",
+                          futures[fut], exc)
+            if done % 200 == 0 or done == total:
+                log.info("    redirections résolues : %d/%d", done, total)
+
+    return total
 
 
 # ---------------------------------------------------------------------------
@@ -1289,6 +1455,8 @@ def scrape_all_via_api(
     mode: str = "full",
     resolve_redirects: bool = True,
     manifest_path: Path | None = None,
+    redirect_concurrency: int = REDIRECT_CONCURRENCY_DEFAULT,
+    since: str | None = None,
 ) -> tuple[list[dict], list[str]]:
     """Main pipeline: fetch all posts, process them, return packages.
 
@@ -1298,18 +1466,60 @@ def scrape_all_via_api(
         mode: "full" or "incremental".
         resolve_redirects: Whether to resolve redirect URLs.
         manifest_path: Path to manifest file for incremental mode.
+        redirect_concurrency: nombre de workers pour la pré-résolution
+            parallèle des redirections (Item 8), borné à [8, 12].
+        since: ISO 8601 ; force ``modified_after`` en incrémental (sinon on lit
+            ``last_run`` depuis le manifest).
 
     Returns:
         (packages, warnings) where warnings are URLs that need HTML fallback.
     """
-    # Fetch all posts from API (with content for metadata extraction)
-    posts = fetch_all_posts(max_pages=max_pages, max_games=max_games, fields="full")
+    # Horodatage du début de run : ce sera le 'last_run' du prochain run.
+    # On le capture AVANT le fetch pour ne manquer aucun post édité pendant
+    # le run courant.
+    run_started = dt.datetime.now(dt.timezone.utc).isoformat()
 
-    # Initialize manifest for incremental mode
+    # Initialize manifest for incremental mode (avant le fetch : on a besoin de
+    # last_run pour calculer modified_after).
     manifest = None
+    modified_after: str | None = None
     if mode == "incremental" and ScrapeManifest:
         manifest = ScrapeManifest(path=manifest_path or ".scrape_manifest_api.json")
         log.info("Incremental mode: manifest has %d entries", len(manifest._data.get("entries", {})))
+        # --since (CLI) a priorité sur le last_run du manifest.
+        modified_after = since or manifest.get_last_run()
+        if modified_after:
+            log.info("Incremental: modified_after=%s", modified_after)
+        else:
+            log.info("Incremental: pas de last_run connu — premier passage (full fetch)")
+    elif since:
+        # --since fourni hors mode incrémental : on l'honore quand même.
+        modified_after = since
+        log.info("modified_after forcé via --since=%s", since)
+
+    # Fetch posts from API (incrémental piloté par 'modified' si applicable).
+    posts = fetch_all_posts(
+        max_pages=max_pages,
+        max_games=max_games,
+        fields="full",
+        modified_after=modified_after,
+    )
+
+    # --- Item 8 : pré-résolution parallèle des redirections ---
+    # On ne pré-résout que les posts qui seront effectivement (re)traités, pour
+    # ne pas lancer de requêtes inutiles sur des posts non modifiés.
+    if resolve_redirects:
+        if manifest and mode == "incremental":
+            to_resolve = [
+                p for p in posts
+                if manifest.needs_scrape(
+                    p.get("link", ""), mode="incremental",
+                    modified=p.get("modified"),
+                )
+            ]
+        else:
+            to_resolve = posts
+        prewarm_redirects(to_resolve, concurrency=redirect_concurrency)
 
     packages: list[dict] = []
     warnings: list[str] = []  # URLs needing HTML scraper fallback
@@ -1318,11 +1528,14 @@ def scrape_all_via_api(
     for i, post in enumerate(posts, 1):
         page_url = post.get("link", "")
         slug = post.get("slug", "?")
-        post_date = post.get("date", "")
+        post_modified = post.get("modified", "")
 
-        # Incremental mode: check if we need to process this post
+        # Incremental mode: check if we need to process this post.
+        # La décision est désormais pilotée par le champ 'modified' du post.
         if manifest and mode == "incremental":
-            if not manifest.needs_scrape(page_url, mode="incremental"):
+            if not manifest.needs_scrape(
+                page_url, mode="incremental", modified=post_modified
+            ):
                 # Use cached package if available
                 cached = manifest.get_cached_package(page_url)
                 if cached:
@@ -1330,12 +1543,12 @@ def scrape_all_via_api(
                     log.debug("  [%d/%d] (cached) %s", i, len(posts), slug)
                     continue
                 # No cache but not needing scrape either — skip
-                log.debug("  [%d/%d] (skipped, fresh) %s", i, len(posts), slug)
+                log.debug("  [%d/%d] (skipped, unchanged) %s", i, len(posts), slug)
                 continue
 
         log.info("[%d/%d] %s", i, len(posts), slug)
 
-        # Process the post
+        # Process the post (les redirections sont déjà en cache -> rapide)
         pkg = process_post(post, resolve_redirects=resolve_redirects)
 
         if pkg:
@@ -1347,9 +1560,13 @@ def scrape_all_via_api(
 
             # Record in manifest
             if manifest:
-                # Use content hash based on post date + id (lightweight)
-                content_for_hash = f"{post.get('id', '')}:{post_date}:{slug}"
-                manifest.record(page_url, content_for_hash, package=pkg)
+                # Hash basé sur 'modified' (et non 'date') pour détecter les
+                # éditions (Item 7).  On stocke aussi 'modified' par entrée.
+                content_for_hash = f"{post.get('id', '')}:{post_modified}:{slug}"
+                manifest.record(
+                    page_url, content_for_hash,
+                    package=pkg, modified=post_modified,
+                )
 
             if needs_fallback:
                 fallback_count += 1
@@ -1357,15 +1574,12 @@ def scrape_all_via_api(
         else:
             warnings.append(page_url)
 
-        # Small delay between processing posts (if resolving redirects)
-        if resolve_redirects and i < len(posts):
-            time.sleep(0.05)
-
     # Sort by title
     packages.sort(key=lambda p: (p.get("title") or "").lower())
 
-    # Save manifest
+    # Save manifest (en mémorisant le début de run comme nouveau last_run).
     if manifest:
+        manifest.set_last_run(run_started)
         manifest.save()
 
     log.info("Processed %d posts: %d packages, %d need HTML fallback",
@@ -1433,6 +1647,17 @@ def main(argv: list[str] | None = None) -> int:
              "links will be missing or point to redirectors)",
     )
     parser.add_argument(
+        "--redirect-concurrency", type=int, default=REDIRECT_CONCURRENCY_DEFAULT,
+        help=f"Nombre de workers pour la résolution parallèle des redirections "
+             f"(défaut: {REDIRECT_CONCURRENCY_DEFAULT}, borné à "
+             f"[{REDIRECT_CONCURRENCY_MIN}, {REDIRECT_CONCURRENCY_MAX}])",
+    )
+    parser.add_argument(
+        "--since", default=None,
+        help="Date ISO 8601 forçant modified_after en incrémental "
+             "(sinon lit last_run depuis le manifest)",
+    )
+    parser.add_argument(
         "--manifest", type=Path, default=None,
         help="Path to manifest file for incremental mode "
              "(default: .scrape_manifest_api.json)",
@@ -1470,6 +1695,10 @@ def main(argv: list[str] | None = None) -> int:
     log.info("  Category ID:  %d", PS5_CATEGORY_ID)
     log.info("  Mode:          %s", args.mode)
     log.info("  Fields:        %s", args.fields)
+    log.info("  Redirect conc: %d (borné [%d,%d])",
+             args.redirect_concurrency, REDIRECT_CONCURRENCY_MIN, REDIRECT_CONCURRENCY_MAX)
+    if args.since:
+        log.info("  Since:         %s", args.since)
 
     # ---- Discovery-only mode ----
     if args.discover_only:
@@ -1544,6 +1773,8 @@ def main(argv: list[str] | None = None) -> int:
         mode=args.mode,
         resolve_redirects=resolve_redirects,
         manifest_path=args.manifest,
+        redirect_concurrency=args.redirect_concurrency,
+        since=args.since,
     )
 
     catalog = build_catalog(packages)
