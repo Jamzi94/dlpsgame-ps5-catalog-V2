@@ -1,0 +1,47 @@
+name: Diag keepshield (SuperPSX option 3)
+
+# Sonde de faisabilité (manuelle, lecture seule). Ne touche pas au catalogue.
+# 1) FlareSolverr franchit-il le Cloudflare de superpsx.com ?
+# 2) keepshield.org/safe/<id> est-il résolvable vers les vrais miroirs ?
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      flaresolverr:
+        image: ghcr.io/flaresolverr/flaresolverr:latest
+        ports:
+          - 8191:8191
+        env:
+          LOG_LEVEL: warning
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Wait for FlareSolverr
+        run: |
+          for i in $(seq 1 60); do
+            if curl -sf http://localhost:8191/health > /dev/null 2>&1; then
+              echo "FlareSolverr prêt"; exit 0
+            fi
+            echo "  tentative $i/60..."; sleep 5
+          done
+          echo "FlareSolverr KO"; exit 1
+
+      - name: Probe SuperPSX + keepshield via FlareSolverr
+        env:
+          FLARESOLVERR_URL: http://localhost:8191/v1
+        run: python3 scripts/diag_keepshield.py
