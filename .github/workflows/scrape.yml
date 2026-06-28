@@ -169,6 +169,7 @@ jobs:
             .scrape_manifest.json
             .scrape_manifest_api.json
             .scrape_manifest_superpsx.json
+            .scrape_manifest_exfat.json
           # ITEM 2 : clé STABLE (v1) au lieu de github.run_id. Une clé unique par run
           # ne réutilisait jamais le cache écrit (toujours un miss restauré via
           # restore-keys, jamais de re-save sur la même clé) → l'incrémental et le
@@ -347,7 +348,13 @@ jobs:
         run: |
           # Source secondaire (non-bloquante). Si elle échoue, on continue avec
           # uniquement dlpsgame ; l'étape de fusion gère l'absence du fichier.
-          python scripts/import_exfat.py --out exfat-ps5.fresh.json --verbose
+          # Mémoire incrémentale : import sauté si le JSON distant est inchangé
+          # (ETag/Last-Modified/hash, état dans .scrape_manifest_exfat.json).
+          ARGS=("--out" "exfat-ps5.fresh.json" "--verbose")
+          if [ "${{ github.event.inputs.no_cache }}" = "true" ] || [ "${{ steps.config.outputs.mode }}" = "full" ]; then
+            ARGS+=("--force")
+          fi
+          python scripts/import_exfat.py "${ARGS[@]}"
 
       # ──────────────────────────────────────────────────────────────
       # FUSION INCRÉMENTALE
@@ -592,6 +599,7 @@ jobs:
           [ -f .scrape_manifest.json ] && git add -f .scrape_manifest.json || true
           [ -f .scrape_manifest_api.json ] && git add -f .scrape_manifest_api.json || true
           [ -f .scrape_manifest_superpsx.json ] && git add -f .scrape_manifest_superpsx.json || true
+          [ -f .scrape_manifest_exfat.json ] && git add -f .scrape_manifest_exfat.json || true
 
           echo "--- git status (apres add) ---"
           git status --short

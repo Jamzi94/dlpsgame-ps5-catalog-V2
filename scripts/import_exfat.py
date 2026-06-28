@@ -25,6 +25,13 @@ DEFAULT_OUT = Path("exfat-ps5.fresh.json")
 REQUEST_TIMEOUT = 25
 REQUEST_RETRIES = 4
 
+# Mémoire incrémentale : fichier d'état persisté entre runs. On y mémorise
+# l'ETag / Last-Modified renvoyés par le serveur et le hash SHA-256 du contenu
+# téléchargé, afin de NE PAS ré-importer une source distante inchangée
+# (cf. fetch_source / decide_import). Versionné par le workflow (commit + cache).
+DEFAULT_STATE = Path(".scrape_manifest_exfat.json")
+STATE_VERSION = 1
+
 LOG = logging.getLogger("import_exfat")
 
 MIRROR_PATTERNS = [
@@ -125,15 +132,134 @@ def parse_size_bytes(value: Any) -> int | None:
     return int(num * (1024 ** power))
 
 
-def fetch_json(url: str, timeout: int, retries: int) -> Any:
+# ---------------------------------------------------------------------------
+# Mémoire incrémentale : état persisté + récupération HTTP conditionnelle
+# ---------------------------------------------------------------------------
+
+
+def sha256_hex(data: bytes) -> str:
+    """Hash SHA-256 (hex) du contenu brut téléchargé.
+
+    Sert de garde-fou quand le serveur ne supporte pas le conditionnel HTTP
+    (réponse 200 sans 304) : on compare ce hash à celui mémorisé pour décider
+    si la source a réellement changé."""
+    return hashlib.sha256(data).hexdigest()
+
+
+def load_state(path: Path) -> dict[str, Any]:
+    """Charge l'état d'import précédent (ETag / Last-Modified / hash).
+
+    Rétro-compatible : si le fichier est absent ou corrompu, renvoie un état
+    vide → l'appelant fera un import complet (comportement historique)."""
+    if not path.exists():
+        return {}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(raw, dict):
+            return raw
+        LOG.warning("État exFAT inattendu (%s) — import complet forcé", path)
+    except (OSError, json.JSONDecodeError) as exc:
+        LOG.warning("État exFAT illisible (%s: %s) — import complet forcé", path, exc)
+    return {}
+
+
+def save_state(
+    path: Path,
+    *,
+    etag: str | None,
+    last_modified: str | None,
+    content_hash: str | None,
+    url: str,
+) -> None:
+    """Persiste l'état d'import courant pour le prochain run.
+
+    Stocke ETag, Last-Modified et le hash SHA-256 du contenu, plus l'URL source
+    et l'horodatage du run (last_run). Le hash sert de repli quand le serveur
+    n'honore pas le conditionnel ; ETag/Last-Modified alimentent les en-têtes
+    If-None-Match / If-Modified-Since du run suivant."""
+    state: dict[str, Any] = {
+        "version": STATE_VERSION,
+        "url": url,
+        "etag": etag,
+        "last_modified": last_modified,
+        "content_hash": content_hash,
+        "last_run": dt.datetime.now(dt.timezone.utc).isoformat(),
+    }
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+        LOG.debug("État exFAT écrit (%s): etag=%s last_modified=%s hash=%s",
+                  path, etag, last_modified, content_hash)
+    except OSError as exc:
+        LOG.warning("Impossible d'écrire l'état exFAT (%s): %s", path, exc)
+
+
+# Sentinelle renvoyée par fetch_source quand le serveur répond 304 Not Modified.
+NOT_MODIFIED = object()
+
+
+def fetch_source(
+    url: str,
+    timeout: int,
+    retries: int,
+    *,
+    etag: str | None = None,
+    last_modified: str | None = None,
+) -> tuple[Any, bytes, str | None, str | None]:
+    """Récupère le JSON exFAT avec récupération HTTP conditionnelle.
+
+    Envoie les en-têtes If-None-Match (ETag) et/ou If-Modified-Since
+    (Last-Modified) quand un état précédent est fourni. Le serveur peut alors
+    répondre 304 Not Modified → la source est INCHANGÉE.
+
+    Returns:
+        Un tuple ``(payload, raw_bytes, etag, last_modified)`` où :
+          - ``payload`` est le JSON décodé, OU la sentinelle ``NOT_MODIFIED``
+            si le serveur a répondu 304 (auquel cas raw_bytes est vide) ;
+          - ``raw_bytes`` est le corps brut (pour le hash SHA-256) ;
+          - ``etag`` / ``last_modified`` sont les valeurs renvoyées par le
+            serveur (réutilisées pour le prochain run).
+
+    Les 304 ne sont PAS retentés (ce n'est pas une erreur). Les erreurs réseau
+    transitoires sont retentées avec back-off exponentiel.
+    """
     last_error: Exception | None = None
     for attempt in range(1, retries + 1):
+        headers: dict[str, str] = {"User-Agent": "dlpsgame-exfat-importer/1.0"}
+        # En-têtes conditionnels : permettent au serveur de répondre 304.
+        if etag:
+            headers["If-None-Match"] = etag
+        if last_modified:
+            headers["If-Modified-Since"] = last_modified
         try:
-            req = Request(url, headers={"User-Agent": "dlpsgame-exfat-importer/1.0"})
+            req = Request(url, headers=headers)
             with urlopen(req, timeout=timeout) as response:
-                data = response.read().decode("utf-8")
-            return json.loads(data)
-        except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as exc:
+                raw = response.read()
+                resp_etag = response.headers.get("ETag")
+                resp_last_modified = response.headers.get("Last-Modified")
+            payload = json.loads(raw.decode("utf-8"))
+            return payload, raw, resp_etag, resp_last_modified
+        except HTTPError as exc:
+            # 304 Not Modified : la source est inchangée — succès, pas une erreur.
+            if exc.code == 304:
+                resp_etag = exc.headers.get("ETag") if exc.headers else None
+                resp_last_modified = exc.headers.get("Last-Modified") if exc.headers else None
+                LOG.info("exFAT 304 Not Modified — source inchangée côté serveur")
+                # On renvoie les ETag/Last-Modified mémorisés à défaut de nouveaux.
+                return (
+                    NOT_MODIFIED,
+                    b"",
+                    resp_etag or etag,
+                    resp_last_modified or last_modified,
+                )
+            last_error = exc
+            wait_s = min(2 ** attempt, 20)
+            LOG.warning("Fetch exFAT échouée (%d/%d): %s", attempt, retries, exc)
+            if attempt < retries:
+                time.sleep(wait_s)
+        except (URLError, TimeoutError, json.JSONDecodeError) as exc:
             last_error = exc
             wait_s = min(2 ** attempt, 20)
             LOG.warning("Fetch exFAT échouée (%d/%d): %s", attempt, retries, exc)
@@ -430,23 +556,10 @@ def build_catalog(packages: list[dict[str, Any]], source_url: str) -> dict[str, 
     }
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Import exFAT JSON into Pegasus-compatible catalog")
-    parser.add_argument("--url", default=DEFAULT_URL, help="exFAT JSON URL")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="Output catalog path")
-    parser.add_argument("--timeout", type=int, default=REQUEST_TIMEOUT, help="HTTP timeout (seconds)")
-    parser.add_argument("--retries", type=int, default=REQUEST_RETRIES, help="HTTP retries")
-    parser.add_argument("--verbose", action="store_true", help="Verbose logs")
-    args = parser.parse_args()
+def build_packages(payload: Any) -> tuple[list[dict[str, Any]], int, int]:
+    """Construit la liste des packages à partir du JSON exFAT brut.
 
-    setup_logging(args.verbose)
-
-    try:
-        payload = fetch_json(args.url, timeout=args.timeout, retries=args.retries)
-    except Exception as exc:
-        LOG.error("Import exFAT impossible: %s", exc)
-        return 1
-
+    Returns ``(packages_triés, nb_records_bruts, nb_filtrés)``."""
     records = iter_records(payload)
     packages: list[dict[str, Any]] = []
     filtered = 0
@@ -456,16 +569,114 @@ def main() -> int:
             filtered += 1
             continue
         packages.append(package)
-
     packages.sort(key=lambda p: (p.get("title") or "").lower())
-    catalog = build_catalog(packages, args.url)
+    return packages, len(records), filtered
 
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(catalog, indent=2, ensure_ascii=False), encoding="utf-8")
+
+def write_catalog(packages: list[dict[str, Any]], source_url: str, out: Path) -> None:
+    """Sérialise le catalogue exFAT sur disque."""
+    catalog = build_catalog(packages, source_url)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(catalog, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Import exFAT JSON into Pegasus-compatible catalog")
+    parser.add_argument("--url", default=DEFAULT_URL, help="exFAT JSON URL")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help="Output catalog path")
+    parser.add_argument("--timeout", type=int, default=REQUEST_TIMEOUT, help="HTTP timeout (seconds)")
+    parser.add_argument("--retries", type=int, default=REQUEST_RETRIES, help="HTTP retries")
+    parser.add_argument(
+        "--state",
+        type=Path,
+        default=DEFAULT_STATE,
+        help="Fichier d'état de la mémoire incrémentale (ETag/Last-Modified/hash)",
+    )
+    parser.add_argument(
+        "--force",
+        "--no-cache",
+        dest="force",
+        action="store_true",
+        help="Force l'import complet en ignorant l'état (mode full)",
+    )
+    parser.add_argument("--verbose", action="store_true", help="Verbose logs")
+    args = parser.parse_args(argv)
+
+    setup_logging(args.verbose)
+
+    # --- Mémoire incrémentale : charge l'état du run précédent ---
+    # En mode --force, on ignore l'état (mais on le ré-écrira en fin de run).
+    state = {} if args.force else load_state(args.state)
+    prev_etag = state.get("etag") if isinstance(state, dict) else None
+    prev_last_modified = state.get("last_modified") if isinstance(state, dict) else None
+    prev_hash = state.get("content_hash") if isinstance(state, dict) else None
+    if args.force:
+        LOG.info("Import exFAT forcé (--force/--no-cache) — état ignoré, import complet")
+
+    # --- Récupération HTTP conditionnelle (If-None-Match / If-Modified-Since) ---
+    try:
+        payload, raw, etag, last_modified = fetch_source(
+            args.url,
+            timeout=args.timeout,
+            retries=args.retries,
+            etag=prev_etag,
+            last_modified=prev_last_modified,
+        )
+    except Exception as exc:
+        LOG.error("Import exFAT impossible: %s", exc)
+        return 1
+
+    # --- Décision : la source a-t-elle changé depuis le dernier import ? ---
+    # Cas 1 : 304 Not Modified → source INCHANGÉE côté serveur. On saute l'import.
+    if payload is NOT_MODIFIED:
+        LOG.info(
+            "exFAT inchangé (304), import sauté — jeux exFAT existants préservés par le merge"
+        )
+        # On rafraîchit last_run (et ETag/Last-Modified éventuellement renvoyés)
+        # sans toucher au content_hash mémorisé.
+        save_state(
+            args.state,
+            etag=etag or prev_etag,
+            last_modified=last_modified or prev_last_modified,
+            content_hash=prev_hash,
+            url=args.url,
+        )
+        return 0
+
+    # Cas 2 : 200 OK. Si le serveur n'honore pas le conditionnel, on compare le
+    # hash SHA-256 du contenu à celui mémorisé. Identique → source inchangée.
+    content_hash = sha256_hex(raw)
+    if not args.force and prev_hash and content_hash == prev_hash:
+        LOG.info(
+            "exFAT inchangé (hash identique %s), import sauté — jeux exFAT "
+            "existants préservés par le merge",
+            content_hash[:12],
+        )
+        save_state(
+            args.state,
+            etag=etag or prev_etag,
+            last_modified=last_modified or prev_last_modified,
+            content_hash=content_hash,
+            url=args.url,
+        )
+        return 0
+
+    # Cas 3 : la source a CHANGÉ (ou premier import, ou --force) → import complet.
+    packages, raw_count, filtered = build_packages(payload)
+    write_catalog(packages, args.url, args.out)
+
+    # Mise à jour de l'état avec les nouvelles métadonnées de la source importée.
+    save_state(
+        args.state,
+        etag=etag,
+        last_modified=last_modified,
+        content_hash=content_hash,
+        url=args.url,
+    )
 
     LOG.info(
         "exFAT import terminé: raw=%d filtered=%d packages=%d out=%s",
-        len(records),
+        raw_count,
         filtered,
         len(packages),
         args.out,
