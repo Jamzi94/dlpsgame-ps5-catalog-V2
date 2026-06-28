@@ -32,9 +32,12 @@ _UNIT_FR = r"([KMG])o"
 
 # Texte libre : anglais uniquement (anti-« to »).
 _SIZE_FREE = re.compile(r"(?i)\b" + _NUM + r"\s?" + _UNIT_EN + r"\b")
-# Ancré sur un libellé de taille : anglais OU français (Ko/Mo/Go).
+# Ancré sur un libellé de taille : anglais OU français (Ko/Mo/Go). Le séparateur
+# est OPTIONNEL pour capter les tables HTML rendues sans « : » (« Size 12 GB »,
+# « Game Size 12 GB »). Le libellé reste obligatoire -> aucun « 16 GB » (RAM) ni
+# « 825 GB » (SSD PS5) capté par erreur. « to » reste exclu (FR limité à K/M/G).
 _SIZE_ANCHORED = re.compile(
-    r"(?i)\b(?:SIZE|TAILLE|POIDS)\s*[:\-–]\s*" + _NUM
+    r"(?i)\b(?:SIZE|TAILLE|POIDS)\s*[:\-–]?\s*" + _NUM
     + r"\s?(?:" + _UNIT_EN + r"|" + _UNIT_FR + r")\b"
 )
 
