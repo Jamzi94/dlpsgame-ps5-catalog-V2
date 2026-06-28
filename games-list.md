@@ -1,6 +1,6 @@
 # Liste des jeux PS5 disponibles — dlpsgame PS5
 
-_**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à chaque run_
+_**840** jeux · généré le 2026-06-28 23:23 UTC · régénéré et enrichi à chaque run_
 
 ## Répartition par format
 
@@ -9,14 +9,14 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | PKG | 156 |
 | exFAT · PKG · Backport 4.xx | 150 |
 | exFAT · PKG | 130 |
-| unknown | 61 |
+| unknown | 59 |
 | PKG · Backport 4.xx | 50 |
 | exFAT · Folder · Backport 4.xx | 46 |
 | Backport 4.xx | 34 |
 | Folder · PKG · Backport 4.xx | 30 |
 | Folder · Backport 4.xx | 20 |
+| RAR | 20 |
 | exFAT · PKG · Backport | 19 |
-| RAR | 18 |
 | APR-EMU | 17 |
 | PKG · Backport | 15 |
 | exFAT · Backport 4.xx | 13 |
@@ -111,7 +111,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 57 | ASTRO BOT | exFAT · PKG · Backport 7.xx | 01.018 | dlpsgame.com |
 | 58 | Astros Playroom | PKG | 01.700 | dlpsgame.com, superpsx.com |
 | 59 | Atari 50 The Anniversary Celebration | unknown | 01.009 | dlpsgame.com |
-| 60 | Atlas Fallen | unknown | 01.005.400 | dlpsgame.com |
+| 60 | Atlas Fallen | RAR | 01.005.400 | dlpsgame.com |
 | 61 | Atomfall | PKG · Backport | 01.023 | dlpsgame.com, superpsx.com |
 | 62 | Atomic Heart | PKG · Backport 4.xx | 01.014.400 | dlpsgame.com, superpsx.com |
 | 63 | Avatar Frontiers of Pandora | exFAT · PKG · Backport 4.xx | 01.020 | dlpsgame.com, exFAT, superpsx.com |
@@ -137,7 +137,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 83 | Biomutant | PKG | 01.000 | superpsx.com |
 | 84 | Biomutant | exFAT · PKG · Backport 4.xx | 01.003 | dlpsgame.com, exFAT |
 | 85 | Black Myth Wukong | exFAT · PKG · Backport 4.xx | 01.021 | dlpsgame.com, exFAT, superpsx.com |
-| 86 | Blackwind | unknown | 01.002.006 | dlpsgame.com |
+| 86 | Blackwind | RAR | 01.002.006 | dlpsgame.com |
 | 87 | Blades of Fire | PKG | 01.004.001 | dlpsgame.com, superpsx.com |
 | 88 | Blasphemous 2 | exFAT · PKG · Backport 4.xx | 01.007.000 | dlpsgame.com, exFAT |
 | 89 | Blasphemous II | PKG | 01.001.000 | superpsx.com |
@@ -156,7 +156,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 102 | Bum Simulator | Backport 4.xx | 01.000.004 | dlpsgame.com |
 | 103 | Bye Sweet Carole | unknown | 01.008 | dlpsgame.com |
 | 104 | Call of The Sea | PKG | 02.000 | dlpsgame.com, superpsx.com |
-| 105 | Cant Drive This | RAR | 01.005 | dlpsgame.com |
+| 105 | Cant Drive This | unknown | 01.005 | dlpsgame.com |
 | 106 | Cat Quest 3 | PKG | 01.000.001 | dlpsgame.com, superpsx.com |
 | 107 | Cave Digger 2 Dig Harder | Folder · PKG | 01.000 | dlpsgame.com, superpsx.com |
 | 108 | Charons Staircase | Backport | 01.000 | dlpsgame.com |
@@ -282,10 +282,10 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 228 | FANTASIAN Neo Dimension | exFAT · PKG · Backport 7.xx | 01.300 | dlpsgame.com, exFAT, superpsx.com |
 | 229 | Far Cry 6 | exFAT · PKG · Backport 4.xx | 01.000.013 | dlpsgame.com, exFAT, superpsx.com |
 | 230 | Farming Simulator 22 | exFAT · PKG | 01.070.000 | dlpsgame.com, exFAT, superpsx.com |
-| 231 | Fatal Frame 2 Crimson Butterfly Remake | unknown | 01.002.002 | dlpsgame.com |
+| 231 | Fatal Frame 2 Crimson Butterfly Remake | RAR | 01.002.002 | dlpsgame.com |
 | 232 | Fatal Frame Maiden of Black Water | PKG | 01.000 | dlpsgame.com, superpsx.com |
 | 233 | FATAL FURY City of The Wolves | exFAT · PKG · Backport 6.xx | 01.009 | dlpsgame.com, exFAT |
-| 234 | FIFA 22 | unknown | 01.000.190 | dlpsgame.com |
+| 234 | FIFA 22 | RAR | 01.000.190 | dlpsgame.com |
 | 235 | FIFA 23 | PKG · Backport 4.xx | 01.024 | dlpsgame.com, superpsx.com |
 | 236 | FIFA 23 | Backport 4.xx | 01.024 | dlpsgame.com |
 | 237 | FINAL FANTASY TACTICS The Ivalice Chronicles | exFAT · PKG · Backport 4.xx | 01.040 | dlpsgame.com, exFAT, superpsx.com |
@@ -377,7 +377,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 323 | Ikai | PKG | 01.000 | dlpsgame.com, superpsx.com |
 | 324 | Immortals Fenyx Rising | exFAT · PKG | 04.004 | dlpsgame.com, exFAT, superpsx.com |
 | 325 | Immortals of Aveum | exFAT · PKG · Backport 4.xx | 01.006.004 | dlpsgame.com, exFAT, superpsx.com |
-| 326 | In Sound Mind | RAR | 01.009 | dlpsgame.com |
+| 326 | In Sound Mind | unknown | 01.009 | dlpsgame.com |
 | 327 | Indiana Jones and The Great Circle | exFAT · Folder · Backport | 01.009 | dlpsgame.com, exFAT, superpsx.com |
 | 328 | Indika | exFAT · Folder · Backport 4.xx | 01.003 | dlpsgame.com, exFAT |
 | 329 | Infinity Strash DRAGON QUEST The Adventure of Dai | exFAT · PKG · Backport 4.xx | 01.002 | dlpsgame.com, exFAT, superpsx.com |
@@ -410,7 +410,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 356 | Killing Floor 3 | exFAT · PKG · Backport | 02.006 | dlpsgame.com, exFAT |
 | 357 | Kingdom Come Deliverance 2 | exFAT · PKG · Backport 4.xx | 01.041 | dlpsgame.com, exFAT |
 | 358 | Kitaria Fables | exFAT · PKG | 01.005 | dlpsgame.com, exFAT, superpsx.com |
-| 359 | Kitten Island | unknown | 01.000.000 | dlpsgame.com |
+| 359 | Kitten Island | RAR | 01.000.000 | dlpsgame.com |
 | 360 | KLONOA Phantasy Reverie Series | PKG | 01.002 | dlpsgame.com, superpsx.com |
 | 361 | KLONOA Phantasy Reverie Series | RAR | 01.002 | dlpsgame.com |
 | 362 | Last Days of Lazarus | PKG · Backport 4.xx | 01.001 | dlpsgame.com, superpsx.com |
@@ -444,7 +444,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 390 | Lost Judgment | exFAT · PKG | 01.011 | exFAT |
 | 391 | Lost Soul Aside | exFAT · PKG · Backport 4.xx | 01.102 | dlpsgame.com, exFAT |
 | 392 | LUTO | PKG | 01.007 | dlpsgame.com, superpsx.com |
-| 393 | MADiSON | RAR | 01.000 | dlpsgame.com |
+| 393 | MADiSON | unknown | 01.000 | dlpsgame.com |
 | 394 | MADiSON VR Cursed Edition | PKG | 01.000 | dlpsgame.com, superpsx.com |
 | 395 | Mafia The Old Country | exFAT · Folder · Backport | 01.006 | dlpsgame.com, exFAT |
 | 396 | Mafia The Old Country | PKG · Backport 9.xx | 01.006 | superpsx.com |
@@ -528,7 +528,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 474 | Observer System Redux | unknown | 01.008 | dlpsgame.com |
 | 475 | Observer: System Redux | PKG | 01.008 | superpsx.com |
 | 476 | Octopath Traveler 2 | exFAT · PKG · Backport 4.xx | 01.000 | dlpsgame.com, exFAT, superpsx.com |
-| 477 | Oddworld Abes Exoddus (PS1 Emulation) | unknown | 01.000.002 | dlpsgame.com |
+| 477 | Oddworld Abes Exoddus (PS1 Emulation) | RAR | 01.000.002 | dlpsgame.com |
 | 478 | Oddworld Soulstorm | PKG | 01.160 | dlpsgame.com, superpsx.com |
 | 479 | Oddworld Soulstorm | unknown | 01.160 | dlpsgame.com |
 | 480 | On The Road The Truck Simulator | Backport 4.xx | 01.000.009 | dlpsgame.com |
@@ -536,7 +536,7 @@ _**840** jeux · généré le 2026-06-28 23:03 UTC · régénéré et enrichi à
 | 482 | One Piece Odyssey | exFAT · PKG | 01.002.001 | dlpsgame.com, exFAT, superpsx.com |
 | 483 | Outcast A New Beginning | Folder · Backport 4.xx | 01.000 | dlpsgame.com |
 | 484 | Outcast A New Beginning | PKG | 01.000 | superpsx.com |
-| 485 | Outer Wilds | RAR | 01.000 | dlpsgame.com |
+| 485 | Outer Wilds | unknown | 01.000 | dlpsgame.com |
 | 486 | Outward Definitive Edition | exFAT · PKG | 01.007 | dlpsgame.com, exFAT |
 | 487 | Overpass 2 | exFAT · Folder · Backport 4.xx | 01.004 | dlpsgame.com, exFAT, superpsx.com |
 | 488 | Override 2 Super Mech League | PKG | 01.007 | dlpsgame.com, superpsx.com |

@@ -173,16 +173,16 @@
           "url": "https://www.rootz.so/d/T8vtw"
         },
         {
-          "name": "Data",
-          "url": "https://datanodes.to/9r57opl4vvd9"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/RMKGJO4p2m1o/file"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/01Zd8NGz7M"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/9r57opl4vvd9"
         },
         {
           "name": "Mediafire",
@@ -232,20 +232,24 @@
           "url": "https://www.rootz.so/d/29wwIy"
         },
         {
+          "name": "Akia",
+          "url": "https://akirabox.com/M2BGwQ7db3j4/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/KNGAU93TyD"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/w2d889ba8nzu"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/l7jodyfxlqnv"
         },
         {
           "name": "Vault",
           "url": "https://datavaults.co/48nfope5m4x8"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/arz9q61mhsdi"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/bppxg2lvzvd1"
         },
         {
           "name": "Akia",
@@ -260,16 +264,12 @@
           "url": "https://datanodes.to/h7qw7fbcz89q"
         },
         {
-          "name": "Backport - Akia",
-          "url": "https://akirabox.com/M2BGwQ7db3j4/file"
+          "name": "Filek",
+          "url": "https://filekeeper.net/arz9q61mhsdi"
         },
         {
-          "name": "Backport - Viki",
-          "url": "https://vikingfile.com/f/KNGAU93TyD"
-        },
-        {
-          "name": "Backport - Data",
-          "url": "https://datanodes.to/w2d889ba8nzu"
+          "name": "Vault",
+          "url": "https://datavaults.co/bppxg2lvzvd1"
         },
         {
           "name": "Viki",
@@ -672,10 +672,6 @@
           "url": "https://vikingfile.com/f/nEb1JpNc4S"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/VOqycxRAWU"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?30m41vnjjp39owhd0kdt"
         },
@@ -754,6 +750,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/zrv1hdswb5x2"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/VOqycxRAWU"
         },
         {
           "name": "Mediafire",
@@ -932,9 +932,9 @@
           "Simulation"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:25.503598+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:40.876610+00:00",
       "_igdbMatched": false,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "PKG"
     },
     {
@@ -1354,7 +1354,7 @@
           "Sports"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:25.503623+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:40.880893+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -1559,16 +1559,16 @@
       "description": "Format: Backport 7.xx\nTags: PPSA02572, v1.200.007, 7.xx, 9.xx",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?ynm2hf8jh1isnjhpydep"
+        },
+        {
           "name": "Rootz",
           "url": "https://rootz.so/d/21N57Y"
         },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/fbh39pc7oweejxv/[DLPSGAME.COM]-01.200.007+PPSA02572.part10.rar/file"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?ynm2hf8jh1isnjhpydep"
         },
         {
           "name": "Akia",
@@ -1588,8 +1588,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
-        "Backport 7.xx"
+        "Backport 7.xx",
+        "RAR"
       ],
       "sizeBytes": 4924592619,
       "_enrichedAt": "2026-06-22T12:40:57.342035+00:00",
@@ -1764,16 +1764,16 @@
       "description": "Format: Backport 5.50\nTags: PPSA06448, v1.009, 9.xx\nSize: 40 GB",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/tpzcP6"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/OwcFMMeQmA"
         },
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/33y66lg2fx22"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/tpzcP6"
         }
       ],
       "downloadSource": "https://dlpsgame.com/alien-rogue-incursion-ps5/",
@@ -2466,6 +2466,10 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/le1pfkb0vxifd3i/PPSA11132-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/6ks3hy0ccuxwdno/PPSA11132+–+EUR+Ape+Academy+2+v1.001+4.xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -2490,10 +2494,6 @@
         },
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/le1pfkb0vxifd3i/PPSA11132-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/6ks3hy0ccuxwdno/PPSA11132+%E2%80%93+EUR+Ape+Academy+2+v1.001+4.xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -2506,10 +2506,10 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
+        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx",
-        "RAR"
+        "Backport 5.xx"
       ],
       "sizeBytes": 1073741824,
       "_enrichedAt": "2026-06-22T12:41:00.037139+00:00",
@@ -2671,7 +2671,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:25.503631+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:41.032245+00:00",
       "_igdbMatched": false,
       "formatLabel": "Folder · Backport 4.xx"
     },
@@ -2749,7 +2749,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:35:21.411088+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "PKG"
     },
     {
@@ -3044,10 +3044,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/utos6dovs2g52mv/01.000+PPSA21406-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/6tpv9ilz6zlbjq1/PPSA21406+–+EUR+ArcRunner+Backport+4xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -3089,6 +3085,10 @@
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/folder/jiuqqi0kr0ehr/PPSA21406+–+EUR"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/utos6dovs2g52mv/01.000+PPSA21406-[DLPSGAME.COM].rar/file"
         },
         {
           "name": "Akia",
@@ -3146,10 +3146,10 @@
       ],
       "fileFormat": [
         "Folder",
-        "RAR",
         "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 10737418240,
@@ -3179,16 +3179,16 @@
       "description": "Tags: PPSA17011, v1.012, 7.xx\nSize: 45 GB",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/X9OQVp"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/bsrNCIQ0za"
         },
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/4a8l6w6sn7y7"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/X9OQVp"
         }
       ],
       "downloadSource": "https://dlpsgame.com/arizona-sunshine-2-ps5/",
@@ -3224,16 +3224,16 @@
       "description": "Tags: PPSA21738, v1.005, 9.xx\nSize: 38 GB",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/ht9DCC"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/R5joNawm0k"
         },
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/26ezg55444om"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/ht9DCC"
         }
       ],
       "downloadSource": "https://dlpsgame.com/arizona-sunshine-remake-ps5/",
@@ -3761,16 +3761,8 @@
           "url": "https://gofile.io/d/0GLAV6"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/EL73g06gAz9B/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/irBBZ04gka"
-        },
-        {
           "name": "Data",
-          "url": "https://datanodes.to/88b1a3fcn5ns"
+          "url": "https://datanodes.to/zl06oacdhgmg"
         },
         {
           "name": "Akia",
@@ -3781,8 +3773,16 @@
           "url": "https://vikingfile.com/f/MygwRsMQyM"
         },
         {
-          "name": "Data",
-          "url": "https://datanodes.to/zl06oacdhgmg"
+          "name": "Backport - Akia",
+          "url": "https://akirabox.com/EL73g06gAz9B/file"
+        },
+        {
+          "name": "Backport - Viki",
+          "url": "https://vikingfile.com/f/irBBZ04gka"
+        },
+        {
+          "name": "Backport - Data",
+          "url": "https://datanodes.to/88b1a3fcn5ns"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -3823,6 +3823,26 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA20397, v1.019.076, 4.xx, EUR\nSize: 261 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & VanBuuren for the Files with DLCs, drakmor for ampr-emu and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/QkD6e"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/54z5z5yi1gm73e5/[DLPSGAME.COM]-PPSA20397-app0.part01.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/EL73g0e4az9B/file"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?qz0ove0zuz7muk1jnxa2"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/9wan7mwl12hi"
+        },
+        {
           "name": "Viki",
           "url": "https://filecrypt.cc/Container/DFF35104B8.html"
         },
@@ -3833,6 +3853,18 @@
         {
           "name": "Gofile",
           "url": "https://gofile.io/d/yTtJnU"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/QN9mEZRwR36d/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/R8VBC1Fjhp"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/v4om96ig02ge"
         },
         {
           "name": "Filek",
@@ -3849,18 +3881,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ftbgwrowjlhc"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/QN9mEZRwR36d/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/R8VBC1Fjhp"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/v4om96ig02ge"
         },
         {
           "name": "Akia",
@@ -3893,6 +3913,7 @@
         "Folder",
         "PKG",
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
         "Backport"
       ],
@@ -3923,32 +3944,8 @@
       "description": "Format: exFAT · APR-EMU\nTags: PPSA01490, v1.070, 4.xx, EUR\nSize: 90GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/nG3tI"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/5pVzN44EJm7w/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/2pdivUMMdq"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?m0garued5vo88qhri7ux"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/pe21qu17ceby"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/0JgG7PPdKmoY/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/HffZitEtZE"
         },
         {
           "name": "Data",
@@ -3973,6 +3970,30 @@
         {
           "name": "Vault",
           "url": "https://datavaults.co/ntn7hghl4d22"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/nG3tI"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/5pVzN44EJm7w/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/2pdivUMMdq"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/pe21qu17ceby"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/0JgG7PPdKmoY/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/HffZitEtZE"
         }
       ],
       "downloadSource": "https://dlpsgame.com/assassins-creed-valhalla-ps5/",
@@ -4428,12 +4449,32 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA08576, v1.000, 5.xx, 4.xx, USA\nSize: 1GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & VanBuuren for the Files, drakmor for ampr-emu and kerrdec97 for BackPort",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/HdAbA"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1oL4q"
+        },
+        {
           "name": "Viki",
           "url": "https://filecrypt.cc/Container/73B65DB662.html"
         },
         {
           "name": "Transit",
           "url": "https://transfer.it/t/nhy96apHXJxJ"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/l76mZN97xman/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/Hu2fmFPp9y"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/cb16yzkabled"
         },
         {
           "name": "Filek",
@@ -4444,14 +4485,6 @@
           "url": "https://datavaults.co/bhas5eovnxtd"
         },
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/gwyvckn0zoeb"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/7mrhv0zijyq8"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/0PdzyQMl0zeA/file"
         },
@@ -4460,20 +4493,16 @@
           "url": "https://vikingfile.com/f/dQFKHyjaXR"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/gwyvckn0zoeb"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/7mrhv0zijyq8"
+        },
+        {
           "name": "Data",
           "url": "https://datanodes.to/hfzey7hm2qfm"
-        },
-        {
-          "name": "Backport - Akia",
-          "url": "https://akirabox.com/l76mZN97xman/file"
-        },
-        {
-          "name": "Backport - Viki",
-          "url": "https://vikingfile.com/f/Hu2fmFPp9y"
-        },
-        {
-          "name": "Backport - Data",
-          "url": "https://datanodes.to/cb16yzkabled"
         },
         {
           "name": "Filek",
@@ -4486,14 +4515,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?x0urtx1rgz7axhwi5h8w&af=4186346"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/HdAbA"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1oL4q"
         },
         {
           "name": "Viki",
@@ -4640,32 +4661,8 @@
       "description": "Format: exFAT · PKG · Backport 7.xx\nTags: PPSA21567, v1.018, 9.xx, 7.xx, USA\nSize: 148GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, Psykzhack for DLCs and BestPig for the BackPort",
       "downloadLinks": [
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/tqyxat9dad2pjag/[DLPSGAME.COM]+-+01.018+PPSA21567+FIXED.part01.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/2WVGr8MZ03kx/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/PNtmPigJyO"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1NPA1I"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/gzg5168ts97a"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?7tvp6hgmj42plxlm056y"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/ex5z2BqqBzKq/file"
         },
         {
           "name": "Akia",
@@ -4748,22 +4745,6 @@
           "url": "https://1fichier.com/?axtx1niuhy05onvo8qxl"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/Bhyym"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/RMKGJQVx2z1o/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/7eBJAT7RCh"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/s35gak8c0ptq"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/4s24if8lnrlr"
         },
@@ -4781,18 +4762,6 @@
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/1RgzR4VwRmbp/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/Xp7Y8Aklcq"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/7d2v3halflra"
-        },
-        {
-          "name": "Akia",
           "url": "https://akirabox.com/XkrzokAnWzBO/file"
         },
         {
@@ -4806,6 +4775,58 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/5HtUTHV5YK"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/tqyxat9dad2pjag/[DLPSGAME.COM]+-+01.018+PPSA21567+FIXED.part01.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/2WVGr8MZ03kx/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/PNtmPigJyO"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1NPA1I"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/gzg5168ts97a"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/ex5z2BqqBzKq/file"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/Bhyym"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/RMKGJQVx2z1o/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/7eBJAT7RCh"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/s35gak8c0ptq"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/1RgzR4VwRmbp/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/Xp7Y8Aklcq"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/7d2v3halflra"
         }
       ],
       "downloadSource": "https://dlpsgame.com/astro-bot-free-ps5/",
@@ -4815,10 +4836,10 @@
       "fileFormat": [
         "exFAT",
         "PKG",
-        "RAR",
         "Backport 7.xx",
         "Backport 6.xx",
-        "Backport 4.03"
+        "Backport 4.03",
+        "RAR"
       ],
       "sizeBytes": 158913789952,
       "_enrichedAt": "2026-06-22T12:41:10.729314+00:00",
@@ -5077,8 +5098,28 @@
       "description": "Tags: PPSA03388, v1.005.400, 6.xx",
       "downloadLinks": [
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/brwvlmho3gwcvjh/[DLPSGAME.COM]-+01.005.400+PPSA03388.part1.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/jar3XabqQz2d/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/NXSZMpuD1a"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?d7g3n5xfni9dwkvgcd7b"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/jvp9bmxoecri"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/l4xormmorekos9u/[DLPSGAME.COM]+-+01.000+PPSA03388.part1.rar/file"
         },
         {
           "name": "Akia",
@@ -5095,26 +5136,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/2ofcvv8bqnik"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/brwvlmho3gwcvjh/[DLPSGAME.COM]-+01.005.400+PPSA03388.part1.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/jar3XabqQz2d/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/NXSZMpuD1a"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/jvp9bmxoecri"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/l4xormmorekos9u/[DLPSGAME.COM]+-+01.000+PPSA03388.part1.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/atlas-fallen-ps5/",
@@ -5122,8 +5143,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 10630044057,
       "_enrichedAt": "2026-06-22T12:41:19.226851+00:00",
@@ -5152,6 +5173,10 @@
       "description": "Format: PKG · Backport\nTags: PPSA15493, v01.023, USA\nSize: 31 GB\nPassword: SuperPSX\nVoices: English\nWorks on 10.xx and higher",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?m0i7zo6ycvpy0luc0zmv"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/24emms9il6z29mp/[DLPSGAME.COM]+-+01.023+PPSA15493.part1.rar/file"
         },
@@ -5162,10 +5187,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/Y1O3D6Na1d"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?m0i7zo6ycvpy0luc0zmv"
         },
         {
           "name": "Buzz",
@@ -5230,8 +5251,8 @@
         "superpsx.com"
       ],
       "fileFormat": [
-        "RAR",
         "Backport",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 33285996544,
@@ -5412,8 +5433,36 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA01576, v01.011, USA\nSize: 175GB\nPassword: SuperPSX\nVoices: English, French (France), Portuguese (Brazil), Spanish\nBackport 4.xx\nBackport 5.xx\nBackport 6.xx\nBackport 7.xx\nWorks on 9.xx and higher",
       "downloadLinks": [
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/vhtxnf7p9g2p4p0/[DLPSGAME.COM]-PPSA01576.part10.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/qw1zedPRj3Xy/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/sYrzkt5MWZ"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?suzqd5lzbhex5s0z7bo0"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/1Bk2ee"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/gldznwcjtonl"
+        },
+        {
           "name": "Gofile",
           "url": "https://gofile.io/d/TevwOM"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/jJD3VvjAy3a5/file"
         },
         {
           "name": "Akia",
@@ -5546,34 +5595,6 @@
         {
           "name": "Backport - 1File",
           "url": "https://1fichier.com/?agzgc0a13kpuco21teqv&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/vhtxnf7p9g2p4p0/[DLPSGAME.COM]-PPSA01576.part10.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/qw1zedPRj3Xy/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/sYrzkt5MWZ"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?suzqd5lzbhex5s0z7bo0"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/1Bk2ee"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/gldznwcjtonl"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/jJD3VvjAy3a5/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/avatar-frontiers-of-pandora-ps5/",
@@ -6747,7 +6768,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:35:33.769834+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Folder · Backport 4.xx"
     },
     {
@@ -6831,24 +6852,28 @@
           "url": "https://buzzheavier.com/ns5lppzcbzah"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/7eik15ztq69uaap/[DLPSGAME.COM]-PPSA27616-Game+(v01.000.100)+[APR-EMU].rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/wgWGqMRKaG4o/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/01Nc7Q9vdd"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/ya8uhb3zrhi4"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/bkvk3411zahn"
         },
         {
           "name": "Vault",
           "url": "https://datavaults.co/e58ustsfbd2o"
-        },
-        {
-          "name": "Backport - Akia",
-          "url": "https://akirabox.com/wgWGqMRKaG4o/file"
-        },
-        {
-          "name": "Backport - Viki",
-          "url": "https://vikingfile.com/f/01Nc7Q9vdd"
-        },
-        {
-          "name": "Backport - Data",
-          "url": "https://datanodes.to/ya8uhb3zrhi4"
         },
         {
           "name": "Viki",
@@ -6861,10 +6886,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?720ct9cwog37uan2w0ak&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/7eik15ztq69uaap/[DLPSGAME.COM]-PPSA27616-Game+(v01.000.100)+[APR-EMU].rar/file"
         },
         {
           "name": "Backport - Data",
@@ -7134,8 +7155,12 @@
       "description": "Format: exFAT · PKG\nTags: PPSA02604, v1.001, 3.xx, USA\nSize: 6GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/UdzUW"
+          "name": "Filek",
+          "url": "https://filekeeper.net/rud1oowk768w"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/8fh0gfvnlfw3"
         },
         {
           "name": "Akia",
@@ -7150,12 +7175,8 @@
           "url": "https://datanodes.to/jeezcnu8zb0f"
         },
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/rud1oowk768w"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/8fh0gfvnlfw3"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/UdzUW"
         },
         {
           "name": "Viki",
@@ -7244,7 +7265,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:25.814244+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:41.466568+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport 4.xx"
     },
@@ -7538,22 +7559,6 @@
           "url": "https://www.rootz.so/d/1qUiTQ"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/CXktJsclnn"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/Y2xm01ygq3RO/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/oc98GXf3s5"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/lhgai9no4eoj"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/qp9a9p329z35"
         },
@@ -7608,6 +7613,22 @@
         {
           "name": "vault_url",
           "url": "https://pippo26442999.github.io/library-decrypt/decrypt-public.html#eyJ2IjoiMC4wLjEiLCJlIjoiWndNRkl1SERZVENDdkhEOGpvMUorNUVZR0ZteWVyK2ozOWN6Vy92dTF4Q1VUT0t0UHk3UUhIV3h1WkUrcmg5TlpGWTJlRkNrNGZ2bFNpN1ZxUkVKRXVyNUtLOUV2QT09IiwiaSI6IjBlbkpGUkZXTEVNQVNoWTEiLCJuIjoiVmF1bHQifQ=="
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/CXktJsclnn"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/Y2xm01ygq3RO/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/oc98GXf3s5"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/lhgai9no4eoj"
         },
         {
           "name": "Akia",
@@ -7704,8 +7725,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 3221225472,
       "_enrichedAt": "2026-06-22T12:41:26.885383+00:00",
@@ -7734,8 +7755,16 @@
       "description": "Format: PKG\nTags: PPSA26311, v01.004.001, EUR\nSize: 44 GB\nPassword: SuperPSX\nVoices: English\nWorks on 10.xx and higher",
       "downloadLinks": [
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/dsv9z14dy83kye4/[DLPSGAME.COM]-+01.004.001+PPSA26311.part1.rar/file"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?9bw603d31kz5toaxqx4o"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/fqyniqttoc8q"
         },
         {
           "name": "Filek",
@@ -7748,14 +7777,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?s0vnlz5mos0d0cgcoxyq&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/dsv9z14dy83kye4/[DLPSGAME.COM]-+01.004.001+PPSA26311.part1.rar/file"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/fqyniqttoc8q"
         }
       ],
       "downloadSource": "https://dlpsgame.com/blades-of-fire-ps5/",
@@ -7764,9 +7785,9 @@
         "superpsx.com"
       ],
       "fileFormat": [
+        "RAR",
         "unknown",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 47244640256,
       "_enrichedAt": "2026-06-22T12:41:27.317457+00:00",
@@ -8501,6 +8522,10 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/th3oeuzty6gwjgn/02.000+PPSA14457-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/mb4oarg1vbet8vc/PPSA14457+-Born+of+Bread+V2.000+4.XX+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -8542,10 +8567,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?skz8x4oml5t2ea5zvi6x&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/th3oeuzty6gwjgn/02.000+PPSA14457-[DLPSGAME.COM].rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/born-of-bread-ps5/",
@@ -8555,11 +8576,11 @@
       ],
       "fileFormat": [
         "Folder",
+        "RAR",
         "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 3221225472,
       "_enrichedAt": "2026-06-22T12:41:30.545430+00:00",
@@ -8847,7 +8868,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:35:40.686093+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA01502",
@@ -8963,12 +8984,12 @@
       "description": "Tags: PPSA22924, v1.008",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/28k7w8"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?1sudbif6bpd9fk82v75q"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/28k7w8"
         }
       ],
       "downloadSource": "https://dlpsgame.com/bye-sweet-carole-ps5/",
@@ -9066,20 +9087,20 @@
       "description": "Tags: PPSA02743, v1.005, 2.xx\nSize: 2 GB",
       "downloadLinks": [
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/g8wzxavn2ysqcbv/01.005+PPSA02743-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/26PGIC"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/obj3jvOl13Dx/file"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/kEEgVHmBDF"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/g8wzxavn2ysqcbv/01.005+PPSA02743-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/26PGIC"
         }
       ],
       "downloadSource": "https://dlpsgame.com/cant-drive-this-ps5/",
@@ -9087,8 +9108,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
-        "unknown"
+        "unknown",
+        "RAR"
       ],
       "sizeBytes": 2147483648,
       "_enrichedAt": "2026-06-22T12:41:33.268333+00:00",
@@ -9106,7 +9127,7 @@
           "Puzzle"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:26.014286+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:41.743203+00:00",
       "_igdbMatched": false
     },
     {
@@ -9316,7 +9337,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T22:19:31.607362+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Backport"
     },
     {
@@ -10590,10 +10611,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA02121, v1.000, 3.xx, USA\nSize: 6GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Data",
-          "url": "https://datanodes.to/u178po2jbdon"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/s8s83eg9lbb5"
         },
@@ -10608,6 +10625,10 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/kEeiptMHFx"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/u178po2jbdon"
         },
         {
           "name": "Viki",
@@ -10670,6 +10691,18 @@
           "url": "https://1fichier.com/?1htkv765i0ushar5402f"
         },
         {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/hn0bd2wplhjv"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/Ib4vg"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/sqnspn1lpp1y52m/[DLPSGAME.COM]-PPSA07810-app0.part1.rar/file"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?q5n9yhe710jq8947vd8u"
         },
@@ -10700,10 +10733,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/Ds1AYpNpRr"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/hn0bd2wplhjv"
         }
       ],
       "downloadSource": "https://dlpsgame.com/crisis-core-final-fantasy-vii-reunion-ps5/",
@@ -10714,8 +10743,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "Backport 4.xx",
         "RAR",
+        "Backport 4.xx",
         "PKG"
       ],
       "sizeBytes": 36507222016,
@@ -10787,10 +10816,6 @@
         },
         {
           "name": "Viki",
-          "url": "https://vikingfile.com/f/EScZdqG5rJ"
-        },
-        {
-          "name": "Viki",
           "url": "https://filecrypt.cc/Container/84313A4553.html"
         },
         {
@@ -10816,6 +10841,10 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/APVmaBeE63Xo/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/EScZdqG5rJ"
         },
         {
           "name": "1File",
@@ -11315,6 +11344,10 @@
           "url": "https://1fichier.com/?rsbrdh9tqmtrba4x1ag6"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/xNr1OmpeJg"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/M2BGw6EaDzj4/file"
         },
@@ -11333,10 +11366,6 @@
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/qtx4rxl9ncuhbug/5XX+PPSA05991+%E2%80%93+USA++V1.02+Cygni+All+Guns+Blazing++By+BADERLINK-[DLPSGAME.COM].zip/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/xNr1OmpeJg"
         }
       ],
       "downloadSource": "https://dlpsgame.com/cygni-all-guns-blazing-ps5/",
@@ -11784,14 +11813,6 @@
       "downloadLinks": [
         {
           "name": "Viki",
-          "url": "https://vikingfile.com/f/6IafbcuHHQ"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/vatkb3u794q6"
-        },
-        {
-          "name": "Viki",
           "url": "https://filecrypt.cc/Container/B0F8DFA924.html"
         },
         {
@@ -11821,6 +11842,14 @@
         {
           "name": "Backport - backport7xx_vault",
           "url": "https://pippo26442999.github.io/library-decrypt/decrypt-public.html#eyJ2IjoiMC4wLjEiLCJlIjoiWHltQmtSNjcySTkvdDV0Ulo5MmR0QkhUY3V0ZHU5eVRoQ256L2xVTFFXSDk2M1M4eUZlR3N3UHNTNGNNY3F0ZG94bzRYeGFaTDF3RDVING43NGhYRExQY0txckpsdz09IiwiaSI6IjBITmhQSTN3MEpCOU50TjciLCJuIjoiVmF1bHQifQ=="
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/6IafbcuHHQ"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/vatkb3u794q6"
         },
         {
           "name": "Viki",
@@ -12115,10 +12144,6 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA28180, v01.036.178, 12.xx – 11.xx, USA\nSize: 55GB\nPassword: SuperPSX\nFW Compat: 12.xx – 11.xx\nVoices: English, French (France), Portuguese (Brazil), Spanish (Mexico)\nWorking 12.xx – 11.xx – 10.xxBackport  9.xx – 8.xx – 7.xx – 6.xx – 5.xx – 4.xx – 3.xx – 2.xx (copy all files to folder game)",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/XBnH5w8nqN"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/m16i9r3z0s03i59/[DLPSGAME.COM]-_4xx[PPSA28180][01.036.178].rar/file"
         },
@@ -12137,18 +12162,6 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/1r4dM0"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/0Pdzy9Eb0zeA/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/MsiMw1cFvw"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/joa3qc8bx6s2"
         },
         {
           "name": "Gofile",
@@ -12180,6 +12193,10 @@
         },
         {
           "name": "Akia",
+          "url": "https://akirabox.com/2bJG8WwKrzOB/file"
+        },
+        {
+          "name": "Akia",
           "url": "https://akirabox.com/EL73gALy8G9B/file"
         },
         {
@@ -12191,8 +12208,20 @@
           "url": "https://datanodes.to/e7o726nbsxee"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/2bJG8WwKrzOB/file"
+          "name": "Dump - Akia",
+          "url": "https://akirabox.com/0Pdzy9Eb0zeA/file"
+        },
+        {
+          "name": "Dump - Viki",
+          "url": "https://vikingfile.com/f/MsiMw1cFvw"
+        },
+        {
+          "name": "Dump - Data",
+          "url": "https://datanodes.to/joa3qc8bx6s2"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/XBnH5w8nqN"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -12893,10 +12922,6 @@
       "description": "Format: PKG · APR-EMU · Backport 4.xx\nTags: PPSA02015, v01.013, USA\nSize: 100 GB\nPassword: SuperPSX\nVoices: Chinese, English, French (France), German, Italian, Japanese, Polish, Portuguese (Brazil), Portuguese (Portugal), Russian, Spanish, Spanish (Mexico)",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/GfmeUs"
-        },
-        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/15fxsO"
         },
@@ -12919,6 +12944,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/sksin9cx2bcp"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/GfmeUs"
         }
       ],
       "downloadSource": "https://dlpsgame.com/death-stranding-2-on-the-beach-ps5/",
@@ -12928,9 +12957,9 @@
       ],
       "fileFormat": [
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 169651208192,
       "_enrichedAt": "2026-06-22T16:46:48.320450+00:00",
@@ -12963,18 +12992,6 @@
           "url": "https://www.rootz.so/d/9WKsC"
         },
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/n8trrm7r36q00u9/[DLPSGAME.COM]-01.004+PPSA01968.part01.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/jar3Xak6Nz2d/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/sjFAw5MGf1"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?vem83fu0q3fnzg8861sr"
         },
@@ -12997,6 +13014,18 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/z5wv842jnrn8"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/n8trrm7r36q00u9/[DLPSGAME.COM]-01.004+PPSA01968.part01.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/jar3Xak6Nz2d/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/sjFAw5MGf1"
         },
         {
           "name": "Buzz",
@@ -13041,34 +13070,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA01670, v1.405, 4.xx, 6.xx, EUR\nSize: 72GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & SiESPTA for the Files with DLCs, drakmor for ampr-emu and Kira for the BackPort",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?1nwn2jdq1zee5hr7dv4d"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/Pbe3P415E3lX/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/zmdHhtGsWO"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/8h9nchfj11cq"
-        },
-        {
-          "name": "Backport - Akia",
-          "url": "https://akirabox.com/dZxG5qW46GVj/file"
-        },
-        {
-          "name": "Backport - Viki",
-          "url": "https://vikingfile.com/f/LggrlOL0z9"
-        },
-        {
-          "name": "Backport - Data",
-          "url": "https://datanodes.to/d9kvyrub8s3v"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/1LsniK"
         },
@@ -13085,8 +13086,36 @@
           "url": "https://vikingfile.com/f/5HZV2nqAyk"
         },
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?1nwn2jdq1zee5hr7dv4d"
+        },
+        {
           "name": "Buzz",
           "url": "https://buzzheavier.com/nyfokscusoh8"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/dZxG5qW46GVj/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/Pbe3P415E3lX/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/zmdHhtGsWO"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/8h9nchfj11cq"
+        },
+        {
+          "name": "Backport - Viki",
+          "url": "https://vikingfile.com/f/LggrlOL0z9"
+        },
+        {
+          "name": "Backport - Data",
+          "url": "https://datanodes.to/d9kvyrub8s3v"
         }
       ],
       "downloadSource": "https://dlpsgame.com/deathloop-deluxe-edition-ps5/",
@@ -13097,10 +13126,10 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
         "Backport",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 77309411328,
       "_enrichedAt": "2026-06-22T02:36:05.423678+00:00",
@@ -13851,30 +13880,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA05398, v1.012, 4.xx, USA\nSize: 98 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/cUoJ8w"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/863cur10l0pk"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/kn4tn5c5o7yu"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/wgWGqM7WdG4o/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/kQy6EbUdMR"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/n07lyl52p7ls"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/YZ1ay"
         },
@@ -13897,6 +13902,30 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/y5blu6il2mm9"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/cUoJ8w"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/wgWGqM7WdG4o/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/kQy6EbUdMR"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/n07lyl52p7ls"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/863cur10l0pk"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/kn4tn5c5o7yu"
         }
       ],
       "downloadSource": "https://dlpsgame.com/destroy-all-humans-2-reprobed-ps5/",
@@ -13908,8 +13937,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 105226698752,
       "_enrichedAt": "2026-06-22T02:36:08.914521+00:00",
@@ -14221,16 +14250,16 @@
           "url": "https://1fichier.com/?2gwy3msrx7ihdonpensc"
         },
         {
+          "name": "Data",
+          "url": "https://datanodes.to/ugg75kvh4tzr"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/Z9dzBKWN5Gk1/file"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/EG9i0Ts0yX"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/ugg75kvh4tzr"
         },
         {
           "name": "Rootz",
@@ -14759,10 +14788,6 @@
           "url": "https://1fichier.com/?x429yej0sziuvvtt3vrt"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/ygpz59Wvrt"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/Z9dzBjxXOzk1/file"
         },
@@ -14821,6 +14846,10 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?t23lca7bdx6zz327k256"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/ygpz59Wvrt"
         },
         {
           "name": "Mediafire",
@@ -15269,7 +15298,7 @@
           "RPG"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:26.014309+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:41.743233+00:00",
       "_igdbMatched": false,
       "formatLabel": "APR-EMU"
     },
@@ -15328,6 +15357,10 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?ggdgf8aekrky4wdccjma"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?5rivyoplepna5g6cj0v8"
         },
         {
           "name": "Buzz",
@@ -15487,10 +15520,6 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA20560, v1.009, 9.xx, 2.xx\nSize: 162 GB\nThanks: Kira for the BackPort with DLCs Merged",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/9ShspIhTbk"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/8af34gt5hrfq70p/[DLPSGAME.COM]-PPSA20560-backport+[+9.xx+to+2.xx+].rar/file"
         },
@@ -15551,10 +15580,6 @@
           "url": "https://rootz.so/d/yXeuO"
         },
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?tbpas9dpv4rggkoms1j3"
-        },
-        {
           "name": "1file",
           "url": "https://filecrypt.cc/Container/830E8B95CD.html"
         },
@@ -15573,6 +15598,14 @@
         {
           "name": "Backport - Akia",
           "url": "https://akirabox.com/N2p3DVwAkGMa/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/9ShspIhTbk"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?tbpas9dpv4rggkoms1j3"
         },
         {
           "name": "1file",
@@ -15622,10 +15655,6 @@
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8iy1.jpg",
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA23000, v1.000, 4.xx\nSize: 10 GB\nThanks: High-Speed007 for the Files, Psykzhack for DLC and BestPig for the BackPort",
       "downloadLinks": [
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/11fn8tm0e1a4pul/[DLPSGAME.COM]-PPSA23000.rar/file"
-        },
         {
           "name": "Gofile",
           "url": "https://gofile.io/d/TZcjkr"
@@ -15687,6 +15716,10 @@
           "url": "https://vikingfile.com/f/Zb0uyaeVrz"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/11fn8tm0e1a4pul/[DLPSGAME.COM]-PPSA23000.rar/file"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/rjPeegtgQH"
         },
@@ -15741,13 +15774,17 @@
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
     {
-      "titleId": "GAME_23329",
+      "titleId": "GAME_69226",
       "title": "Dragon Age The Veilguard",
       "version": "01.000",
       "category": "game",
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8gj5.jpg",
       "description": "Format: Folder · Backport 4.xx\nTags: v1.000, 4.xx, 5.xx\nSize: 165GB",
       "downloadLinks": [
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/BnkmWE97rzR0/file"
+        },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/q1dsk5qk8m1gbd7/4_XX+PPSA01390_01_00_Dragon_Age_The_Veilguard_Backport__By_BADERLINK-[DLPSGAME.COM].zip/file"
@@ -15803,10 +15840,6 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/91DDU"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/BnkmWE97rzR0/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/dragon-age-the-veilguard-ps5/",
@@ -16548,10 +16581,6 @@
       "downloadLinks": [
         {
           "name": "Akia",
-          "url": "https://akirabox.com/Z9dzBxMOEmk1/file"
-        },
-        {
-          "name": "Akia",
           "url": "https://akirabox.com/9AqGQdbPRzMn/file"
         },
         {
@@ -16615,14 +16644,6 @@
           "url": "https://rootz.so/d/1v8qSu"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/M0dnc"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/b5OzdjbK4mB8/file"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/cp7xtm1nhuxm3r4/[DLPSGAME.COM]+-+ALL+DLC+-+[PPSA20611].rar/file"
         },
@@ -16641,6 +16662,18 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/1IV1Wq"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/Z9dzBxMOEmk1/file"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/M0dnc"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/b5OzdjbK4mB8/file"
         },
         {
           "name": "Akia",
@@ -16722,14 +16755,6 @@
           "url": "https://1fichier.com/?fiawwzrhco5p1ii2arv6"
         },
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/UUIme"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/1Z6pkm"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?k7suitk44w2lcfzknr1z"
         },
@@ -16744,6 +16769,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/trtzam7oddca"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/UUIme"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/1Z6pkm"
         },
         {
           "name": "Filek",
@@ -18024,6 +18057,10 @@
         },
         {
           "name": "Rootz",
+          "url": "https://www.rootz.so/d/1dnSNs"
+        },
+        {
+          "name": "Rootz",
           "url": "https://rootz.so/d/27Hk6i"
         },
         {
@@ -18033,6 +18070,10 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/6wc4qEBzQH"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/2bJG8WDgkzOB/file"
         },
         {
           "name": "Akia",
@@ -18535,6 +18576,10 @@
           "url": "https://rootz.so/d/26yojI"
         },
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1ap4l6"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/vgKGxxM24G8Q/file"
         },
@@ -18599,10 +18644,6 @@
           "url": "https://1fichier.com/?y1i34ztaguu3ei8uzurs"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1ap4l6"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/3btf8nleygb6a5h/4XX+PPSA11079+%E2%80%93+JPN++v01.007+Ed+0+Zombie+Uprising+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
@@ -18635,7 +18676,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:26.288144+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:42.260491+00:00",
       "_igdbMatched": false,
       "formatLabel": "Backport 4.xx"
     },
@@ -19360,6 +19401,10 @@
         },
         {
           "name": "Akia",
+          "url": "https://akirabox.com/1RgzRBEJZzbp/file"
+        },
+        {
+          "name": "Akia",
           "url": "https://akirabox.com/1RgzRp6lombp/file"
         },
         {
@@ -19389,10 +19434,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/ujRxOMCXKV"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/1RgzRBEJZzbp/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/enotria-the-last-song-deluxe-edition-ps5/",
@@ -19468,7 +19509,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:36:22.801009+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA04703",
@@ -19526,6 +19567,14 @@
       "description": "Format: exFAT · APR-EMU\nTags: PPSA01885, v1.003, 2.xx, 3.xx, USA\nSize: 3GB\nCredits: Pippo26442999 x SiESPTA\nThanks: PHU & SiESPTA for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/bhkic9n9hof7"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/qsdmxg9f99mh"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/M2BGwQO8O3j4/file"
         },
@@ -19544,14 +19593,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/dl6kq3fiquur"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/bhkic9n9hof7"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/qsdmxg9f99mh"
         },
         {
           "name": "Rootz",
@@ -19800,6 +19841,10 @@
       "description": "Format: exFAT · PKG\nTags: PPSA04170, v1.002.000, 4.xx, USA\nSize: 15GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/izb41xvbsjnkfo1/[DLPSGAME.COM]-PPSA04170-app0.rar/file"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/gdoq4imd79ke"
         },
@@ -19826,10 +19871,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?e6spw7nmq47wgjhcjx5x&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/izb41xvbsjnkfo1/[DLPSGAME.COM]-PPSA04170-app0.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/evil-genius-2-world-domination-ps5/",
@@ -19841,8 +19882,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 16106127360,
       "_enrichedAt": "2026-06-22T02:36:22.334981+00:00",
@@ -20168,12 +20209,8 @@
       "description": "Format: exFAT · PKG\nTags: PPSA03157, v1.004, 3.xx, EUR\nSize: 1GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/22ja67ifktml"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/5saqgic5whvt"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1HvpbM"
         },
         {
           "name": "Akia",
@@ -20188,16 +20225,20 @@
           "url": "https://datanodes.to/ysqnc5rne6us"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/22ja67ifktml"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/5saqgic5whvt"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/eHwLA"
         },
         {
           "name": "1File",
           "url": "https://1fichier.com/?nvn4eqbv1p3coebc9b6l&af=4186346"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1HvpbM"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -20239,10 +20280,6 @@
       "description": "Format: PKG · APR-EMU · Backport 6.xx\nTags: PPSA17423, v1.026, 7.xx\nSize: 32 GB",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/Gc1P7D"
-        },
-        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/igCDw"
         },
@@ -20259,6 +20296,10 @@
           "url": "https://1fichier.com/?zfzi7vtvs6xdiiuplf2e"
         },
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/Gc1P7D"
+        },
+        {
           "name": "Buzz",
           "url": "https://buzzheavier.com/xjacl2jc18wb"
         }
@@ -20270,10 +20311,10 @@
       ],
       "fileFormat": [
         "APR-EMU",
+        "RAR",
         "Backport 6.xx",
         "Backport 4.xx",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 34359738368,
       "_enrichedAt": "2026-06-22T12:42:06.073851+00:00",
@@ -20369,19 +20410,19 @@
       "downloadLinks": [
         {
           "name": "1File",
-          "url": "https://1fichier.com/?dgyxv838l1bkc1vqwb08"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/ex5z2gekoGKq/file"
-        },
-        {
-          "name": "1File",
           "url": "https://1fichier.com/?5p3jj3vi3zd9jbwd67bh"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/tNLNhJWLDw"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?dgyxv838l1bkc1vqwb08"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/ex5z2gekoGKq/file"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -20686,16 +20727,12 @@
       "description": "Tags: PPSA32802, v1.002.002",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?2jpb3eym4dlyzd3dfe6h"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/vnxp9dvi2ndx2w9/[DLPSGAME.COM]+-+01.002.002+PPSA32802.part1.rar/file"
-        },
-        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/XgozeSx1Go"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?2jpb3eym4dlyzd3dfe6h"
         },
         {
           "name": "Buzz",
@@ -20722,6 +20759,10 @@
           "url": "https://buzzheavier.com/bvt0a9eytfrd"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/vnxp9dvi2ndx2w9/[DLPSGAME.COM]+-+01.002.002+PPSA32802.part1.rar/file"
+        },
+        {
           "name": "Viki",
           "url": "https://shrinkearn.com/full?api=00ca8e6e4054c7078d72481fc3b69790035f9b86&url=aHR0cHM6Ly9maWxlY3J5cHQuY2MvQ29udGFpbmVyLzlCRDRDNkM4NUQuaHRtbA==&type=2"
         },
@@ -20735,8 +20776,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 10630044057,
       "_enrichedAt": "2026-06-22T16:46:51.558492+00:00",
@@ -20984,10 +21025,6 @@
           "url": "https://rootz.so/d/24Rs48"
         },
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/qYUNc9"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ut9l6fj0e3bghcv/[DLPSGAME.COM]-PPSA03178-app0.part06.rar/file"
         },
@@ -21006,6 +21043,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/z6qg6duoqsik"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/qYUNc9"
         }
       ],
       "downloadSource": "https://dlpsgame.com/fifa-22-ps5/",
@@ -21013,8 +21054,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 5070288315,
       "_enrichedAt": "2026-06-22T12:42:08.519856+00:00",
@@ -21040,6 +21081,10 @@
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8gj5.jpg",
       "description": "Format: PKG · Backport 4.xx\nTags: PPSA06275, v01.024, EUR\nSize: 160GB\nPassword: SuperPSX\nVoices: English, Spanish, Polish, Russian, Portuguese(Br)\nBackport 4.xx\nWorks on 5.xx and higher",
       "downloadLinks": [
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/0JgG7lXPemoY/file"
+        },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/fa06xuyinxplaka/PPSA06275+][+01.024+FIFA+23++[+Backport+4.XX+By+BADERLINK-[DLPSGAME.COM].zip/file"
@@ -21083,10 +21128,6 @@
         {
           "name": "Backport - 1File",
           "url": "https://1fichier.com/?jro6bdqt8hkuya5nc7gl&af=4186346"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/0JgG7lXPemoY/file"
         }
       ],
       "downloadSource": "https://superpsx.com/dll-easfifa23ps5/",
@@ -21272,16 +21313,16 @@
           "url": "https://rootz.so/d/gXIsC"
         },
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?8fydolmg7u1k2lhb40yb"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/LJlGnWDlVm15/file"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/wmz1qY9D5g"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?8fydolmg7u1k2lhb40yb"
         },
         {
           "name": "Buzz",
@@ -21325,38 +21366,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA01903, v1.005, 2.xx, USA\nSize: 187 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX for the Files with DLCs and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://filecrypt.cc/Container/8B9CA0B741.html"
-        },
-        {
-          "name": "1file",
-          "url": "https://filecrypt.cc/Container/0FD06B9221.html"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/bcUvQc"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/2WVGr817k3kx/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/NKPbkEQaXg"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/ksw046j36blp"
-        },
-        {
-          "name": "DLC - Akia",
-          "url": "https://akirabox.com/l5YzM4gjR3yO/file"
-        },
-        {
-          "name": "DLC - Data",
-          "url": "https://datanodes.to/ca6nn1qc7l9m"
-        },
-        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1tdyrY"
         },
@@ -21377,6 +21386,14 @@
           "url": "https://buzzheavier.com/re0xlg1f1jvs"
         },
         {
+          "name": "Viki",
+          "url": "https://filecrypt.cc/Container/8B9CA0B741.html"
+        },
+        {
+          "name": "1file",
+          "url": "https://filecrypt.cc/Container/0FD06B9221.html"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/4vTP6"
         },
@@ -21395,6 +21412,30 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/gviw210bf1at"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/bcUvQc"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/l5YzM4gjR3yO/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/ca6nn1qc7l9m"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/2WVGr817k3kx/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/NKPbkEQaXg"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/ksw046j36blp"
         },
         {
           "name": "Viki",
@@ -21452,12 +21493,28 @@
           "url": "https://1fichier.com/?yn7snlcx9y85ecc40dsl"
         },
         {
+          "name": "Data",
+          "url": "https://datanodes.to/3lt6f733gvtp"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/up08zijhwmur"
         },
         {
           "name": "Vault",
           "url": "https://datavaults.co/w7vub5auc0z7"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/QN9mEZd2736d/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/5ZCXhXneZB"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/12kxa946kh4o"
         },
         {
           "name": "Filek",
@@ -21474,10 +21531,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/P40vFmid9b"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/3lt6f733gvtp"
         },
         {
           "name": "Rootz",
@@ -21518,18 +21571,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/ca73wypk4loc"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/QN9mEZd2736d/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/5ZCXhXneZB"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/12kxa946kh4o"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -21986,6 +22027,10 @@
           "url": "https://filecrypt.cc/Container/ADAA4B6B81.html"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/n3cgftyizdym29r/01.000_PPSA08546-%255BDLPSGAME.COM%255D.rar/file"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/qLQ3648oYG19/file"
         },
@@ -21996,10 +22041,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?rcyqk0tdfwz7zzmfo2w3&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/n3cgftyizdym29r/01.000_PPSA08546-%255BDLPSGAME.COM%255D.rar/file"
         },
         {
           "name": "Viki (multi)",
@@ -22046,14 +22087,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA07382, v1.002.400, 8.xx, USA\nSize: 24 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files and drakmor for ampr-emu.",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/18PbaS"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/sw8f7bh69k0q2w6/[DLPSGAME.COM]-PPSA07382.part1.rar/file"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/RgZMn7"
         },
@@ -22076,6 +22109,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ms4ynozk0377"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/18PbaS"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/sw8f7bh69k0q2w6/[DLPSGAME.COM]-PPSA07382.part1.rar/file"
         },
         {
           "name": "Akia",
@@ -22187,7 +22228,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:36:31.006411+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA05625",
@@ -22233,6 +22274,30 @@
       "description": "Format: exFAT · PKG\nTags: PPSA03984, v1.020, 5.xx, EUR\nSize: 68GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?zb06h8clutrcbsqelz9u"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/f1st7ntapweu"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/an0zxg960z5s"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/1RgzR49qXmbp/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/ic9U5c74dS"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/r1uy5ks0oa8l"
+        },
+        {
           "name": "Rootz",
           "url": "https://rootz.so/d/60tW4"
         },
@@ -22249,32 +22314,8 @@
           "url": "https://vikingfile.com/f/wEWv7r4Djo"
         },
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?zb06h8clutrcbsqelz9u"
-        },
-        {
           "name": "Buzz",
           "url": "https://buzzheavier.com/xcuj94zpzkel"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/1RgzR49qXmbp/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/ic9U5c74dS"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/r1uy5ks0oa8l"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/f1st7ntapweu"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/an0zxg960z5s"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -23680,7 +23721,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:36:34.454142+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Folder · Backport 4.xx"
     },
     {
@@ -23883,6 +23924,14 @@
           "url": "https://www.rootz.so/d/27Xjk0"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/VO5sKJkVLe"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/4LZWd2"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/0rpmv7g6Z3Rg/file"
         },
@@ -23905,14 +23954,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?ycsv1handpr8x0rzx9s3&af=4186346"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/VO5sKJkVLe"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/4LZWd2"
         },
         {
           "name": "Mediafire",
@@ -23985,18 +24026,6 @@
           "url": "https://1fichier.com/?6pjdg3c6x5d8r5mj4j31"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/JDzlcHrjO7"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/RFRUO"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?l0w5r76ncopgtd6fkdt4"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/b5Ozdp5WazB8/file"
         },
@@ -24007,6 +24036,18 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/j6uyle4c4qko"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/JDzlcHrjO7"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/RFRUO"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?l0w5r76ncopgtd6fkdt4"
         },
         {
           "name": "Akia",
@@ -24642,6 +24683,14 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA07257, v5.000, 4.xx, 7.xx, EUR\nSize: 79.6GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Psykzhack for the Files with DLCs, drakmor for ampr-emu and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1xmV1s"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/kfw47y3g0sqehu2/[DLPSGAME.COM]+-+v05.000.000+-+[PPSA07257].part01.rar/file"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?vzfavqe9zd3oawca54zu"
         },
@@ -24670,14 +24719,6 @@
           "url": "https://1fichier.com/?uig9hsxpmhd0z67v56cb&af=4186346"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1xmV1s"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/kfw47y3g0sqehu2/[DLPSGAME.COM]+-+v05.000.000+-+[PPSA07257].part01.rar/file"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/Y2xm01wdo3RO/file"
         },
@@ -24699,10 +24740,10 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
         "Backport",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 85899345920,
       "_enrichedAt": "2026-06-22T02:36:38.225467+00:00",
@@ -24732,10 +24773,6 @@
       "description": "Format: PKG · APR-EMU\nTags: PPSA01317, v01.680, USA\nSize: 156 GB\nPassword: SuperPSX",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/uVDvmw"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/1bclU0"
         },
@@ -24754,6 +24791,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/i815tlcoe7f8"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/uVDvmw"
         }
       ],
       "downloadSource": "https://dlpsgame.com/gran-turismo-7-ps5/",
@@ -25655,6 +25696,10 @@
         },
         {
           "name": "Rootz",
+          "url": "https://www.rootz.so/d/BFk8W"
+        },
+        {
+          "name": "Rootz",
           "url": "https://rootz.so/d/1XH0Iy"
         },
         {
@@ -25700,10 +25745,6 @@
         {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/axp3I"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/BFk8W"
         },
         {
           "name": "Mediafire",
@@ -25840,6 +25881,10 @@
       "downloadLinks": [
         {
           "name": "Rootz",
+          "url": "https://www.rootz.so/d/11cEjY"
+        },
+        {
+          "name": "Rootz",
           "url": "https://www.rootz.so/d/2E8FtI"
         },
         {
@@ -25869,10 +25914,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/04cf37jnwqpl"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/11cEjY"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -25982,6 +26023,14 @@
           "url": "https://1fichier.com/?eip9ifug33gbf4byszdt"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/nmJLSY5OmJ"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/qfmct6rc9y0z"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/gXeGOogqXGAa/file"
         },
@@ -26004,14 +26053,6 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/2bJG801g6GOB/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/nmJLSY5OmJ"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/qfmct6rc9y0z"
         },
         {
           "name": "Akia",
@@ -26082,7 +26123,7 @@
       "formatLabel": "exFAT · Folder · Backport 4.xx"
     },
     {
-      "titleId": "GAME_73792",
+      "titleId": "GAME_91166",
       "title": "Gundam Breaker 4",
       "version": "01.000",
       "category": "game",
@@ -26620,6 +26661,10 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA09259, v1.006, 4.xx\nSize: 45GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and Kira for the BackPort with Popup Progress Fix",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?d8thi1w7ktm30h0h6xuo"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ddquncm4f4d5i6y/[DLPSGAME.COM]-_4xx_by_Kira[01.006.000][PPSA09259].rar/file"
         },
@@ -26638,6 +26683,10 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/AHm0e"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/WPQMV8oDwr"
         },
         {
           "name": "Viki",
@@ -26666,14 +26715,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?e05igxlet4usszo6ht2g&af=4186346"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?d8thi1w7ktm30h0h6xuo"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/WPQMV8oDwr"
         },
         {
           "name": "Viki",
@@ -26965,6 +27006,10 @@
           "url": "https://1fichier.com/?6u2xpjrbg2ov11bnarxf"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/gTs2lZGEjN"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/2bJG8Ja0k3OB/file"
         },
@@ -27007,10 +27052,6 @@
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ees6pgmluehach6/5.XX+PPSA15388+%E2%80%93+USA+V1.20+High+on+Life++Life+Backport+By+BADERLINK-[DLPSGAME.COM].zip/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/gTs2lZGEjN"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -27510,10 +27551,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA12771, v1.007, 4.xx, 8.xx\nSize: 12 GB\nThanks: High-Speed007 for the Files",
       "downloadLinks": [
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/4ktzs3klfcdmevh/[DLPSGAME.COM]-PPSA12771.rar/file"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/O3OEj9"
         },
@@ -27540,6 +27577,10 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/QN9mEKYNxz6d/file"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/4ktzs3klfcdmevh/[DLPSGAME.COM]-PPSA12771.rar/file"
         },
         {
           "name": "Viki",
@@ -27574,9 +27615,9 @@
       ],
       "fileFormat": [
         "exFAT",
-        "RAR",
         "ZIP",
         "Backport 4.xx",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 12884901888,
@@ -28232,10 +28273,6 @@
           "url": "https://vikingfile.com/f/weYmWqKCVf"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/MJdE03c78i"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?xfg2qv0f72njtp6xy0ss"
         },
@@ -28282,6 +28319,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/5yemvzjazz35"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/MJdE03c78i"
         },
         {
           "name": "Akia",
@@ -28859,10 +28900,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA01507, v4.004, 2.xx, USA\nSize: 57 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files with DLCs and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/yl9z824x29am"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/1wcZk6"
         },
@@ -28877,6 +28914,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/9ie5hkmw3het"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/yl9z824x29am"
         },
         {
           "name": "Viki",
@@ -29088,8 +29129,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
-        "unknown"
+        "unknown",
+        "RAR"
       ],
       "sizeBytes": 20401094656,
       "_enrichedAt": "2026-06-22T12:42:33.086962+00:00",
@@ -29368,6 +29409,10 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA09453, v1.002, 4.xx, 5.xx\nSize: 11GB\nThanks: SiESPTA for the Files and Baderlink for the BackPort",
       "downloadLinks": [
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/6uuo4yJauR"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/h72w4qtch00ofrf/BP+4.xx+PPSA09453_–_JPN_v01_002_Infinity_Strash_DRAGON_QUEST_The_Adventure-[DLPSGAME.COM].zip/file"
         },
@@ -29418,10 +29463,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/bnvkobjiggb2"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/6uuo4yJauR"
         },
         {
           "name": "Akia",
@@ -29713,7 +29754,7 @@
       "_igdbMatched": true
     },
     {
-      "titleId": "GAME_46734",
+      "titleId": "GAME_34141",
       "title": "Iron Harvest Complete Edition",
       "version": "01.004",
       "category": "game",
@@ -30118,14 +30159,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA04220, v2.330.000, 4.xx, 8.xx, USA\nSize: 5GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SkexIsDead for the Files, drakmor for ampr-dlc-emu and Chedolor1988 & Vittorio120 for the BackPort",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/vQlO7fvgJD"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/c33k2x8r4xsf"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/1ba7ty28m23j"
         },
@@ -30152,6 +30185,14 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/2bJG80rWqGOB/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/vQlO7fvgJD"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/c33k2x8r4xsf"
         },
         {
           "name": "Viki",
@@ -30497,10 +30538,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/9m6q4q3u1678xxv/PPSA06359-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/zv2e4kf4yp3n38z/Backport+4.XX+PPSA06359+–+EUR+Jumping+Flash++By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -30541,6 +30578,10 @@
         },
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/9m6q4q3u1678xxv/PPSA06359-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/zv2e4kf4yp3n38z/Backport+4.XX+PPSA06359+%E2%80%93+EUR+Jumping+Flash++By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -30553,10 +30594,10 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx"
+        "Backport 5.xx",
+        "RAR"
       ],
       "sizeBytes": 1073741824,
       "_enrichedAt": "2026-06-22T12:42:37.366882+00:00",
@@ -30745,10 +30786,6 @@
           "url": "https://gofile.io/d/PaWt3w"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/dkD3YZPZ7zLQ/file"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/7xrrf5rg0lon"
         },
@@ -30775,6 +30812,10 @@
         {
           "name": "Backport - backport7xx_vault",
           "url": "https://pippo26442999.github.io/library-decrypt/decrypt-public.html#eyJ2IjoiMC4wLjEiLCJlIjoiMGpnN2lRaWhmZU5Pb1FIVE9La2ZtRTlBbzJKK2g3ZTZmMkhiQnBKYzdsR0gvK3hGRDF0TjZCS2NuUzN2M3Q1Z3ZIN0ZsRHVCZkR0MFA2RkFQTGF6RjQ1WDVHMzI5UT09IiwiaSI6IlEzeWNEa05iK2RINThhb2oiLCJuIjoiVmF1bHQifQ=="
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/dkD3YZPZ7zLQ/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/jurassic-world-evolution-3-ps5/",
@@ -31810,8 +31851,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 44076318,
       "_enrichedAt": "2026-06-22T12:42:40.748201+00:00",
@@ -31841,10 +31882,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/dunpohppjwtuu20/01.002+PPSA04795-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ktwysukpcmc263k/[DLPSGAME.COM]-PPSA04795.rar/file"
         },
         {
@@ -31862,6 +31899,10 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/mWKmG"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/dunpohppjwtuu20/01.002+PPSA04795-[DLPSGAME.COM].rar/file"
         },
         {
           "name": "Akia",
@@ -33714,9 +33755,9 @@
         "superpsx.com"
       ],
       "fileFormat": [
+        "unknown",
         "RAR",
-        "PKG",
-        "unknown"
+        "PKG"
       ],
       "sizeBytes": 37580963840,
       "_enrichedAt": "2026-06-22T12:42:44.089981+00:00",
@@ -34329,6 +34370,10 @@
           "url": "https://akirabox.com/gXeGOaN1j3Aa/file"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/RJQRvLYoYq"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?yux36tvkwp5n7hxcvxjy"
         },
@@ -34351,10 +34396,6 @@
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/8qurutjf4594ojg/5XX+PPSA19563+%E2%80%93+USA+v01.010+Looney+Tunes+Wacky+World+of+Sports++By+BADERLINK-[DLPSGAME.COM].zip/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/RJQRvLYoYq"
         }
       ],
       "downloadSource": "https://dlpsgame.com/looney-tunes-wacky-world-of-sports-free-ps5/",
@@ -34795,6 +34836,10 @@
       "description": "Format: exFAT · PKG\nTags: PPSA01693, v1.000.100, 3.xx, USA\nSize: 7GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/dvr0bgh0ddwl7kl/[DLPSGAME.COM]-PPSA01693-Game+(v01.000.100)+[APR-EMU].rar/file"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/h10bbz6217a7"
         },
@@ -34821,10 +34866,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?hgbve92rjgot2saq34ok&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/dvr0bgh0ddwl7kl/[DLPSGAME.COM]-PPSA01693-Game+(v01.000.100)+[APR-EMU].rar/file"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -34836,8 +34877,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 7516192768,
       "_enrichedAt": "2026-06-22T02:37:08.501138+00:00",
@@ -35136,8 +35177,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
-        "unknown"
+        "unknown",
+        "RAR"
       ],
       "sizeBytes": 3975078396,
       "_enrichedAt": "2026-06-22T12:42:45.856821+00:00",
@@ -35215,7 +35256,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:31.309228+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:42.306434+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG"
     },
@@ -35234,6 +35275,10 @@
         {
           "name": "1file",
           "url": "https://filecrypt.cc/Container/7B9B6CC7CD.html"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/6te2cz"
         },
         {
           "name": "Mediafire",
@@ -35310,10 +35355,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?dal509mc6eumigv4bgmv"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/6te2cz"
         },
         {
           "name": "Viki",
@@ -35831,14 +35872,6 @@
           "url": "https://gofile.io/d/x0qSg9"
         },
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/zsfo3l36z4wv"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/r41io4ijwtl3"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/5pVzN4qZ0m7w/file"
         },
@@ -35849,6 +35882,26 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/650j7o5e5x1a"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/zsfo3l36z4wv"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/r41io4ijwtl3"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/Y2xm01wRn3RO/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/aW9crYnN34"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/qnfulej7o8p5"
         },
         {
           "name": "DLC - 1File",
@@ -35889,18 +35942,6 @@
         {
           "name": "Gofile",
           "url": "https://gofile.io/d/NHfxpg"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/Y2xm01wRn3RO/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/aW9crYnN34"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/qnfulej7o8p5"
         },
         {
           "name": "DLC - Multihosts",
@@ -35971,6 +36012,10 @@
       "description": "Format: exFAT · PKG\nTags: PPSA01461, v01.013.002, 1.xx and beyond., EUR\nSize: 88GB\nPassword: SuperPSX\nFW Required: 1.xx and beyond.\nVoices: French (France), English, Italian, German\nWorks on 1.xx and higher",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/sz3nbY"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/70XfU"
         },
@@ -35993,10 +36038,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/xwg1ev1zggf9"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/sz3nbY"
         },
         {
           "name": "Akia",
@@ -36671,12 +36712,32 @@
           "url": "https://datavaults.co/v2e6b4ddq4u2"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/9zW6FLVEd9"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/haxe3he399w3"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/3bfen1djgf3t"
         },
         {
           "name": "Vault",
           "url": "https://datavaults.co/khwbrxcqz1em"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/jJD3VL8KEGa5/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/8I1HNZw4xE"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/q1ng2y4s3d03"
         },
         {
           "name": "Filek",
@@ -36713,26 +36774,6 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/gXeGOoWXPGAa/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/9zW6FLVEd9"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/haxe3he399w3"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/jJD3VL8KEGa5/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/8I1HNZw4xE"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/q1ng2y4s3d03"
         }
       ],
       "downloadSource": "https://dlpsgame.com/metal-gear-solid-master-collection-vol-1-ps5/",
@@ -36929,24 +36970,16 @@
           "url": "https://1fichier.com/?66h315f8hrbb1fgn3n4d"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/O9DNBlaYa5"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?abi3ouhajswtj1af63d9"
         },
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/21fm2ny8qkoz"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/le7gsgzr1jrk"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/i6r8ro0qsuvp"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/18wm4lskcrk9"
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/p6swerx5etln"
         },
         {
           "name": "Akia",
@@ -36961,6 +36994,34 @@
           "url": "https://datanodes.to/ty0yi7u1i0ve"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/21fm2ny8qkoz"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/le7gsgzr1jrk"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/wgWGqMweQG4o/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/3Yep5tbUll"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/7a71e2hxa4ii"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/i6r8ro0qsuvp"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/18wm4lskcrk9"
+        },
+        {
           "name": "Rootz",
           "url": "https://rootz.so/d/CxRJI"
         },
@@ -36971,14 +37032,6 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/Y2xm01gDq3RO/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/O9DNBlaYa5"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/p6swerx5etln"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -37020,16 +37073,16 @@
       "description": "Format: Backport 5.50\nTags: PPSA19383, v1.008, 9.xx\nSize: 90 GB",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/l7ohBv"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/k9sJwnpCVE"
         },
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/9k9e2l1rehd0"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/l7ohBv"
         }
       ],
       "downloadSource": "https://dlpsgame.com/metro-awakening-ps5/",
@@ -37489,7 +37542,7 @@
       "formatLabel": "PKG · Backport 4.xx"
     },
     {
-      "titleId": "GAME_98485",
+      "titleId": "GAME_70928",
       "title": "Minecraft Legends",
       "version": "01.013",
       "category": "game",
@@ -37580,7 +37633,7 @@
           "Massively Multiplayer"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:31.490244+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:44.636750+00:00",
       "_igdbMatched": false,
       "formatLabel": "Backport 4.xx"
     },
@@ -37986,7 +38039,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:17.411645+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Backport 4.xx"
     },
     {
@@ -38050,20 +38103,12 @@
       "description": "Format: Folder\nTags: PPSA24191, v1.041.040, 9.xx",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?pkyx4dcy04gto9x61c1w"
-        },
-        {
-          "name": "Viki",
-          "url": "https://filecrypt.cc/Container/140D5DDC2D.html"
-        },
-        {
-          "name": "1file",
-          "url": "https://filecrypt.cc/Container/E8C38F5FFE.html"
-        },
-        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/yXPQvngTaj"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?pkyx4dcy04gto9x61c1w"
         },
         {
           "name": "Buzz",
@@ -38072,6 +38117,14 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?ofnrotmyo8xq7m20x9c4"
+        },
+        {
+          "name": "Viki",
+          "url": "https://filecrypt.cc/Container/140D5DDC2D.html"
+        },
+        {
+          "name": "1file",
+          "url": "https://filecrypt.cc/Container/E8C38F5FFE.html"
         },
         {
           "name": "Viki",
@@ -38106,7 +38159,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:17.635771+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Folder"
     },
     {
@@ -38323,6 +38376,10 @@
           "url": "https://akirabox.com/k0embjRP8mVb/file"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/YigRaBEk3R"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?kexsofgf7o3osscbq5an"
         },
@@ -38385,10 +38442,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?0h4upbajjykionf4m3fk&af=4186346"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/YigRaBEk3R"
         }
       ],
       "downloadSource": "https://dlpsgame.com/morbid-the-lords-of-ire-ps5/",
@@ -38535,14 +38588,6 @@
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/l76mZ7Wk93an/file"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/uh730my3v73b"
-        },
-        {
-          "name": "Akia",
           "url": "https://akirabox.com/qLQ36x7PlG19/file"
         },
         {
@@ -38552,6 +38597,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/czmjw3g4yv0o"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/l76mZ7Wk93an/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/uh730my3v73b"
         },
         {
           "name": "Backport - Akia",
@@ -38998,7 +39051,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:20.340367+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA05760",
@@ -39512,6 +39565,10 @@
       "description": "Format: APR-EMU\nTags: PPSA24156, v1.010\nSize: 25 GB",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/KNllE9"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1l3MjA"
         },
@@ -39530,10 +39587,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/crcpwgc0ti61"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/KNllE9"
         }
       ],
       "downloadSource": "https://dlpsgame.com/my-first-gran-turismo-ps5/",
@@ -39570,14 +39623,6 @@
       "description": "Format: exFAT · PKG · Backport 7.xx\nTags: PPSA09904, v1.001.100, 7.xx, USA\nSize: 1 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files, drakmor for ampr-emu and kerrdec97 for the BackPort.",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/V3jd2"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/QN9mEZ7MZ36d/file"
-        },
-        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/gGGizxOikc"
         },
@@ -39592,6 +39637,14 @@
         {
           "name": "Vault",
           "url": "https://datavaults.co/dhsdicfumegg"
+        },
+        {
+          "name": "Backport - Akia",
+          "url": "https://akirabox.com/QN9mEZ7MZ36d/file"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/V3jd2"
         },
         {
           "name": "Viki",
@@ -40499,12 +40552,8 @@
       "description": "Format: exFAT · PKG\nTags: PPSA16786, v1.007, 9.xx, EUR\nSize: 20GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and drakmor for DLC Emu",
       "downloadLinks": [
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/9QWmpoBbJGEB/file"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/gvnpxhlxr3v4"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1YhF0S"
         },
         {
           "name": "Akia",
@@ -40519,8 +40568,12 @@
           "url": "https://datanodes.to/wigj8qccvmz8"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1YhF0S"
+          "name": "Akia",
+          "url": "https://akirabox.com/9QWmpoBbJGEB/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/gvnpxhlxr3v4"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -40585,12 +40638,12 @@
       "description": "Tags: PPSA34823, v1.001",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?kkoztwkczfhywb7muy38"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/1XOjCq"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?kkoztwkczfhywb7muy38"
         }
       ],
       "downloadSource": "https://dlpsgame.com/new-super-luckys-tale-ps5/",
@@ -41536,8 +41589,12 @@
       "description": "Format: APR-EMU · Backport 5.xx\nTags: PPSA32785, v1.040.020",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?7t22dudi19hfs09a8tiw"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/fAPI0"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/skgc8h21yvk5utw/[DLPSGAME.COM]-01.040.020+PPSA32785.part01.rar/file"
         },
         {
           "name": "Akia",
@@ -41548,16 +41605,12 @@
           "url": "https://vikingfile.com/f/YgFguZLPjm"
         },
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?7t22dudi19hfs09a8tiw"
+        },
+        {
           "name": "Buzz",
           "url": "https://buzzheavier.com/h8vsizkd7ca2"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/fAPI0"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/skgc8h21yvk5utw/[DLPSGAME.COM]-01.040.020+PPSA32785.part01.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/nioh-3-ps5/",
@@ -41566,9 +41619,9 @@
       ],
       "fileFormat": [
         "APR-EMU",
+        "RAR",
         "Backport 5.xx",
-        "Backport 10.xx",
-        "RAR"
+        "Backport 10.xx"
       ],
       "sizeBytes": 10630044057,
       "_enrichedAt": "2026-06-22T12:43:13.213972+00:00",
@@ -41667,18 +41720,6 @@
       "description": "Format: PKG · APR-EMU\nTags: PPSA02110, v06.024, USA\nSize: 26 GB\nPassword: SuperPSX\nVoices: English, French (France), Portuguese (Brazil), Spanish (Mexico)",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/aX42y"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/lvnle4xp2a3z4zb/[DLPSGAME.COM]-PPSA02110.part1.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/Pbe3P4LWL3lX/file"
-        },
-        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/JlnlT2AZG3"
         },
@@ -41693,6 +41734,18 @@
         {
           "name": "Gofile",
           "url": "https://gofile.io/d/pZCZBD"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/aX42y"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/lvnle4xp2a3z4zb/[DLPSGAME.COM]-PPSA02110.part1.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/Pbe3P4LWL3lX/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/no-mans-sky-ps5/",
@@ -41898,7 +41951,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:28.727511+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA02118",
@@ -42087,8 +42140,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "unknown",
-        "RAR"
+        "RAR",
+        "unknown"
       ],
       "sizeBytes": 4693372590,
       "_enrichedAt": "2026-06-22T12:43:15.042369+00:00",
@@ -42325,9 +42378,9 @@
         "superpsx.com"
       ],
       "fileFormat": [
+        "unknown",
         "RAR",
-        "PKG",
-        "unknown"
+        "PKG"
       ],
       "sizeBytes": 1073741824,
       "_enrichedAt": "2026-06-22T12:43:16.469088+00:00",
@@ -42600,8 +42653,8 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
-        "unknown"
+        "unknown",
+        "RAR"
       ],
       "sizeBytes": 4087656392,
       "_enrichedAt": "2026-06-22T12:43:17.593601+00:00",
@@ -43969,6 +44022,10 @@
           "url": "https://www.rootz.so/d/PAdH6"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/WebyQX1SAB"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/qLQ36xZrYG19/file"
         },
@@ -44007,10 +44064,6 @@
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/6w75ptwx2mcz3bo/5XX+PPSA10872+%E2%80%93+USA+V1.08++Persona+3+Reload+By+BADERLINK-[DLPSGAME.COM].zip/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/WebyQX1SAB"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -44088,7 +44141,7 @@
           "Educational"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:31.500604+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:45.526493+00:00",
       "_igdbMatched": false
     },
     {
@@ -44298,10 +44351,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA17949, v1.003, 7.xx, EUR\nSize: 8GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA & boredslappy for the Files",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/ICzsu"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/qLQ36K6v7z19/file"
         },
@@ -44312,6 +44361,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/b292y9s63o4r"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/ICzsu"
         }
       ],
       "downloadSource": "https://dlpsgame.com/plumbers-dont-wear-ties-definitive-edition-ps5/",
@@ -44334,7 +44387,7 @@
         "released": "2021-10-27",
         "genres": []
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:31.781423+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:45.526519+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG"
     },
@@ -44381,6 +44434,10 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?26z378nocgcmeafhy7h5"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/YYWk5ocAx1"
         },
         {
           "name": "Akia",
@@ -44477,10 +44534,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/tgjt1gkwc1m8"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/YYWk5ocAx1"
         },
         {
           "name": "Mediafire",
@@ -44677,10 +44730,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/xy4ln419i3dmsvv/01.002+PPSA20591-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/1me2s3v7uohiewa/4_xx+PPSA20591_–_EUR_V1_02_Poppy_Playtime_Chapter_1_Backport_-[DLPSGAME.COM].zip/file"
         },
         {
@@ -44718,6 +44767,10 @@
         {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/145hp2"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/xy4ln419i3dmsvv/01.002+PPSA20591-[DLPSGAME.COM].rar/file"
         },
         {
           "name": "Akia",
@@ -44771,10 +44824,10 @@
       ],
       "fileFormat": [
         "Folder",
-        "RAR",
         "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 32212254720,
@@ -45207,6 +45260,10 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/88y7wlkw02ucqag/01.000+PPSA24152-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/3sbv0m83ut0ga6f/Backport_4+PPSA24152_–_JPN_01_000_Potionomics_Masterwork_Edition_-[DLPSGAME.COM].zip/file"
         },
         {
@@ -45283,10 +45340,6 @@
         },
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/88y7wlkw02ucqag/01.000+PPSA24152-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/3sbv0m83ut0ga6f/Backport_4+PPSA24152_%E2%80%93_JPN_01_000_Potionomics_Masterwork_Edition_-[DLPSGAME.COM].zip/file"
         },
         {
@@ -45301,11 +45354,11 @@
       ],
       "fileFormat": [
         "Folder",
+        "RAR",
         "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 6442450944,
       "_enrichedAt": "2026-06-22T12:43:25.250929+00:00",
@@ -45549,6 +45602,10 @@
         },
         {
           "name": "Akia",
+          "url": "https://akirabox.com/QN9mEa107m6d/file"
+        },
+        {
+          "name": "Akia",
           "url": "https://akirabox.com/0JgG7l5YKmoY/file"
         },
         {
@@ -45558,10 +45615,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?o7p53hyoae1ylx5du5yp"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/QN9mEa107m6d/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/prince-of-persia-the-lost-crown-ps5/",
@@ -45723,10 +45776,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/q78ybxmgqldz5lv/[DLPSGAME.COM]-PPSA09477-app0.rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/u91zsqlk8u23xaw/[DLPSGAME.COM]-PPSA09477++Backport+4.xx+By+baderlink.zip/file"
         },
         {
@@ -45744,6 +45793,10 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/1AcWLQ"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/q78ybxmgqldz5lv/[DLPSGAME.COM]-PPSA09477-app0.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/quake-2-ps5/",
@@ -45751,9 +45804,9 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
         "ZIP",
-        "Backport 4.xx"
+        "Backport 4.xx",
+        "RAR"
       ],
       "sizeBytes": 12861319,
       "_enrichedAt": "2026-06-22T12:43:28.878025+00:00",
@@ -48133,7 +48186,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:35.559302+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:45.526526+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG"
     },
@@ -48813,28 +48866,16 @@
       "description": "Format: exFAT · PKG\nTags: PPSA01374, v1.000, 3.xx, USA\nSize: 32GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/5cyuj2s5omq2"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/2Bptom"
         },
         {
-          "name": "Vault",
-          "url": "https://datavaults.co/f1rj0dd4imb0"
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/d24vqoco26vywze/[DLPSGAME.COM]-PPSA01374-app0.part1.rar/file"
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/Zvqzl9XAyGaD/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/AiBbnBa9a8"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/twe5s87tzdyo"
-        },
-        {
-          "name": "Multihost",
-          "url": "https://www.keepshield.org/safe/48ef0b91"
+          "url": "https://akirabox.com/rk9zKRqQq30l/file"
         },
         {
           "name": "Viki",
@@ -48849,16 +48890,28 @@
           "url": "https://buzzheavier.com/4mh0e6fjik9e"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/2Bptom"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/d24vqoco26vywze/[DLPSGAME.COM]-PPSA01374-app0.part1.rar/file"
-        },
-        {
           "name": "Akia",
-          "url": "https://akirabox.com/rk9zKRqQq30l/file"
+          "url": "https://akirabox.com/Zvqzl9XAyGaD/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/AiBbnBa9a8"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/twe5s87tzdyo"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/5cyuj2s5omq2"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/f1rj0dd4imb0"
+        },
+        {
+          "name": "Multihost",
+          "url": "https://www.keepshield.org/safe/48ef0b91"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -48870,8 +48923,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 34359738368,
       "_enrichedAt": "2026-06-22T02:37:49.160226+00:00",
@@ -49046,7 +49099,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:56:26.618366+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA09845",
@@ -49057,44 +49110,8 @@
       "description": "Format: exFAT · PKG · Backport 7.xx\nTags: PPSA09845, v1.009.610, 7.xx, 9.xx, USA\nSize: 55 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, drakmor for ampr-emu, kerrdec97 for the BackPort and Pkykzhack for DLCs.",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/eeLMO"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/lbj3g3b0e5n01bk/[DLPSGAME.COM]-PPSA09845.part1.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/RMKGJQeDWz1o/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/HhTGjnbQCa"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?p6kmw55fs4qzaghjoybx"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/hcs6z04rh5m2"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/P05JVL"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/EL73g0e48z9B/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/YxeiqVPYTc"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/2cegd5ys7dw1"
         },
         {
           "name": "Filek",
@@ -49123,6 +49140,42 @@
         {
           "name": "Backport - backport7xx_vault",
           "url": "https://pippo26442999.github.io/library-decrypt/decrypt-public.html#eyJ2IjoiMC4wLjEiLCJlIjoiYWU1OExEWFFBaDF5M0U4TEhjMmtjZTY5bWxCd0lCTlVNUnBuQzRscm5wZEJDUUsvNWloMWtiMDNsdWZCSFE4VUtyM3V0c1hGb3AzMUhJVldPMU9saXN5cEtUUU1TUT09IiwiaSI6IkF2TEl6b1BsSXVFSGVuclQiLCJuIjoiVmF1bHQifQ=="
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/eeLMO"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/lbj3g3b0e5n01bk/[DLPSGAME.COM]-PPSA09845.part1.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/RMKGJQeDWz1o/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/HhTGjnbQCa"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?p6kmw55fs4qzaghjoybx"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/hcs6z04rh5m2"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/EL73g0e48z9B/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/YxeiqVPYTc"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/2cegd5ys7dw1"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -49134,9 +49187,9 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
         "Backport 7.xx",
         "Backport",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 59055800320,
@@ -49763,6 +49816,10 @@
       "description": "Format: exFAT · PKG\nTags: PPSA10050, v1.000, 6.xx, USA\nSize: 9GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/m7Rz6"
+        },
+        {
           "name": "Filek",
           "url": "https://filekeeper.net/cfg7d5vgla6s"
         },
@@ -49793,10 +49850,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?lqtp5k2g1xbikws38wgr"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/m7Rz6"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -49838,6 +49891,14 @@
       "description": "Format: exFAT · PKG · Backport\nTags: PPSA02813, v1.017, 4.xx, EUR\nSize: 75 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, drakmor for ampr-emu with dlc-emu and BestPig for the BackPort",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/HTpZaG"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/ywdtx9j0cnyu"
+        },
+        {
           "name": "Rootz",
           "url": "https://rootz.so/d/CMUhE"
         },
@@ -49862,20 +49923,12 @@
           "url": "https://buzzheavier.com/3u8au4yph0mn"
         },
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/HTpZaG"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/RMKGJQD9Vz1o/file"
         },
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/Hl3gavJbUL"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/ywdtx9j0cnyu"
         }
       ],
       "downloadSource": "https://dlpsgame.com/saints-row-ps5/",
@@ -49886,8 +49939,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
         "Backport",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 80530636800,
@@ -50579,6 +50632,14 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA26092, v1.002, 4.xx, 5.xx, EUR\nSize: 59GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & SiESPta for the Files with DLCs and BestPig for the BackPork with Fix",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?hc46nt3421v3f8rp2uia"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/6xeflpdlz7gc"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/qPez4aXqxGOY/file"
         },
@@ -50605,14 +50666,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/N4CE9dQQAG"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?hc46nt3421v3f8rp2uia"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/6xeflpdlz7gc"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -50801,10 +50854,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/uemxw8xkxlu5h2n/01.002+PPSA12500-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ntczymo2fdcaai4/4XX+PPSA12500+–+EUR+V1.02+Seeker+My+Shadow+_By_BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -50836,6 +50885,10 @@
           "url": "https://1fichier.com/?g8q103p2yfojwupbe04j"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/uemxw8xkxlu5h2n/01.002+PPSA12500-[DLPSGAME.COM].rar/file"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/2bJG84L10GOB/file"
         },
@@ -50862,10 +50915,10 @@
         "superpsx.com"
       ],
       "fileFormat": [
-        "RAR",
         "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 5368709120,
@@ -50896,6 +50949,10 @@
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8a29.jpg",
       "description": "Format: Folder · PKG · Backport 4.xx\nTags: PPSA21085, v01.000, USA\nSize: ~Varies by install\nPassword: SuperPSX\nWorks on 8.xx and higher",
       "downloadLinks": [
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/p1k9zaa8u1vkxh5/01.000_PPSA21085-%255BDLPSGAME.COM%255D.rar/file"
+        },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/7gwuh1vbsgl2sjy/PPSA21085+–+EUR+Selfloss+v1.000+Backport+4.xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
@@ -50954,10 +51011,6 @@
         },
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/p1k9zaa8u1vkxh5/01.000_PPSA21085-%255BDLPSGAME.COM%255D.rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/7gwuh1vbsgl2sjy/PPSA21085+%E2%80%93+EUR+Selfloss+v1.000+Backport+4.xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -50972,8 +51025,8 @@
       ],
       "fileFormat": [
         "Folder",
-        "ZIP",
         "RAR",
+        "ZIP",
         "Backport 4.xx",
         "Backport 5.xx",
         "PKG"
@@ -51154,6 +51207,10 @@
           "url": "https://gofile.io/d/ySORiT"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/clegncic63z3wmw/[DLPSGAME.COM]-PPSA20298.rar/file"
+        },
+        {
           "name": "Gofile",
           "url": "https://gofile.io/d/FcrK7y"
         },
@@ -51168,10 +51225,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?3xnu7pulafafmriabt89&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/clegncic63z3wmw/[DLPSGAME.COM]-PPSA20298.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/shadow-labyrinth-ps5/",
@@ -51180,9 +51233,9 @@
         "superpsx.com"
       ],
       "fileFormat": [
+        "RAR",
         "unknown",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 16106127360,
       "_enrichedAt": "2026-06-22T12:43:43.343307+00:00",
@@ -51330,24 +51383,8 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA17858, v1.001, 4.xx, 9.xx, EUR\nSize: 4GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/15v7xo"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?ynemjiaata1uralaf9pt"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/b5Ozdpg9WzB8/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/qbi2PxvWyE"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/srzzmirp6pco"
         },
         {
           "name": "Akia",
@@ -51360,6 +51397,22 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/dez9mqo58f0u"
+        },
+        {
+          "name": "Backport - Akia",
+          "url": "https://akirabox.com/b5Ozdpg9WzB8/file"
+        },
+        {
+          "name": "Backport - Viki",
+          "url": "https://vikingfile.com/f/qbi2PxvWyE"
+        },
+        {
+          "name": "Backport - Data",
+          "url": "https://datanodes.to/srzzmirp6pco"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/15v7xo"
         }
       ],
       "downloadSource": "https://dlpsgame.com/shadows-of-the-damned-hella-remastered-ps5/",
@@ -52240,10 +52293,6 @@
       "description": "Format: exFAT · PKG · Backport\nTags: PPSA21159, v1.001, 4.xx, 9.xx\nSize: 64GB",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?aa6p6txdgu3mcmaq7xqi"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/l8yg4zonusvo62w/[DLPSGAME.COM]-SilentHillf_4xx.rar/file"
         },
@@ -52300,6 +52349,10 @@
           "url": "https://akirabox.com/APVmaBLNw3Xo/file"
         },
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?aa6p6txdgu3mcmaq7xqi"
+        },
+        {
           "name": "Viki",
           "url": "https://shrinkearn.com/full?api=00ca8e6e4054c7078d72481fc3b69790035f9b86&url=aHR0cHM6Ly9maWxlY3J5cHQuY2MvQ29udGFpbmVyLzMyRENENDA4QUIuaHRtbA==&type=2"
         },
@@ -52347,6 +52400,10 @@
       "downloadLinks": [
         {
           "name": "Akia",
+          "url": "https://akirabox.com/M2BGwO5ZRGj4/file"
+        },
+        {
+          "name": "Akia",
           "url": "https://akirabox.com/Xkrzoobw5zBO/file"
         },
         {
@@ -52384,10 +52441,6 @@
         {
           "name": "Fix - 1File",
           "url": "https://1fichier.com/?vqkmt7187ilx4unr0wjs&af=4186346"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/M2BGwO5ZRGj4/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/silent-hill-the-short-message-ps5/",
@@ -53355,12 +53408,20 @@
           "url": "https://www.rootz.so/d/TvjDU"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/b63j7ftiudoap0f/[DLPSGAME.COM]-PPSA17232.part1.rar/file"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/2bJG8047rGOB/file"
         },
         {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/2eufmnz4sf7t"
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/oUM499gwAf"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?evtopafpr3sr08z9sf4h"
         },
         {
           "name": "Gofile",
@@ -53379,16 +53440,8 @@
           "url": "https://datanodes.to/9709b4h1iol5"
         },
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/b63j7ftiudoap0f/[DLPSGAME.COM]-PPSA17232.part1.rar/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/oUM499gwAf"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?evtopafpr3sr08z9sf4h"
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/2eufmnz4sf7t"
         }
       ],
       "downloadSource": "https://dlpsgame.com/sniper-elite-resistance-ps5/",
@@ -53400,10 +53453,10 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
         "Backport",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 64424509440,
       "_enrichedAt": "2026-06-22T02:38:11.822074+00:00",
@@ -53539,6 +53592,30 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA04930, v1.048, 4.xx, 7.xx, USA\nSize: 61 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, drakmor for ampr-emu and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/iMGZWR"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/qj1gwm42gh3k"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/etvamvj6ulnq"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/E9Qz9PAAV3OL/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/29JZ9GyXz5"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/l8vuhc3w74a3"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1rKa3c"
         },
@@ -53561,30 +53638,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/9ym8d917k8ww"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/iMGZWR"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/E9Qz9PAAV3OL/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/29JZ9GyXz5"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/l8vuhc3w74a3"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/qj1gwm42gh3k"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/etvamvj6ulnq"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -53596,9 +53649,9 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
         "Backport 4.xx",
         "Backport",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 65498251264,
@@ -53743,6 +53796,30 @@
       "description": "Format: exFAT · PKG\nTags: PPSA03831, v1.041, 5.xx, USA\nSize: 40 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, Pkykzhack for DLCs and drakmor for ampr-emu",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/Qbfy90"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/tpcsx5ozbhki"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/bselx0no7gma"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/jar3XabJrz2d/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/o0kflhKl9k"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/mx99xnd0pmq4"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/etb3c9skh4uzc6z/[DLPSGAME.COM]-PPSA03831.part1.rar/file"
         },
@@ -53761,30 +53838,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/nafbl9do7v0x"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/Qbfy90"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/jar3XabJrz2d/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/o0kflhKl9k"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/mx99xnd0pmq4"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/tpcsx5ozbhki"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/bselx0no7gma"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -54077,6 +54130,14 @@
           "url": "https://www.mediafire.com/file/13uayu6nvog8xjr/[DLPSGAME.COM]-PPSA06888.rar/file"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/3ondbd2o9xnn"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/nosqensjx2ib"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/b5Ozd2WQOmB8/file"
         },
@@ -54087,14 +54148,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ghcw56val6g2"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/3ondbd2o9xnn"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/nosqensjx2ib"
         },
         {
           "name": "Gofile",
@@ -54140,6 +54193,10 @@
       "description": "Format: PKG · APR-EMU\nTags: PPSA17597, v01.012, USA\nSize: 28GB\nPassword: SuperPSX\nVoices: English, French (France), German, Italian, Japanese, Spanish",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/uac7fa"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/69m9ynsdt0gryjo/[DLPSGAME.COM]-PPSA17597.part1.rar/file"
         },
@@ -54158,10 +54215,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/iy4vohghg6dt"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/uac7fa"
         }
       ],
       "downloadSource": "https://dlpsgame.com/sonic-x-shadow-generations-ps5/",
@@ -55103,14 +55156,6 @@
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA28336, v1.009, 4.xx\nSize: 145 GB\nCredits: Pippo26442999 x SiESPTA PPSA28336 – USA Game (v01.009) : Akia – Viki – Data Pasword: www.DLPSGAME.COM Voice : English, Ukrainian Screen Languages : Arabic, Chinese (Simplified), Chinese (Traditional), Czech, English, French (France), German, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Russian, Spanish, Spanish (Mexico), Turkish, Ukrainian FW REQUIRED: 4.xx and beyond. (BackPort) SIZE: 149GB (exFAT)\nThanks: High-Speed007 for the Files and BestPig for the BackPort",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/MVGaVTWT5y"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/qkfb3rk7wt0u"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/C1IdZh"
         },
@@ -55125,6 +55170,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ervta8jz19j8"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/MVGaVTWT5y"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/qkfb3rk7wt0u"
         },
         {
           "name": "Gofile",
@@ -55177,10 +55230,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA21732, v01.009, 4.xx and beyond. (BackPort), EUR\nSize: 8GB\nPassword: SuperPSX\nFW Required: 4.xx and beyond. (BackPort)\nVoices: English, French (France), Spanish, German, Polish, Ukrainian, Italian\nBackport 4.xx\nWorks on 12.xx to 10.xx",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/1ZrwFE"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/3LYnvn"
         },
@@ -55195,6 +55244,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ej3gmhcsz4h6"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/1ZrwFE"
         },
         {
           "name": "Viki",
@@ -55260,10 +55313,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA21733, v01.009, 4.xx and beyond. (BackPort), EUR\nSize: 5GB\nPassword: SuperPSX\nFW Required: 4.xx and beyond. (BackPort)\nVoices: English, French (France), Spanish, German, Polish, Ukrainian, Italian\nBackport 4.xx\nWorks on 12.xx to 10.xx",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/fS0Ho"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/V7jzNd"
         },
@@ -55278,6 +55327,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/r9qj6iezvvo5"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/fS0Ho"
         },
         {
           "name": "Viki",
@@ -55343,10 +55396,6 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA21734, v1.009, 4.xx, EUR\nSize: 9 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files and BestPig for the BackPort.",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/PKatk"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/uqGFrv"
         },
@@ -55361,6 +55410,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/23hdfpfpcs13"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/PKatk"
         }
       ],
       "downloadSource": "https://dlpsgame.com/stalker-shadow-of-chornobyl-enhan%d1%81ed-edition-ps5/",
@@ -55388,7 +55441,7 @@
           "RPG"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:35.714999+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:45.962680+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -55400,6 +55453,10 @@
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co45km.jpg",
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA06262, v1.000, 4.xx, 5.xx, ASIA\nSize: 81GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPta for the Files and kerrdec97 for the BackPort",
       "downloadLinks": [
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/BOYEUGMI4x"
+        },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/b6etwdeyi6e7cwm/PPSA06262_–_ASIA_V1_00_Star_Ocean_The_Divine_Force_Backport_4_XX-[DLPSGAME.COM].zip/file"
@@ -55451,10 +55508,6 @@
         {
           "name": "Backport - 1File",
           "url": "https://1fichier.com/?9v4l30c5cuznii2ywt5j&af=4186346"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/BOYEUGMI4x"
         },
         {
           "name": "Mediafire",
@@ -55665,6 +55718,10 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA19728, v2.000, 4.xx, 8.xx, USA\nSize: 2 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/2CyDwW"
+        },
+        {
           "name": "Gofile",
           "url": "https://gofile.io/d/kP8EAB"
         },
@@ -55691,10 +55748,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/khe87ljjkcnx"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/2CyDwW"
         }
       ],
       "downloadSource": "https://dlpsgame.com/star-wars-dark-forces-remaster-ps5/",
@@ -55855,18 +55908,6 @@
       "description": "Format: exFAT · PKG · Backport\nTags: PPSA07783, v1.013, 4.xx, USA\nSize: 310 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Speed007 for the Files, drakmor for ampr-emu and BestPig for the BackPort",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/j5QXl8Yb3u"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?9yctm8ibs3vlkao8d088"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/bd1r4ge80rl4"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/Sek8Er"
         },
@@ -55885,6 +55926,18 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/75wyd0arxmwt"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/j5QXl8Yb3u"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?9yctm8ibs3vlkao8d088"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/bd1r4ge80rl4"
         },
         {
           "name": "Rootz",
@@ -56535,6 +56588,18 @@
       "description": "Format: exFAT · APR-EMU · Backport 4.xx\nTags: PPSA13197, v1.014.001, 4.xx, 9.xx, JPN\nSize: 90 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPta for the Files, drakmor for ampr with dlc-emu and BestPig for the BackPort.",
       "downloadLinks": [
         {
+          "name": "Viki",
+          "url": "https://filecrypt.cc/Container/DA3F202918.html"
+        },
+        {
+          "name": "1file",
+          "url": "https://filecrypt.cc/Container/82C6A1C40A.html"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?qeed4rt05huu4qh9tana"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1mQSUy"
         },
@@ -56559,14 +56624,6 @@
           "url": "https://buzzheavier.com/k5nuq74pxj7o"
         },
         {
-          "name": "Viki",
-          "url": "https://filecrypt.cc/Container/DA3F202918.html"
-        },
-        {
-          "name": "1file",
-          "url": "https://filecrypt.cc/Container/82C6A1C40A.html"
-        },
-        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1OsE0O"
         },
@@ -56581,10 +56638,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/Ovt8OnCsBJ"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?qeed4rt05huu4qh9tana"
         },
         {
           "name": "Buzz",
@@ -56614,8 +56667,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
-        "Backport 4.xx"
+        "Backport 4.xx",
+        "RAR"
       ],
       "sizeBytes": 96636764160,
       "_enrichedAt": "2026-06-28T21:35:01.676526+00:00",
@@ -57366,6 +57419,14 @@
       "description": "Format: exFAT · Folder · Backport 5.xx\nTags: PPSA28835, v1.003, 5.xx, EUR\nSize: 33GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & SiESPta for the Files with DLCs and BestPig & Fubc for the BackPort",
       "downloadLinks": [
         {
+          "name": "1File",
+          "url": "https://1fichier.com/?1b0bueo8m0w6tyypc4gf"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/N2p3DQ44kzMa/file"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/E1x3A8K1rmyk/file"
         },
@@ -57374,20 +57435,12 @@
           "url": "https://datanodes.to/tlqxfh1r3lzi"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/N2p3DQ44kzMa/file"
-        },
-        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/PCi41Zoztq"
         },
         {
           "name": "Data",
           "url": "https://datanodes.to/x6aizd2ma2ad"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?1b0bueo8m0w6tyypc4gf"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -57428,10 +57481,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA02453, v1.022.394, 4.xx, EUR\nSize: 6 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and drakmor for ampr-emu.",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/SysU4"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/jsl9xe5glwmd"
         },
@@ -57450,6 +57499,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/fu8uxx8s5x5q"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/SysU4"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -57618,6 +57671,30 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA02182, v1.024, 4.xx, 7.xx, USA\nSize: 89 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, drakmor for ampr-emu and ps3120 for the BackPort.",
       "downloadLinks": [
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/nYhwt5"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/ex6zo4vdpuqn"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/f8two9uecr7f"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/BnkmW40Wa3R0/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/uo8nL0zCbX"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/4yb91ap7a0w9"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/fqaAK"
         },
@@ -57640,30 +57717,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/a0m2f5pj215a"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/nYhwt5"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/BnkmW40Wa3R0/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/uo8nL0zCbX"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/4yb91ap7a0w9"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/ex6zo4vdpuqn"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/f8two9uecr7f"
         }
       ],
       "downloadSource": "https://dlpsgame.com/suicide-squad-kill-the-justice-league-ps5/",
@@ -57675,10 +57728,10 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
         "Backport 4.xx",
         "Backport 7.xx",
         "Backport",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 236223201280,
@@ -58237,7 +58290,7 @@
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
     {
-      "titleId": "GAME_67423",
+      "titleId": "GAME_94694",
       "title": "Sword Art Online Fractured Daydream",
       "version": "01.000",
       "category": "game",
@@ -58288,7 +58341,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:56:56.798037+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA06958",
@@ -58363,8 +58416,12 @@
           "url": "https://1fichier.com/?j62rxxpcm3tfqmwbblxm"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/FCP3qJMRzG"
+          "name": "Akia",
+          "url": "https://akirabox.com/0rpmvLA87zRg/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/wp02ovm56ie9"
         },
         {
           "name": "Akia",
@@ -58379,12 +58436,8 @@
           "url": "https://datanodes.to/acdqlxlbm28f"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/0rpmvLA87zRg/file"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/wp02ovm56ie9"
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/FCP3qJMRzG"
         },
         {
           "name": "Mediafire",
@@ -58547,10 +58600,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/mnjg4s9axgbs6xw/PPSA06323-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/puz3xonvsqymz00/Syphon+Filter+v01.003+Backport+5.xx+By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -58572,6 +58621,10 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?so9assk8bab3sur8ak9w"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/mnjg4s9axgbs6xw/PPSA06323-[DLPSGAME.COM].rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/syphon-filter-ps5/",
@@ -58579,10 +58632,10 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx"
+        "Backport 5.xx",
+        "RAR"
       ],
       "sizeBytes": 4294967296,
       "_enrichedAt": "2026-06-22T12:43:54.562204+00:00",
@@ -58732,6 +58785,10 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/7r64s6rcylg33hj/PPSA09509-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/qmsfte4y2cdvziz/4XX+PPSA09509+–+USA+V1.00+System+of+Souls++By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -58772,10 +58829,6 @@
         },
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/7r64s6rcylg33hj/PPSA09509-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/qmsfte4y2cdvziz/4XX+PPSA09509+%E2%80%93+USA+V1.00+System+of+Souls++By+BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -58788,10 +58841,10 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
+        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx",
-        "RAR"
+        "Backport 5.xx"
       ],
       "sizeBytes": 3221225472,
       "_enrichedAt": "2026-06-22T12:43:55.054146+00:00",
@@ -58923,6 +58976,10 @@
         },
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/pencfr3upfztrj9/01.008+PPSA03841-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/12vgteza0qdlas0/PPSA03841_–_ASIA_V1_008_Tactics_Ogre_Reborn_Backport_4_XX_By_BADERLINK-[DLPSGAME.COM].zip/file"
         },
         {
@@ -58938,18 +58995,6 @@
           "url": "https://www.rootz.so/d/1jb5cm"
         },
         {
-          "name": "Viki",
-          "url": "https://clk.sh/full?api=1a83dc23a56e37f8d4635da35fc71e6a9e912db2&url=aHR0cHM6Ly9maWxlY3J5cHQuY2MvQ29udGFpbmVyLzM3N0M4QkNDQ0IuaHRtbA==&type=2"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/pencfr3upfztrj9/01.008+PPSA03841-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/12vgteza0qdlas0/PPSA03841_%E2%80%93_ASIA_V1_008_Tactics_Ogre_Reborn_Backport_4_XX_By_BADERLINK-[DLPSGAME.COM].zip/file"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/7d5GLlEO7GxR/file"
         },
@@ -58960,6 +59005,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/dj1bc9o06k51"
+        },
+        {
+          "name": "Viki",
+          "url": "https://clk.sh/full?api=1a83dc23a56e37f8d4635da35fc71e6a9e912db2&url=aHR0cHM6Ly9maWxlY3J5cHQuY2MvQ29udGFpbmVyLzM3N0M4QkNDQ0IuaHRtbA==&type=2"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/12vgteza0qdlas0/PPSA03841_%E2%80%93_ASIA_V1_008_Tactics_Ogre_Reborn_Backport_4_XX_By_BADERLINK-[DLPSGAME.COM].zip/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/tactics-ogre-reborn-ps5/",
@@ -58968,9 +59021,9 @@
       ],
       "fileFormat": [
         "exFAT",
+        "RAR",
         "ZIP",
-        "Backport 4.xx",
-        "RAR"
+        "Backport 4.xx"
       ],
       "sizeBytes": 8589934592,
       "_enrichedAt": "2026-06-22T12:43:56.064821+00:00",
@@ -59137,7 +59190,7 @@
           "Casual"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:35.791206+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:45.967361+00:00",
       "_igdbMatched": false
     },
     {
@@ -59377,14 +59430,6 @@
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/b5Ozd2BkymB8/file"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/jc132lvkv7bh"
-        },
-        {
-          "name": "Akia",
           "url": "https://akirabox.com/1RgzR4jLPmbp/file"
         },
         {
@@ -59394,6 +59439,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/oo6kujray5by"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/b5Ozd2BkymB8/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/jc132lvkv7bh"
         },
         {
           "name": "Viki",
@@ -59483,7 +59536,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:00.779678+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Backport 4.xx"
     },
     {
@@ -61014,14 +61067,6 @@
           "url": "https://www.rootz.so/d/1veQMK"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/NH47NcbehW"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/wBd0nG"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/qw1ze9AQezXy/file"
         },
@@ -61036,6 +61081,14 @@
         {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/r1tOC"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/NH47NcbehW"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/wBd0nG"
         },
         {
           "name": "Akia",
@@ -61818,10 +61871,6 @@
       "description": "Format: exFAT · PKG\nTags: PPSA04312, v1.000, 3.xx, EUR\nSize: 7GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/1QrNmi"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/0JgG7PjEnmoY/file"
         },
@@ -61832,6 +61881,10 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/8jmu4nwxu2qc"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/1QrNmi"
         }
       ],
       "downloadSource": "https://dlpsgame.com/the-dungeon-of-naheulbeuk-the-amulet-of-chaos-ps5/",
@@ -62100,7 +62153,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:07.460774+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Backport 4.xx"
     },
     {
@@ -62169,7 +62222,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:36.126803+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:46.089858+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport 4.xx"
     },
@@ -62184,10 +62237,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?3kdrccxh79dd6v4f6xq7"
-        },
-        {
-          "name": "1File",
-          "url": "https://1fichier.com/?iheejk3k7vs49vu0tqsv"
         },
         {
           "name": "Mediafire",
@@ -62256,6 +62305,10 @@
         {
           "name": "Akia",
           "url": "https://akirabox.com/ZvqzlvOEamaD/file"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?iheejk3k7vs49vu0tqsv"
         },
         {
           "name": "Viki",
@@ -63615,7 +63668,7 @@
           "Shooter"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:36.497199+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212709+00:00",
       "_igdbMatched": false
     },
     {
@@ -63767,10 +63820,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/isfq78zdaort28t/01.000+PPSA24643-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/xibso3innmclmfa/[DLPSGAME.COM]-PPSA24651-app0.rar/file"
         },
         {
@@ -63788,6 +63837,10 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/OkYUa"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/isfq78zdaort28t/01.000+PPSA24643-[DLPSGAME.COM].rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/the-messenger-free-ps5/",
@@ -64433,6 +64486,10 @@
           "url": "https://1fichier.com/?ldwlv0markuxuwjaxtz5"
         },
         {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/bri12feki48t"
+        },
+        {
           "name": "Transit",
           "url": "https://transfer.it/t/tOxDrP5lmLIR"
         },
@@ -64467,10 +64524,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?6wy1co1gu2yhsc7khxup"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/bri12feki48t"
         },
         {
           "name": "Rootz",
@@ -64534,6 +64587,10 @@
           "url": "https://gofile.io/d/YC7CjI"
         },
         {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/e8gphizwwd3wj9m/[DLPSGAME.COM]-PPSA17732.rar/file"
+        },
+        {
           "name": "Gofile",
           "url": "https://gofile.io/d/lnANMf"
         },
@@ -64544,10 +64601,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?ajj5d5em7y7xc7fwi45m&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/e8gphizwwd3wj9m/[DLPSGAME.COM]-PPSA17732.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/the-precinct-ps5/",
@@ -64556,9 +64609,9 @@
         "superpsx.com"
       ],
       "fileFormat": [
+        "RAR",
         "unknown",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 9663676416,
       "_enrichedAt": "2026-06-22T12:44:20.138283+00:00",
@@ -65345,7 +65398,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:38.827791+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212736+00:00",
       "_igdbMatched": false,
       "formatLabel": "Backport 4.xx"
     },
@@ -65624,6 +65677,14 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA29986, v1.000, 4.xx\nSize: 30GB\nCredits: Pippo26442999 x SiESPTA PPSA29986 – EUR Game (v01.000) : Akia – Viki – Data Password: DLPSGAME.COM Voice : English Screen languages : German, Simplified Chinese, Traditional Chinese, Spanish, French (France), English, Italian, Japanese, Polish, Portuguese (Brazil), Russian FW REQUIRED: 4.xx and beyond. (BackPort) SIZE: 30GB (exFAT)\nThanks: SiESPTA & DUPLEX for the Files and BestPig for the BackPort",
       "downloadLinks": [
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/hjayIe0j2a"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/lgyeixot0m2i"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/qw1zeY6MjzXy/file"
         },
@@ -65634,14 +65695,6 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/y0wfgyegqcfl"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/lgyeixot0m2i"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/hjayIe0j2a"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -66155,7 +66208,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:39.139138+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212743+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -66495,6 +66548,10 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA06899, v1.017, 4.xx, 9.xx\nSize: 72GB\nThanks: SiESPta & DUPLEX for the Files,Psykzhack for DLCs and BestPig for the BackPort",
       "downloadLinks": [
         {
+          "name": "Akia",
+          "url": "https://akirabox.com/Pbe3P14kKzlX/file"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/qk4kesqs59h6r6m/[DLPSGAME.COM]-4xx[PPSA06899][01.017.000].rar/file"
         },
@@ -66525,6 +66582,10 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?6ub3jfjielkwv8tm0gqc"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/NUCki"
         },
         {
           "name": "Akia",
@@ -66581,14 +66642,6 @@
         {
           "name": "DLC - 1File",
           "url": "https://1fichier.com/?nph3yzw1rws4lap6qswb&af=4186346"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/Pbe3P14kKzlX/file"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/NUCki"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -66768,8 +66821,28 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA17322, v01.006, 4.xx and beyond. (BackPort), EUR\nSize: 49 GB\nPassword: SuperPSX\nFW Required: 4.xx and beyond. (BackPort)\nVoices: English\nBackport 4.xx\nWorks on 10.xx and higher",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/8aNU0"
+        },
+        {
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/avw8ojw3rj4vdys/[DLPSGAME.COM]-01.006+PPSA17322+FIXED.part1.rar/file"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/LK0G1y5AdG91/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/CVB88SKtRf"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?0ogtpojrb41srhhytu76"
+        },
+        {
+          "name": "Buzz",
+          "url": "https://buzzheavier.com/td3l5eivmhoa"
         },
         {
           "name": "Akia",
@@ -66806,26 +66879,6 @@
         {
           "name": "Backport - 1File",
           "url": "https://1fichier.com/?zoyfqn14hwkc4tdm333c&af=4186346"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/8aNU0"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/CVB88SKtRf"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/avw8ojw3rj4vdys/[DLPSGAME.COM]-01.006+PPSA17322+FIXED.part1.rar/file"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/LK0G1y5AdG91/file"
-        },
-        {
-          "name": "Buzz",
-          "url": "https://buzzheavier.com/td3l5eivmhoa"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -66836,9 +66889,9 @@
       ],
       "fileFormat": [
         "exFAT",
+        "RAR",
         "Backport 4.xx",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 52613349376,
       "_enrichedAt": "2026-06-22T02:38:58.231734+00:00",
@@ -66867,12 +66920,12 @@
       "description": "Tags: PPSA32393, v1.002.002",
       "downloadLinks": [
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?0906cwhnxiilzf5ong9z"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/1TMsPQ"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?0906cwhnxiilzf5ong9z"
         }
       ],
       "downloadSource": "https://dlpsgame.com/total-chaos-ps5/",
@@ -67036,6 +67089,34 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA26576, v1.007, 4.xx, USA\nSize: 47GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX for the Files and BestPig for the BackPort",
       "downloadLinks": [
         {
+          "name": "Viki",
+          "url": "https://filecrypt.cc/Container/96B9B1825A.html"
+        },
+        {
+          "name": "Transit",
+          "url": "https://transfer.it/t/kmiWCOoz3RBQ"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/rk4uVZm9CZ"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/ivkc1edj4rv9"
+        },
+        {
+          "name": "Filek",
+          "url": "https://filekeeper.net/oihml2ppi5ya"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/k079rrsl54x6"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/vgKGxQ709m8Q/file"
+        },
+        {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/1ktYQa"
         },
@@ -67054,34 +67135,6 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/ahrp4pp849to"
-        },
-        {
-          "name": "Viki",
-          "url": "https://filecrypt.cc/Container/96B9B1825A.html"
-        },
-        {
-          "name": "Transit",
-          "url": "https://transfer.it/t/kmiWCOoz3RBQ"
-        },
-        {
-          "name": "Filek",
-          "url": "https://filekeeper.net/oihml2ppi5ya"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/k079rrsl54x6"
-        },
-        {
-          "name": "Akia",
-          "url": "https://akirabox.com/vgKGxQ709m8Q/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/rk4uVZm9CZ"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/ivkc1edj4rv9"
         },
         {
           "name": "Viki",
@@ -67129,8 +67182,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "RAR",
         "Backport 4.xx",
+        "RAR",
         "PKG"
       ],
       "sizeBytes": 50465865728,
@@ -67510,7 +67563,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:27.560306+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "Folder · Backport 4.xx"
     },
     {
@@ -68317,16 +68370,16 @@
           "url": "https://akirabox.com/l5YzM4baO3yO/file"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/cytKfdNesT"
-        },
-        {
           "name": "Filek",
           "url": "https://filekeeper.net/wv4jlfoemf86"
         },
         {
           "name": "Vault",
           "url": "https://datavaults.co/dixa0rnp1rv9"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/cytKfdNesT"
         }
       ],
       "downloadSource": "https://dlpsgame.com/turok-trilogy-bundle-ps5/",
@@ -68346,17 +68399,13 @@
       "formatLabel": "exFAT · APR-EMU · Backport 4.xx"
     },
     {
-      "titleId": "GAME_15538",
+      "titleId": "GAME_42954",
       "title": "Two Point Campus",
       "version": "01.029",
       "category": "game",
       "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co31nr.jpg",
       "description": "Format: Backport 4.xx\nTags: v1.029, 4.xx, 5.xx",
       "downloadLinks": [
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/ryiwmdgq1g7tlfc/01.029+PPSA03644-[DLPSGAME.COM].rar/file"
-        },
         {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/l5p8moxfz4j94x2/4XX+PPSA03644_–_EUR_V1_29_Two_Point_Campus_Bckport__By_BADERLINK_-[DLPSGAME.COM].zip/file"
@@ -68399,6 +68448,10 @@
         },
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/ryiwmdgq1g7tlfc/01.029+PPSA03644-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/l5p8moxfz4j94x2/4XX+PPSA03644_%E2%80%93_EUR_V1_29_Two_Point_Campus_Bckport__By_BADERLINK_-[DLPSGAME.COM].zip/file"
         },
         {
@@ -68411,10 +68464,10 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
-        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx"
+        "Backport 5.xx",
+        "RAR"
       ],
       "sizeBytes": 50134436,
       "_enrichedAt": "2026-06-22T12:44:31.647134+00:00",
@@ -68883,10 +68936,6 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/t3r3q33cgvtih6e/PPSA24473-[DLPSGAME.COM].rar/file"
-        },
-        {
-          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/4jflmaq3wztrhai/4XX+PPSA24473+–+JPN+v1.00++Undefeated++By+BADERLINK+-[DLPSGAME.COM].zip/file"
         },
         {
@@ -68919,6 +68968,10 @@
         },
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/t3r3q33cgvtih6e/PPSA24473-[DLPSGAME.COM].rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/4jflmaq3wztrhai/4XX+PPSA24473+%E2%80%93+JPN+v1.00++Undefeated++By+BADERLINK+-[DLPSGAME.COM].zip/file"
         },
         {
@@ -68932,10 +68985,10 @@
       ],
       "fileFormat": [
         "Folder",
-        "RAR",
         "ZIP",
         "Backport 4.xx",
-        "Backport 5.xx"
+        "Backport 5.xx",
+        "RAR"
       ],
       "sizeBytes": 7516192768,
       "_enrichedAt": "2026-06-22T12:44:33.074893+00:00",
@@ -69136,14 +69189,6 @@
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/obj3jlVKBGDx/file"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/9rbssic8yiot"
-        },
-        {
-          "name": "Akia",
           "url": "https://akirabox.com/Z9dzB4vX5mk1/file"
         },
         {
@@ -69153,6 +69198,14 @@
         {
           "name": "Data",
           "url": "https://datanodes.to/ive34ygsh1mu"
+        },
+        {
+          "name": "Akia",
+          "url": "https://akirabox.com/obj3jlVKBGDx/file"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/9rbssic8yiot"
         },
         {
           "name": "Akia",
@@ -69364,6 +69417,10 @@
           "url": "https://rootz.so/d/ovJM8"
         },
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/gSCCe"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/QN9mEwN5Qz6d/file"
         },
@@ -69394,10 +69451,6 @@
         {
           "name": "Viki",
           "url": "https://vikingfile.com/f/wYWRoYQUdu"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/gSCCe"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -69627,7 +69680,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:32.004054+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA15186",
@@ -69749,12 +69802,12 @@
       "description": "Tags: PPSA16432, v1.013, 7.xx\nSize: 18 GB",
       "downloadLinks": [
         {
-          "name": "Rootz",
-          "url": "https://rootz.so/d/hGERE"
-        },
-        {
           "name": "Gofile",
           "url": "https://gofile.io/d/407nX8"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://rootz.so/d/hGERE"
         }
       ],
       "downloadSource": "https://dlpsgame.com/vampire-the-masquerade-justice-ps5/",
@@ -70074,12 +70127,8 @@
       "description": "Format: exFAT · PKG\nTags: PPSA10249, v1.003.000, 7.xx, USA\nSize: 14 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: Amiibohound for the Files and drakmor for ampr-emu.",
       "downloadLinks": [
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/j5vg3alh3aop"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/37axfh8rjw8q"
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/m7op4dw2b0039vl/[DLPSGAME.COM]-PPSA10249-Game+(v01.003.000)+[APR-EMU].rar/file"
         },
         {
           "name": "Akia",
@@ -70094,6 +70143,14 @@
           "url": "https://datanodes.to/6rypq8hp86je"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/j5vg3alh3aop"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/37axfh8rjw8q"
+        },
+        {
           "name": "Viki",
           "url": "https://vikingfile.com/f/hgwJc5S5oC"
         },
@@ -70104,10 +70161,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?74rhf1yyy78dx10bm5j6&af=4186346"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/m7op4dw2b0039vl/[DLPSGAME.COM]-PPSA10249-Game+(v01.003.000)+[APR-EMU].rar/file"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -70119,8 +70172,8 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 15032385536,
       "_enrichedAt": "2026-06-22T12:44:37.347282+00:00",
@@ -70252,11 +70305,15 @@
         },
         {
           "name": "Akia",
-          "url": "https://akirabox.com/E9Qz9kw62mOL/file"
+          "url": "https://akirabox.com/0rpmvQqaaGRg/file"
         },
         {
           "name": "Viki",
-          "url": "https://vikingfile.com/f/vbS7TDsdhx"
+          "url": "https://vikingfile.com/f/2R11ZVjtiH"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/4cb83oukirp9"
         },
         {
           "name": "Akia",
@@ -70267,20 +70324,16 @@
           "url": "https://vikingfile.com/f/C3SkNHd5JQ"
         },
         {
+          "name": "Akia",
+          "url": "https://akirabox.com/E9Qz9kw62mOL/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/vbS7TDsdhx"
+        },
+        {
           "name": "Buzz",
           "url": "https://buzzheavier.com/em6h2y02sjup"
-        },
-        {
-          "name": "Backport - Akia",
-          "url": "https://akirabox.com/0rpmvQqaaGRg/file"
-        },
-        {
-          "name": "Backport - Viki",
-          "url": "https://vikingfile.com/f/2R11ZVjtiH"
-        },
-        {
-          "name": "Backport - Data",
-          "url": "https://datanodes.to/4cb83oukirp9"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -70388,14 +70441,6 @@
           "url": "https://rootz.so/d/1pUjk8"
         },
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/deUSxR3mUK"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/KSliy"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/jJD3VvV2l3a5/file"
         },
@@ -70446,6 +70491,14 @@
         {
           "name": "Rootz",
           "url": "https://www.rootz.so/d/tSJwO"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/deUSxR3mUK"
+        },
+        {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/KSliy"
         },
         {
           "name": "Mediafire",
@@ -70647,6 +70700,10 @@
           "url": "https://akirabox.com/l5YzMgqPpmyO/file"
         },
         {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/eEiipJbkVp"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?u6xql9acafrwuq9liimm"
         },
@@ -70661,10 +70718,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?j1mb38hy834fois1qtek&af=4186346"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/eEiipJbkVp"
         }
       ],
       "downloadSource": "https://dlpsgame.com/war-mongrels-ps5/",
@@ -70704,6 +70757,10 @@
       "description": "Format: exFAT · PKG · Backport 7.xx\nTags: PPSA04451, v1.010.002, 7.xx, 9.xx, EUR\nSize: 55 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files, drakmor for ampr-emu and kerrdec97 for the BackPort.",
       "downloadLinks": [
         {
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/GRgg4"
+        },
+        {
           "name": "1File",
           "url": "https://1fichier.com/?ls8qjhutljvcuufs3awk"
         },
@@ -70726,10 +70783,6 @@
         {
           "name": "Backport - Data",
           "url": "https://datanodes.to/1crwyf11yahq"
-        },
-        {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/GRgg4"
         },
         {
           "name": "Mediafire",
@@ -70776,7 +70829,7 @@
           "RPG"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:39.623347+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212750+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 7.xx"
     },
@@ -71298,7 +71351,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:37.578613+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00",
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00",
       "formatLabel": "PKG"
     },
     {
@@ -71667,7 +71720,7 @@
           "Indie"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:39.860426+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212756+00:00",
       "_igdbMatched": false,
       "formatLabel": "Folder · PKG"
     },
@@ -71918,6 +71971,10 @@
       "downloadLinks": [
         {
           "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/1tvtdhepf0ncafg/[DLPSGAME.COM]-PPSA07326-app0.rar/file"
+        },
+        {
+          "name": "Mediafire",
           "url": "https://www.mediafire.com/file/bau5pfbxlxixqtp/[DLPSGAME.COM]-PPSA07326+Backport+4.xx+By+baderlink.zip/file"
         },
         {
@@ -71931,10 +71988,6 @@
         {
           "name": "Rootz",
           "url": "https://rootz.so/d/1s0FEW"
-        },
-        {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/1tvtdhepf0ncafg/[DLPSGAME.COM]-PPSA07326-app0.rar/file"
         }
       ],
       "downloadSource": "https://dlpsgame.com/wonder-boy-the-dragons-trap-ps5/",
@@ -71942,9 +71995,9 @@
         "dlpsgame.com"
       ],
       "fileFormat": [
+        "RAR",
         "ZIP",
-        "Backport 4.xx",
-        "RAR"
+        "Backport 4.xx"
       ],
       "sizeBytes": 2559441,
       "_enrichedAt": "2026-06-22T12:44:49.353569+00:00",
@@ -72182,20 +72235,12 @@
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA07580, v1.004, 4.xx, 5.xx, USA\nSize: 80 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: High-Speed007 for the Files, drakmor for ampr-emu and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/VxkndB"
+          "name": "Rootz",
+          "url": "https://www.rootz.so/d/jyYdM"
         },
         {
-          "name": "Akia",
-          "url": "https://akirabox.com/dkD3YZRQXzLQ/file"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/1dTfkmgIEI"
-        },
-        {
-          "name": "Data",
-          "url": "https://datanodes.to/mum9tnlr4q4g"
+          "name": "Mediafire",
+          "url": "https://www.mediafire.com/file/qmglsrp0z8uasn1/[DLPSGAME.COM]-PPSA07580.part01.rar/file"
         },
         {
           "name": "Akia",
@@ -72214,12 +72259,20 @@
           "url": "https://buzzheavier.com/mm6qcpjsy5so"
         },
         {
-          "name": "Rootz",
-          "url": "https://www.rootz.so/d/jyYdM"
+          "name": "Gofile",
+          "url": "https://gofile.io/d/VxkndB"
         },
         {
-          "name": "Mediafire",
-          "url": "https://www.mediafire.com/file/qmglsrp0z8uasn1/[DLPSGAME.COM]-PPSA07580.part01.rar/file"
+          "name": "Akia",
+          "url": "https://akirabox.com/dkD3YZRQXzLQ/file"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/1dTfkmgIEI"
+        },
+        {
+          "name": "Data",
+          "url": "https://datanodes.to/mum9tnlr4q4g"
         }
       ],
       "downloadSource": "https://dlpsgame.com/wrc-generations-the-fia-wrc-official-game-ps5/",
@@ -72231,10 +72284,10 @@
       "fileFormat": [
         "exFAT",
         "APR-EMU",
+        "RAR",
         "Backport 4.xx",
         "Backport",
-        "PKG",
-        "RAR"
+        "PKG"
       ],
       "sizeBytes": 85899345920,
       "_enrichedAt": "2026-06-22T02:39:06.642832+00:00",
@@ -72372,10 +72425,6 @@
           "url": "https://datanodes.to/fnasqkeovcwz"
         },
         {
-          "name": "1File",
-          "url": "https://1fichier.com/?4mk3e8lnu2h749f2tc0r"
-        },
-        {
           "name": "Akia",
           "url": "https://akirabox.com/l76mZ7vqx3an/file"
         },
@@ -72386,6 +72435,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/pe2d3wm2n571"
+        },
+        {
+          "name": "1File",
+          "url": "https://1fichier.com/?4mk3e8lnu2h749f2tc0r"
         }
       ],
       "downloadSource": "https://dlpsgame.com/wuchang-fallen-feathers-ps5/",
@@ -72461,7 +72514,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:41.559442+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "",
@@ -72687,12 +72740,8 @@
           "url": "https://1fichier.com/?9a8vnquwr1p26zbqyxw4"
         },
         {
-          "name": "Filek",
-          "url": "https://filekeeper.net/m72fma8h3spv"
-        },
-        {
-          "name": "Vault",
-          "url": "https://datavaults.co/1tm3k9j0q0tg"
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/Tjrny5vxf0"
         },
         {
           "name": "Akia",
@@ -72707,6 +72756,14 @@
           "url": "https://datanodes.to/n6kxkvobp2rj"
         },
         {
+          "name": "Filek",
+          "url": "https://filekeeper.net/m72fma8h3spv"
+        },
+        {
+          "name": "Vault",
+          "url": "https://datavaults.co/1tm3k9j0q0tg"
+        },
+        {
           "name": "Akia",
           "url": "https://akirabox.com/0KezkYEWJmD1/file"
         },
@@ -72717,10 +72774,6 @@
         {
           "name": "1File",
           "url": "https://1fichier.com/?ngmdsd27gql08ir0k4ak&af=4186346"
-        },
-        {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/Tjrny5vxf0"
         }
       ],
       "downloadSource": "https://pippo26442999.github.io/.exFAT/exFAT.json",
@@ -72970,10 +73023,6 @@
       "description": "Format: PKG · APR-EMU\nTags: PPSA31327, v01.015, JPN\nSize: 49 GB\nPassword: SuperPSX\nVoices: Chinese, English, Japanese",
       "downloadLinks": [
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/PO3nnV"
-        },
-        {
           "name": "Rootz",
           "url": "https://rootz.so/d/4UULY"
         },
@@ -72996,6 +73045,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/9idb50tts0yo"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/PO3nnV"
         }
       ],
       "downloadSource": "https://dlpsgame.com/yakuza-0-directors-cut-ps5/",
@@ -73005,8 +73058,8 @@
       ],
       "fileFormat": [
         "APR-EMU",
-        "PKG",
-        "RAR"
+        "RAR",
+        "PKG"
       ],
       "sizeBytes": 55834574848,
       "_enrichedAt": "2026-06-22T12:44:51.174749+00:00",
@@ -73041,14 +73094,6 @@
           "url": "https://www.rootz.so/d/DEZCi"
         },
         {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/cFcDnV"
-        },
-        {
-          "name": "Gofile",
-          "url": "https://gofile.io/d/NHfxpg"
-        },
-        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/eyqnq39k8gydtqe/[DLPSGAME.COM]-PPSA31334.part1.rar/file"
         },
@@ -73065,6 +73110,10 @@
           "url": "https://buzzheavier.com/t32s1j16cx0x"
         },
         {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/cFcDnV"
+        },
+        {
           "name": "Mediafire",
           "url": "https://www.mediafire.com/file/ysavdz2dnjnghh4/[DLPSGAME.COM]-PPSA31333.part4.rar/file"
         },
@@ -73079,6 +73128,10 @@
         {
           "name": "Buzz",
           "url": "https://buzzheavier.com/in8lo558g9ct"
+        },
+        {
+          "name": "Gofile",
+          "url": "https://gofile.io/d/NHfxpg"
         }
       ],
       "downloadSource": "https://dlpsgame.com/yakuza-kiwami-1-2-ps5/",
@@ -73105,7 +73158,7 @@
           "Fighting"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T23:03:42.441581+00:00",
+      "_igdbEnrichedAt": "2026-06-28T23:23:50.212762+00:00",
       "_igdbMatched": false,
       "formatLabel": "APR-EMU"
     },
@@ -73407,12 +73460,12 @@
       "description": "Tags: PPSA26097, v2.000",
       "downloadLinks": [
         {
-          "name": "Viki",
-          "url": "https://vikingfile.com/f/Eq9eIZOcGc"
-        },
-        {
           "name": "1File",
           "url": "https://1fichier.com/?purr8sjz1kpzbwpf9jjy"
+        },
+        {
+          "name": "Viki",
+          "url": "https://vikingfile.com/f/Eq9eIZOcGc"
         }
       ],
       "downloadSource": "https://dlpsgame.com/yooka-replaylee-ps5/",
@@ -73439,7 +73492,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:57:45.545938+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T23:03:42.587638+00:00"
+      "_sizeProbedAt": "2026-06-28T23:23:50.393827+00:00"
     },
     {
       "titleId": "PPSA32457",
