@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-28T18:47:20.300323+00:00",
+  "timestamp": "2026-06-28T21:37:35.743552+00:00",
   "catalog": "dlpsgame-ps5.json",
   "total_games": 840,
   "sources": {
@@ -13,11 +13,11 @@
   "games_with_titleid": 839,
   "placeholder_titleids": 15,
   "avg_links_per_game": 12.6,
-  "total_download_links": 10554,
+  "total_download_links": 10557,
   "mirror_distribution": {
-    "1File": 2362,
+    "1File": 2364,
     "Akia": 2361,
-    "Viki": 2326,
+    "Viki": 2327,
     "Mediafire": 1124,
     "Rootz": 1000,
     "Data": 418,
