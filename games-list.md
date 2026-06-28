@@ -1,6 +1,6 @@
 # Liste des jeux PS5 disponibles — SuperPSX PS5
 
-_**840** jeux · généré le 2026-06-28 21:37 UTC · régénéré et enrichi à chaque run_
+_**840** jeux · généré le 2026-06-28 21:58 UTC · régénéré et enrichi à chaque run_
 
 ## Répartition par format
 

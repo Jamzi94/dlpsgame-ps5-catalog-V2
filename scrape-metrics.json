@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-28T21:37:35.743552+00:00",
+  "timestamp": "2026-06-28T21:58:28.079074+00:00",
   "catalog": "dlpsgame-ps5.json",
   "total_games": 840,
   "sources": {
@@ -7,8 +7,8 @@
     "superpsx.com": 483,
     "exfat": 376
   },
-  "games_with_size": 735,
-  "games_without_size": 105,
+  "games_with_size": 794,
+  "games_without_size": 46,
   "games_with_poster": 840,
   "games_with_titleid": 839,
   "placeholder_titleids": 15,
@@ -80,10 +80,10 @@
     "7z": 1
   },
   "size_stats": {
-    "min_gb": 0.08,
+    "min_gb": 0.0,
     "max_gb": 380.0,
-    "avg_gb": 48.8,
-    "median_gb": 28.0
+    "avg_gb": 45.3,
+    "median_gb": 25.0
   },
   "warnings_count": 0,
   "warnings": []
