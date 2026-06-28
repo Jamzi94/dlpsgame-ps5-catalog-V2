@@ -609,7 +609,23 @@ jobs:
           else
             DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
             git commit -m "chore(scrape): mise a jour catalogue PS5 ($DATE)"
-            git push
+            # Push robuste : un commit concurrent (ex. édition du README pendant
+            # les ~30 min du run) fait avancer main → 'git push' simple est rejeté
+            # (non-fast-forward). On rebase sur origin/main et on réessaie. Les
+            # fichiers générés (catalogue/manifests) sont disjoints d'une édition
+            # de doc → le rebase s'applique proprement.
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:main; then
+                echo "Push OK (tentative $attempt)"; break
+              fi
+              if [ "$attempt" = "5" ]; then
+                echo "::error::Push échoué après 5 tentatives"; exit 1
+              fi
+              echo "Push refusé — rebase sur origin/main (tentative $attempt)…"
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; echo "::error::Rebase impossible (conflit)"; exit 1; }
+              sleep $((attempt * 3))
+            done
           fi
 
       - name: Upload artifact
