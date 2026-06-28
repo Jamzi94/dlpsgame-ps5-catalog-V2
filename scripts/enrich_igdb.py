@@ -33,6 +33,7 @@ import re
 import sys
 import threading
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -88,17 +89,49 @@ _ROMAN = {"i": "1", "ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6",
           "vii": "7", "viii": "8", "ix": "9", "x": "10", "xi": "11", "xii": "12"}
 
 
+def _collapse_initials(tokens: list[str]) -> list[str]:
+    """Fusionne les suites d'initiales : ['s','t','a','l','k','e','r'] -> ['stalker'].
+
+    IGDB garde les points (« S.T.A.L.K.E.R. », « F.I.S.T. », « Q.U.B.E. ») là où la
+    source les retire (« STALKER »). Sans ça, le nom IGDB éclatait en lettres seules
+    et ne matchait jamais. On ne fusionne qu'une RAFALE d'≥2 lettres isolées (une
+    lettre seule, ex. « I Am Dead », reste intacte)."""
+    out: list[str] = []
+    buf: list[str] = []
+    for t in tokens:
+        if len(t) == 1 and t.isalpha():
+            buf.append(t)
+        else:
+            if len(buf) >= 2:
+                out.append("".join(buf))
+            else:
+                out.extend(buf)
+            buf = []
+            out.append(t)
+    if len(buf) >= 2:
+        out.append("".join(buf))
+    else:
+        out.extend(buf)
+    return out
+
+
 def _normalize_title(s: str) -> str:
     s = (s or "").lower()
+    # Replie les accents : ö->o, é->e, ñ->n… (« Ragnarök » == « Ragnarok »,
+    # « Pokémon » == « Pokemon ») ; sinon ces lettres étaient retirées et
+    # cassaient le mot.
+    s = "".join(c for c in unicodedata.normalize("NFKD", s)
+                if not unicodedata.combining(c))
     s = s.replace("&", " and ")
     # Apostrophes JOINTES (pas un espace) : "assassin's" -> "assassins", sinon le
     # token "s" cassait le score (Assassin's Creed, Marvel's, …).
     s = re.sub(r"['’`´]", "", s)
     s = re.sub(r"[^a-z0-9]+", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
+    toks = _collapse_initials(s.split())
     # Nombres romains isolés -> chiffres (II<->2, VII<->7…) ; appliqué des DEUX
     # côtés (titre & résultat IGDB) donc l'auto-correspondance reste préservée.
-    return " ".join(_ROMAN.get(tok, tok) for tok in s.split())
+    return " ".join(_ROMAN.get(tok, tok) for tok in toks)
 
 
 # Mots « bruit » qui font rater la recherche IGDB (éditions, plateforme, marques).
@@ -106,7 +139,7 @@ def _normalize_title(s: str) -> str:
 # sous-titre après « : » identifie souvent un autre jeu — on n'y touche pas).
 _EDITION_NOISE = re.compile(
     r"\b(deluxe|gold|ultimate|complete|definitive|standard|premium|legendary|"
-    r"special|enhanced|anniversary|remaster(?:ed)?|director'?s cut|goty|"
+    r"special|enhanced|anniversary|remaster(?:ed)?|remake|director'?s cut|goty|"
     r"game of the year|bundle|collection|edition|ps5|ps4|playstation\s*5|"
     r"playstation\s*4)\b",
     re.I,
