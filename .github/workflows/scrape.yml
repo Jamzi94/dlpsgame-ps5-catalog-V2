@@ -2,8 +2,10 @@ name: Scrape dlpsgame PS5 catalog
 
 on:
   schedule:
-    # Tous les jours à 04:00 UTC (06:00 Paris en été / 05:00 en hiver)
-    - cron: "0 4 * * *"
+    # Tous les 2 jours à 04:00 UTC (06:00 Paris en été / 05:00 en hiver).
+    # */2 = jours impairs du mois (1,3,5,…,31) — léger chevauchement aux
+    # changements de mois (31→1), acceptable. L'incrémental rend les runs rapides.
+    - cron: "0 4 */2 * *"
   workflow_dispatch:
     inputs:
       max_pages:

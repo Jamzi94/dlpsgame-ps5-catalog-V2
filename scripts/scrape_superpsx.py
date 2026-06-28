@@ -64,6 +64,14 @@ from bs4 import BeautifulSoup, Tag
 from formats import detect_formats, normalize_formats
 from sizes import extract_size, parse_size_bytes
 
+# content_hash : même fonction de hachage que celle utilisée par ScrapeManifest
+# (normalise les espaces puis SHA-256 tronqué). On l'importe pour comparer le
+# hash des liens keepshield au content_hash stocké dans le manifest.
+try:
+    from scrape_manifest import content_hash as _manifest_content_hash
+except ImportError:  # pragma: no cover - fallback si module absent
+    _manifest_content_hash = None  # type: ignore[assignment]
+
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -1444,11 +1452,64 @@ def parse_dll_page(url: str) -> dict | None:
 # ---------------------------------------------------------------------------
 
 
-def scrape_game(game_url: str) -> dict | None:
+def _extract_keepshield_links(dll_data: dict) -> list[str]:
+    """Liste (triée, dédupliquée) des liens keepshield bruts d'une page DLL.
+
+    Sert à la mémoire incrémentale : ces URLs keepshield.org/safe/<id> sont les
+    « download URLs » dont le changement doit déclencher une nouvelle résolution
+    (coûteuse). Triées pour produire un hash stable indépendant de l'ordre."""
+    urls: list[str] = []
+    seen: set[str] = set()
+    for link in dll_data.get("links", []):
+        url = link.get("url", "") or ""
+        if is_keepshield_url(url) and url not in seen:
+            seen.add(url)
+            urls.append(url)
+    return sorted(urls)
+
+
+def keepshield_hash_source(dll_data: dict) -> str:
+    """Source de hash représentant les liens de téléchargement d'une page DLL.
+
+    Concatène les liens keepshield bruts (triés) — c'est ce qu'on passe à
+    ``manifest.record()`` pour que ``content_hash()`` détecte tout changement
+    d'URL de téléchargement. À défaut de lien keepshield (page sans link-locker),
+    on retombe sur l'ensemble des URLs de liens pour rester sensible aux
+    changements."""
+    ks = _extract_keepshield_links(dll_data)
+    if ks:
+        return "\n".join(ks)
+    # Repli : aucune URL keepshield → on hashe l'ensemble des URLs de liens.
+    other = sorted({(l.get("url") or "") for l in dll_data.get("links", []) if l.get("url")})
+    return "\n".join(other)
+
+
+def scrape_game(
+    game_url: str,
+    *,
+    keepshield_overrides: dict[str, list[dict[str, str]]] | None = None,
+    cached_entry: dict | None = None,
+) -> dict | None:
     """Scrape a single game: game page → DLL page → combined package.
+
+    Args:
+        game_url: URL de la page de jeu.
+        keepshield_overrides: mémoire incrémentale. Dict {url_keepshield →
+            miroirs déjà résolus (liste de {"url","mirror"})}. Quand une URL
+            keepshield rencontrée y figure, on réutilise ces miroirs SANS
+            rappeler ``resolve_keepshield`` (le poste le plus coûteux). Les URLs
+            absentes sont résolues normalement.
+        cached_entry: entrée manifest de ce jeu lors du run précédent (dict avec
+            ``content_hash`` et ``package``). Permet la mémoire keepshield au
+            niveau du jeu : si, après fetch de la page DLL, le hash des liens
+            keepshield est INCHANGÉ et que le package en cache contient les
+            miroirs résolus (``_keepshieldMirrors``), on réinjecte ces miroirs
+            au lieu de re-résoudre keepshield (économise ~3-4,5 s/jeu).
 
     Returns a package dict matching the dlpsgame-ps5.json format, or None on failure.
     """
+    overrides = dict(keepshield_overrides or {})
+
     # Step 1: Parse game page
     game_data = parse_game_page(game_url)
     if not game_data:
@@ -1465,6 +1526,26 @@ def scrape_game(game_url: str) -> dict | None:
     if not dll_data:
         log.warning("  ✗ No DLL data for %s", dll_url)
         return None
+
+    # Mémoire keepshield (cas « déjà vu, périmé, mais liens de DL inchangés ») :
+    # si le hash des liens keepshield correspond à celui stocké au run précédent
+    # ET que le package en cache contient les miroirs résolus, on alimente les
+    # overrides pour éviter toute résolution keepshield (le poste coûteux).
+    if cached_entry and _manifest_content_hash is not None:
+        # On compare le content_hash (digest normalisé) de la source de hash
+        # courante à celui stocké dans le manifest (record() hashe lui aussi
+        # la source via content_hash) — ils sont ainsi comparables.
+        current_hash = _manifest_content_hash(keepshield_hash_source(dll_data))
+        prev_hash = cached_entry.get("content_hash")
+        cached_pkg = cached_entry.get("package") or {}
+        cached_mirrors = cached_pkg.get("_keepshieldMirrors") or {}
+        if prev_hash and current_hash == prev_hash and cached_mirrors:
+            for ks_url, mirrors in cached_mirrors.items():
+                overrides.setdefault(ks_url, mirrors)
+            log.debug(
+                "    keepshield inchangé (hash=%s) — réutilisation des miroirs en cache: %s",
+                current_hash, game_url,
+            )
 
     # Step 3: Combine data into package format
     info = game_data.get("info", {})
@@ -1561,6 +1642,9 @@ def scrape_game(game_url: str) -> dict | None:
     # Download links (deduplicated by URL)
     seen_urls: set[str] = set()
     download_links: list[dict[str, str]] = []
+    # Mapping {url_keepshield → miroirs résolus} mémorisé pour réutilisation
+    # incrémentale (stocké dans le package sous _keepshieldMirrors).
+    keepshield_resolved: dict[str, list[dict[str, str]]] = {}
     for link in dll_data.get("links", []):
         url = link.get("url", "")
         name = link.get("name", "Mirror")
@@ -1577,7 +1661,16 @@ def scrape_game(game_url: str) -> dict | None:
             group_prefix = ""
             if " - " in name:
                 group_prefix = name.rsplit(" - ", 1)[0] + " - "
-            resolved = resolve_keepshield(url)
+            # Mémoire incrémentale : si ce lien keepshield est déjà résolu (même
+            # URL inchangée), on réutilise les miroirs en cache SANS relancer la
+            # résolution coûteuse via FlareSolverr.
+            if url in overrides:
+                resolved = overrides[url]
+                log.debug("    keepshield réutilisé depuis le cache: %s", url)
+            else:
+                resolved = resolve_keepshield(url)
+            # Mémorise la résolution (même vide) pour le prochain run incrémental.
+            keepshield_resolved[url] = resolved
             if resolved:
                 for mirror in resolved:
                     m_url = mirror.get("url", "")
@@ -1623,6 +1716,18 @@ def scrape_game(game_url: str) -> dict | None:
     if not size_bytes:
         del package["sizeBytes"]
 
+    # Métadonnées internes pour la mémoire incrémentale (retirées avant écriture
+    # du catalogue, comme _wpMeta dans scrape_wp_api.py) :
+    #  - _keepshieldHash : hash des liens keepshield bruts (détecte un changement
+    #    d'URL de téléchargement entre deux runs) ;
+    #  - _keepshieldMirrors : mapping {url_keepshield → miroirs résolus} permettant
+    #    de réinjecter les miroirs sans re-résoudre au prochain run inchangé.
+    package["_keepshieldHash"] = keepshield_hash_source(dll_data)
+    package["_keepshieldMirrors"] = keepshield_resolved
+    # URL de la page de jeu = clé du manifest (cohérente avec needs_scrape, qui
+    # interroge les URLs découvertes — et NON le downloadSource/dll_url).
+    package["_gameUrl"] = game_url
+
     log.info("    ✓ %s — %d links", title, len(download_links))
     return package
 
@@ -1632,32 +1737,84 @@ def scrape_game(game_url: str) -> dict | None:
 # ---------------------------------------------------------------------------
 
 
+def _manifest_entry(manifest, url: str) -> dict | None:
+    """Renvoie l'entrée manifest brute (content_hash + package) pour `url`.
+
+    Le manifest n'expose pas d'accesseur public pour l'entrée complète ; on lit
+    le dict interne (comme le fait déjà main() pour len(entries))."""
+    if manifest is None:
+        return None
+    try:
+        return manifest._data.get("entries", {}).get(url)
+    except Exception:
+        return None
+
+
 def scrape_all(
     max_pages: int | None,
     max_games: int | None,
     concurrency: int,
+    *,
+    manifest=None,
+    mode: str = "full",
 ) -> tuple[list[dict], list[str]]:
     """Main scraping pipeline.
 
     1. Discover game URLs from category pages
-    2. For each game, scrape game page + DLL page
-    3. Return (packages, warnings)
+    2. Mémoire incrémentale (si manifest + mode="incremental") :
+       - jeu vu récemment & inchangé (needs_scrape == False) → on réutilise le
+         package en cache SANS aucune requête réseau ni résolution keepshield ;
+       - jeu nouveau ou périmé → on le scrape, mais on réinjecte les miroirs
+         keepshield déjà résolus si le hash des liens de DL est inchangé.
+    3. Enregistre chaque package scrapé/réutilisé au manifest (record) pour que
+       le prochain run incrémental dispose de la mémoire — y compris en mode full.
+    4. Return (packages, warnings)
     """
     game_urls = discover_game_urls(max_pages)
     if max_games is not None:
         game_urls = game_urls[:max_games]
 
-    log.info("Scraping %d games (concurrency=%d)...", len(game_urls), concurrency)
+    incremental = bool(manifest) and mode == "incremental"
 
     packages: list[dict] = []
     warnings: list[str] = []
     failed_urls: list[str] = []
 
+    # --- Phase mémoire : filtrer les jeux inchangés (cas a) ---
+    # En incrémental, on réutilise directement le package en cache des jeux
+    # « vus récemment & inchangés » : zéro requête réseau, zéro keepshield.
+    to_scrape: list[str] = []
+    if incremental:
+        reused = 0
+        for url in game_urls:
+            if manifest.needs_scrape(url, "incremental"):
+                to_scrape.append(url)
+                continue
+            cached_pkg = manifest.get_cached_package(url)
+            if cached_pkg:
+                packages.append(cached_pkg)
+                reused += 1
+            else:
+                # Vu récemment mais pas de package en cache → on (re)scrape.
+                to_scrape.append(url)
+        log.info(
+            "Incremental: %d jeu(x) réutilisé(s) depuis le manifest, %d à (re)scraper",
+            reused, len(to_scrape),
+        )
+    else:
+        to_scrape = list(game_urls)
+
+    log.info("Scraping %d games (concurrency=%d)...", len(to_scrape), concurrency)
+
+    def _do_scrape(url: str) -> dict | None:
+        """Scrape un jeu en lui passant son entrée manifest (mémoire keepshield)."""
+        return scrape_game(url, cached_entry=_manifest_entry(manifest, url))
+
     if concurrency <= 1:
-        for i, url in enumerate(game_urls, 1):
-            log.info("[%d/%d]", i, len(game_urls))
+        for i, url in enumerate(to_scrape, 1):
+            log.info("[%d/%d]", i, len(to_scrape))
             try:
-                pkg = scrape_game(url)
+                pkg = _do_scrape(url)
                 if pkg:
                     packages.append(pkg)
                 else:
@@ -1675,10 +1832,10 @@ def scrape_all(
         # chaque fiche pour lisser les rafales et rester poli avec le serveur.
         def _scrape_game_jittered(url: str) -> dict | None:
             time.sleep(random.uniform(0.1, 0.3))
-            return scrape_game(url)
+            return _do_scrape(url)
 
         with cf.ThreadPoolExecutor(max_workers=concurrency) as pool:
-            futures = {pool.submit(_scrape_game_jittered, url): url for url in game_urls}
+            futures = {pool.submit(_scrape_game_jittered, url): url for url in to_scrape}
             for fut in cf.as_completed(futures):
                 url = futures[fut]
                 try:
@@ -1714,7 +1871,7 @@ def scrape_all(
         for i, url in enumerate(failed_urls, 1):
             log.info("[retry %d/%d]", i, len(failed_urls))
             try:
-                pkg = scrape_game(url)
+                pkg = _do_scrape(url)
                 if pkg:
                     packages.append(pkg)
                     retry_success += 1
@@ -1730,6 +1887,27 @@ def scrape_all(
             len(still_failing),
         )
         warnings = still_failing
+
+    # --- Enregistrement au manifest (mémoire pour le prochain run) ---
+    # On (ré)enregistre chaque package porteur de _keepshieldHash : les jeux
+    # fraîchement scrapés ET les jeux réutilisés du cache (cas a). Pour ces
+    # derniers, record() ne déclenche AUCUNE requête réseau : il rafraîchit
+    # juste last_seen (évite qu'ils périment et soient re-scrapés inutilement).
+    # La source de hash passée à record() représente les liens de téléchargement
+    # (liens keepshield) → content_hash détecte un changement d'URL de DL.
+    # Vaut AUSSI en mode full, pour amorcer la mémoire du prochain incrémental.
+    if manifest is not None:
+        recorded = 0
+        for pkg in packages:
+            if "_keepshieldHash" not in pkg:
+                continue  # sécurité : package sans métadonnée de mémoire
+            # Clé manifest = URL de la page de jeu (cohérente avec needs_scrape).
+            key_url = pkg.get("_gameUrl") or pkg.get("downloadSource", "")
+            if not key_url:
+                continue
+            manifest.record(key_url, pkg["_keepshieldHash"], package=pkg)
+            recorded += 1
+        log.info("Manifest: %d package(s) (ré)enregistré(s)", recorded)
 
     # Sort by title
     packages.sort(key=lambda p: (p.get("title") or "").lower())
@@ -1859,25 +2037,33 @@ Examples:
         _HTTP_BACKEND, args.concurrency, PAGE_DELAY, args.mode,
     )
 
-    # Load manifest for incremental mode
+    # Charge le manifest dans LES DEUX modes : en incrémental il pilote la
+    # mémoire (réutilisation), en full il est ré-enregistré pour amorcer la
+    # mémoire du prochain run incrémental (sinon last_run/entrées resteraient
+    # vides après un full).
     manifest = None
-    if args.mode == "incremental":
-        try:
-            from scrape_manifest import ScrapeManifest
-        except ImportError:
-            ScrapeManifest = None  # type: ignore[assignment,misc]
-        if ScrapeManifest:
-            manifest = ScrapeManifest(path=".scrape_manifest_superpsx.json")
-            log.info("Incremental mode: manifest has %d entries",
-                     len(manifest._data.get("entries", {})))
-        else:
-            log.warning("scrape_manifest module not found — running in full mode")
+    try:
+        from scrape_manifest import ScrapeManifest
+    except ImportError:
+        ScrapeManifest = None  # type: ignore[assignment,misc]
+    if ScrapeManifest:
+        manifest = ScrapeManifest(path=".scrape_manifest_superpsx.json")
+        log.info("%s mode: manifest has %d entries",
+                 args.mode.capitalize(), len(manifest._data.get("entries", {})))
+    else:
+        log.warning("scrape_manifest module not found — mémoire incrémentale désactivée")
+
+    # Horodatage du début de run : ce sera le 'last_run' du prochain run. Capturé
+    # AVANT la boucle pour ne manquer aucun jeu modifié pendant le run courant.
+    run_started = dt.datetime.now(dt.timezone.utc).isoformat()
 
     try:
         packages, warnings = scrape_all(
             max_pages=args.max_pages,
             max_games=args.max_games,
             concurrency=args.concurrency,
+            manifest=manifest,
+            mode=args.mode,
         )
     except KeyboardInterrupt:
         log.info("Interrupted by user — saving partial results")
@@ -1890,14 +2076,21 @@ Examples:
         if _HTTP_BACKEND == "flaresolverr":
             destroy_flaresolverr_session()
 
-    # Save manifest with scraped packages
-    if manifest:
-        for pkg in packages:
-            source_url = pkg.get("downloadSource", "")
-            if source_url:
-                manifest.record(source_url, json.dumps(pkg, ensure_ascii=False), package=pkg)
+    # Sauvegarde du manifest : les packages ont déjà été enregistrés (record)
+    # dans scrape_all ; on mémorise ici le last_run et on persiste sur disque.
+    if manifest is not None:
+        manifest.set_last_run(run_started)
         manifest.save()
-        log.info("Manifest saved with %d entries", len(manifest._data.get("entries", {})))
+        log.info("Manifest saved with %d entries (last_run=%s)",
+                 len(manifest._data.get("entries", {})), run_started)
+
+    # Retire les métadonnées internes de mémoire (_keepshield*) AVANT d'écrire le
+    # catalogue : elles ne doivent figurer que dans le manifest, pas dans le JSON
+    # public. (Le manifest les a déjà capturées via record/package.)
+    for pkg in packages:
+        pkg.pop("_keepshieldHash", None)
+        pkg.pop("_keepshieldMirrors", None)
+        pkg.pop("_gameUrl", None)
 
     catalog = build_catalog(packages)
 
