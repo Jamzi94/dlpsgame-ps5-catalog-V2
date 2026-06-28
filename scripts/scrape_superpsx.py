@@ -661,6 +661,20 @@ def detect_group(label_text: str) -> str:
 # Phase 1: Discover game URLs from category pages
 # ---------------------------------------------------------------------------
 
+# Motifs de slugs NON-JEU (pages ramassées par le repli "tous les <a>" de la
+# découverte : nav, footer, émulateurs, guides, légal, compte, listes pkg).
+# Sous-chaînes choisies pour ne PAS matcher un vrai titre de jeu PS5.
+_NON_GAME_SLUG_PATTERNS = (
+    "emulator", "emulationstation",
+    "terms", "conditions", "privacy", "policy", "disclaimer", "dmca",
+    "cookie", "data-deletion", "data-access",
+    "login", "register", "sign-up", "signup", "my-account",
+    "lost-password", "reset-password", "contact-us", "about-us",
+    "checkout", "wishlist", "cart",
+    "pkg-store", "fake-pkg", "pkg-games", "games-list", "game-list",
+    "pkgs-game", "store-overview", "how-to", "tutorial",
+)
+
 
 def _is_game_url(href: str) -> bool:
     """True si `href` ressemble à une page de jeu SuperPSX exploitable.
@@ -689,6 +703,10 @@ def _is_game_url(href: str) -> bool:
     if "/page/" in f"/{lowered}/" or "/category/" in f"/{lowered}/":
         return False
     if "/dll-" in f"/{lowered}":
+        return False
+
+    # Pages non-jeu (émulateurs, légal, compte, listes pkg, guides…).
+    if any(p in lowered for p in _NON_GAME_SLUG_PATTERNS):
         return False
 
     # Un slug de jeu est un segment unique (pas de sous-répertoires multiples).
