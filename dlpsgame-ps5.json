@@ -932,9 +932,9 @@
           "Simulation"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:45.772914+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.128396+00:00",
       "_igdbMatched": false,
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "PKG"
     },
     {
@@ -1483,7 +1483,7 @@
           "Sports"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:46.127935+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.146524+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -1684,7 +1684,7 @@
       "title": "Alan Wake 2",
       "version": "01.200.007",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/06/7-68.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co6jar.jpg",
       "description": "Format: Backport 7.xx\nTags: PPSA02572, v1.200.007, 7.xx, 9.xx",
       "downloadLinks": [
         {
@@ -1733,8 +1733,8 @@
         ]
       },
       "formatLabel": "Backport 7.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:46.304262+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.146548+00:00",
+      "_igdbMatched": true,
       "sizeBytes": 4924592619
     },
     {
@@ -2976,7 +2976,7 @@
         ]
       },
       "formatLabel": "Folder · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:46.548369+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.648178+00:00",
       "_igdbMatched": false
     },
     {
@@ -3053,7 +3053,7 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:35:21.411088+00:00",
       "_igdbMatched": true,
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "PKG"
     },
     {
@@ -3479,7 +3479,7 @@
       "title": "Arizona Sunshine 2",
       "version": "01.012",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/05/2-5.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co6jbo.jpg",
       "description": "Tags: PPSA17011, v1.012, 7.xx\nSize: 45 GB",
       "downloadLinks": [
         {
@@ -3516,8 +3516,8 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:46.632459+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.657889+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA21738",
@@ -4057,7 +4057,7 @@
       "title": "Assassins Creed Shadows",
       "version": "01.019.076",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/06/1-2.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co87cu.jpg",
       "description": "Format: exFAT · Folder · Backport 4.xx\nTags: PPSA20397, v1.019.076, 4.xx, EUR\nSize: 261 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & VanBuuren for the Files with DLCs, drakmor for ampr-emu and kerrdec97 for the BackPort",
       "downloadLinks": [
         {
@@ -4149,15 +4149,15 @@
         ]
       },
       "formatLabel": "exFAT · Folder · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:49.105879+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.657907+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA01490",
       "title": "Assassins Creed Valhalla",
       "version": "01.070",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/06/2-bh.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2ed3.jpg",
       "description": "Format: exFAT · APR-EMU\nTags: PPSA01490, v1.070, 4.xx, EUR\nSize: 90GB\nCredits: Pippo26442999 x SiESPTA\nThanks: SiESPTA for the Files and drakmor for ampr-emu",
       "downloadLinks": [
         {
@@ -4237,15 +4237,15 @@
         ]
       },
       "formatLabel": "exFAT · APR-EMU",
-      "_igdbEnrichedAt": "2026-06-28T21:57:49.328282+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.785001+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA01532",
       "title": "Assassins Creed Valhalla Complete Edition",
       "version": "01.070",
       "category": "game",
-      "posterUrl": "https://pub-ce6b40c14d144a128552570bcf6bb628.r2.dev/exFAT/Assassins_Creed_Valhalla_Complete_Edition.webp",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coavvn.jpg",
       "description": "Format: exFAT · PKG",
       "downloadLinks": [
         {
@@ -4293,8 +4293,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG",
-      "_igdbEnrichedAt": "2026-06-28T21:57:49.432333+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:26.866878+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA07230",
@@ -7233,7 +7233,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Folder · Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:35:33.769834+00:00",
       "_igdbMatched": true
@@ -7732,7 +7732,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:49.576696+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:27.389600+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport 4.xx"
     },
@@ -9370,7 +9370,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:35:40.686093+00:00",
       "_igdbMatched": true
     },
@@ -9582,7 +9582,7 @@
           "Puzzle"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:49.920303+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607340+00:00",
       "_igdbMatched": false
     },
     {
@@ -9734,7 +9734,7 @@
       "title": "Charons Staircase",
       "version": "01.000",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2025/04/2-2.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co4spf.jpg",
       "description": "Format: Backport\nTags: PPSA06603, v1.000, 4.xx",
       "downloadLinks": [
         {
@@ -9790,10 +9790,10 @@
           "Adventure"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Backport",
-      "_igdbEnrichedAt": "2026-06-28T21:57:52.431883+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607362+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA04747",
@@ -10246,7 +10246,7 @@
       "title": "CODE VEIN 2",
       "version": "01.005",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/05/4-2.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9xhi.jpg",
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA23908, v1.005, 4.xx, EUR\nSize: 52 GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX &amp; SiESPta for the Files and BestPig for the BackPort.",
       "downloadLinks": [
         {
@@ -10291,8 +10291,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:52.431904+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607370+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA26528",
@@ -12033,7 +12033,7 @@
       "title": "Darkest Dungeon 2",
       "version": "01.015",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2025/12/2-15.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co6grp.jpg",
       "description": "Format: exFAT · PKG\nTags: PPSA19591, v1.015, 8.xx\nSize: 5GB\nThanks: SiESPta & DUPLEX for the Files and DUPLEX for DLCs",
       "downloadLinks": [
         {
@@ -12118,8 +12118,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG",
-      "_igdbEnrichedAt": "2026-06-28T21:57:52.916482+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607376+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA19590",
@@ -17926,7 +17926,7 @@
         ]
       },
       "formatLabel": "APR-EMU",
-      "_igdbEnrichedAt": "2026-06-28T21:58:07.402837+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607382+00:00",
       "_igdbMatched": false
     },
     {
@@ -19554,7 +19554,7 @@
       "title": "Dragons Dogma 2",
       "version": "03.000",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2025/06/3-3.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co833w.jpg",
       "description": "Format: Folder · PKG · Backport 4.xx\nTags: PPSA09664, v01.000, USA\nSize: 65GB\nPassword: SuperPSX\nVoices: English, Japanese\nWorks on 9.xx and higher",
       "downloadLinks": [
         {
@@ -19642,8 +19642,8 @@
         ]
       },
       "formatLabel": "Folder · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:07.402854+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607387+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA24781",
@@ -21433,7 +21433,7 @@
         ]
       },
       "formatLabel": "Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:07.402859+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607392+00:00",
       "_igdbMatched": false,
       "sizeBytes": 74860556
     },
@@ -22308,7 +22308,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:36:22.801009+00:00",
       "_igdbMatched": true
     },
@@ -23134,7 +23134,7 @@
           "Sports"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:07.803420+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607396+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · APR-EMU"
     },
@@ -24331,7 +24331,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:07.872266+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607401+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport"
     },
@@ -24771,7 +24771,7 @@
           "Indie"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:36:31.006411+00:00",
       "_igdbMatched": true
     },
@@ -26123,7 +26123,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Folder · Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:36:34.454142+00:00",
       "_igdbMatched": true
@@ -26336,7 +26336,7 @@
       "title": "Ghostrunner 2",
       "version": "01.000",
       "category": "game",
-      "posterUrl": "https://www.superpsx.com/wp-content/uploads/2025/04/Ghostrunner-2-PS5.webp",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co97mh.jpg",
       "description": "Format: PKG · Backport 4.xx\nTags: PPSA09911, v01.000, USA\nSize: 12.5GB\nPassword: SuperPSX\nVoices: English\nOnly working 6.xx — 7.xx",
       "downloadLinks": [
         {
@@ -26453,8 +26453,8 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:10.458327+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.607405+00:00",
+      "_igdbMatched": true,
       "formatLabel": "PKG · Backport 4.xx"
     },
     {
@@ -28690,7 +28690,7 @@
         ]
       },
       "formatLabel": "Folder · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:11.039623+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.736524+00:00",
       "_igdbMatched": false
     },
     {
@@ -33408,7 +33408,7 @@
       "title": "Killing Floor 3",
       "version": "02.006",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/04/3-5.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co9f9j.jpg",
       "description": "Format: exFAT · PKG · Backport\nTags: PPSA08427, v2.006, 9.xx, 4.xx\nSize: 33GB\nThanks: DUPLEX & SiESPTA for the Files and BestPig for the BackPork",
       "downloadLinks": [
         {
@@ -33485,8 +33485,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport",
-      "_igdbEnrichedAt": "2026-06-28T21:58:13.224079+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:31.736547+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA21704",
@@ -35550,7 +35550,7 @@
       "title": "Little Nightmares 3",
       "version": "01.004",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/04/3-2.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa171.jpg",
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA05143, v1.004, 9.xx, 8.xx\nSize: 26 GB\nThanks: High-Speed007 for the Files, Pkykzhack for DLCs and Kira for the BackPort",
       "downloadLinks": [
         {
@@ -35688,8 +35688,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:13.964710+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:32.012166+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA02154",
@@ -36666,7 +36666,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:13.964730+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:32.226680+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG"
     },
@@ -38238,7 +38238,7 @@
         ]
       },
       "formatLabel": "Folder · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688925+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:34.544832+00:00",
       "_igdbMatched": false
     },
     {
@@ -38902,7 +38902,7 @@
         ]
       },
       "formatLabel": "Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688946+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.090963+00:00",
       "_igdbMatched": false,
       "sizeBytes": 675463009
     },
@@ -39178,7 +39178,7 @@
           "Sports"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:37:17.411645+00:00",
       "_igdbMatched": true
@@ -39426,7 +39426,7 @@
           "RPG"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Folder",
       "_igdbEnrichedAt": "2026-06-28T21:37:17.635771+00:00",
       "_igdbMatched": true
@@ -40318,7 +40318,7 @@
           "Sports"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:37:20.340367+00:00",
       "_igdbMatched": true
     },
@@ -40761,7 +40761,7 @@
           "Racing"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688953+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.090983+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport 4.xx"
     },
@@ -41088,6 +41088,7 @@
         "PKG",
         "RAR"
       ],
+      "sizeBytes": 163578526,
       "_enrichedAt": "2026-06-22T12:43:08.014181+00:00",
       "_rawgMatched": true,
       "metadata": {
@@ -41103,7 +41104,6 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:22.357303+00:00",
       "_igdbMatched": true,
-      "sizeBytes": 163578526,
       "formatLabel": "PKG · APR-EMU"
     },
     {
@@ -41759,7 +41759,7 @@
       "title": "New Super Luckys Tale",
       "version": "01.001",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/05/1-5.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co4ehd.jpg",
       "description": "Tags: PPSA34823, v1.001",
       "downloadLinks": [
         {
@@ -41792,8 +41792,8 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688959+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.090990+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA03500",
@@ -42687,6 +42687,7 @@
         "PKG",
         "RAR"
       ],
+      "sizeBytes": 1164133187,
       "_enrichedAt": "2026-06-22T12:43:12.774436+00:00",
       "_rawgMatched": true,
       "metadata": {
@@ -42702,7 +42703,6 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:37:27.405136+00:00",
       "_igdbMatched": true,
-      "sizeBytes": 1164133187,
       "formatLabel": "PKG · APR-EMU"
     },
     {
@@ -43074,7 +43074,7 @@
           "Adventure"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:37:28.727511+00:00",
       "_igdbMatched": true
     },
@@ -43130,7 +43130,7 @@
       "title": "Octopath Traveler 2",
       "version": "01.000",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2025/04/4-2.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co7ds7.jpg",
       "description": "Format: exFAT · PKG · Backport 4.xx\nTags: PPSA09809, v1.000, 4.xx, 5.xx, EUR\nSize: 18GB\nCredits: Pippo26442999 x SiESPTA\nThanks: DUPLEX & C4our20 & TRIFECTA for the Files with BackPort",
       "downloadLinks": [
         {
@@ -43244,15 +43244,15 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688964+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.090995+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA07921",
       "title": "Oddworld Abes Exoddus (PS1 Emulation)",
       "version": "01.000.002",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/04/6.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co3pvr.jpg",
       "description": "Tags: PPSA07921, v1.000.002",
       "downloadLinks": [
         {
@@ -43282,8 +43282,8 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:58:17.688969+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.091001+00:00",
+      "_igdbMatched": true,
       "sizeBytes": 4693372590
     },
     {
@@ -44953,7 +44953,7 @@
           "Educational"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:11.962183+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:36.112790+00:00",
       "_igdbMatched": false
     },
     {
@@ -45200,7 +45200,7 @@
         "genres": []
       },
       "formatLabel": "exFAT · PKG",
-      "_igdbEnrichedAt": "2026-06-28T21:56:13.298698+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:38.370954+00:00",
       "_igdbMatched": false
     },
     {
@@ -46700,7 +46700,7 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:56:19.192502+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:38.792440+00:00",
       "_igdbMatched": false
     },
     {
@@ -47932,7 +47932,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:22.008576+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:38.792458+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport"
     },
@@ -48046,7 +48046,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:22.522732+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:38.814039+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport"
     },
@@ -48328,7 +48328,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:22.522751+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.372111+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · Folder · Backport 4.xx"
     },
@@ -48865,7 +48865,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:25.016158+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.372133+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG"
     },
@@ -49776,7 +49776,7 @@
           "Simulation"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:56:26.618366+00:00",
       "_igdbMatched": true
     },
@@ -51710,6 +51710,7 @@
         "Backport 4.xx",
         "Backport 5.xx"
       ],
+      "sizeBytes": 51629185,
       "_enrichedAt": "2026-06-22T12:43:41.995155+00:00",
       "_rawgMatched": true,
       "metadata": {
@@ -51726,7 +51727,6 @@
       },
       "_igdbEnrichedAt": "2026-06-28T21:56:32.280798+00:00",
       "_igdbMatched": true,
-      "sizeBytes": 51629185,
       "formatLabel": "Folder · PKG · Backport 4.xx"
     },
     {
@@ -52491,7 +52491,7 @@
       "title": "Sid Meiers Civilization VII",
       "version": "01.014",
       "category": "game",
-      "posterUrl": "https://www.superpsx.com/wp-content/uploads/2026/04/Sid-Meiers-Civilization-VII-PS5.webp",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8po2.jpg",
       "description": "Format: PKG\nTags: PPSA04203, v01.014, USA\nSize: 21GB\nPassword: SuperPSX\nVoices: Chinese, English, French (France), German, Italian, Japanese, Korean, Polish, Russian, Spanish\nWorking 12.xx to 10.xx",
       "downloadLinks": [
         {
@@ -52535,8 +52535,8 @@
           "Simulation"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:34.851531+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.372141+00:00",
+      "_igdbMatched": true,
       "formatLabel": "PKG"
     },
     {
@@ -53501,7 +53501,7 @@
       "title": "Skydances BEHEMOTH",
       "version": "01.014",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/06/1-bfdbd.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co8cac.jpg",
       "description": "Format: Backport 7.xx\nTags: PPSA04962, v1.014, 7.xx",
       "downloadLinks": [
         {
@@ -53528,8 +53528,8 @@
       "formatLabel": "Backport 7.xx",
       "_enrichedAt": "2026-06-28T21:34:59.768227+00:00",
       "_rawgMatched": false,
-      "_igdbEnrichedAt": "2026-06-28T21:56:38.130535+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.572691+00:00",
+      "_igdbMatched": true,
       "sizeBytes": 10630044057
     },
     {
@@ -55882,7 +55882,7 @@
         ]
       },
       "formatLabel": "exFAT · Folder · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:56:44.669289+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.723547+00:00",
       "_igdbMatched": false
     },
     {
@@ -55964,7 +55964,7 @@
           "RPG"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:44.927683+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:41.934488+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -56044,7 +56044,7 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:56:45.289113+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:42.044184+00:00",
       "_igdbMatched": false
     },
     {
@@ -56098,7 +56098,7 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:56:45.343490+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:45.982179+00:00",
       "_igdbMatched": false
     },
     {
@@ -58948,7 +58948,7 @@
           "RPG"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:56:56.798037+00:00",
       "_igdbMatched": true
     },
@@ -59799,7 +59799,7 @@
           "Casual"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:56:59.708351+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:45.982204+00:00",
       "_igdbMatched": false
     },
     {
@@ -60068,7 +60068,7 @@
           "Adventure"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:57:00.779678+00:00",
       "_igdbMatched": true
@@ -62520,7 +62520,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:57:07.460774+00:00",
       "_igdbMatched": true
@@ -62591,7 +62591,7 @@
           "Action"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:07.481035+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:46.378923+00:00",
       "_igdbMatched": false,
       "formatLabel": "PKG · Backport 4.xx"
     },
@@ -63925,7 +63925,7 @@
           "Shooter"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:13.151259+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:46.378946+00:00",
       "_igdbMatched": false
     },
     {
@@ -65565,7 +65565,7 @@
         ]
       },
       "formatLabel": "Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:17.622925+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:46.435702+00:00",
       "_igdbMatched": false
     },
     {
@@ -66120,7 +66120,7 @@
       "title": "Tiny Tinas Wonderlands",
       "version": "01.012",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2025/02/2-6.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co390m.jpg",
       "description": "Format: exFAT · PKG\nTags: PPSA01492, v01.009, USA\nSize: Approx. 80GB\nPassword: SuperPSX\nVoices: Chinese, English, French (France), German, Japanese, Korean, Spanish",
       "downloadLinks": [
         {
@@ -66215,8 +66215,8 @@
         ]
       },
       "formatLabel": "exFAT · PKG",
-      "_igdbEnrichedAt": "2026-06-28T21:57:20.332263+00:00",
-      "_igdbMatched": false
+      "_igdbEnrichedAt": "2026-06-28T22:19:46.519607+00:00",
+      "_igdbMatched": true
     },
     {
       "titleId": "PPSA32236",
@@ -66375,7 +66375,7 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:23.046900+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:49.820640+00:00",
       "_igdbMatched": false
     },
     {
@@ -67667,7 +67667,7 @@
           "Simulation"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "Folder · Backport 4.xx",
       "_igdbEnrichedAt": "2026-06-28T21:57:27.560306+00:00",
       "_igdbMatched": true
@@ -69733,7 +69733,7 @@
           "Simulation"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:57:32.004054+00:00",
       "_igdbMatched": true
     },
@@ -70687,7 +70687,7 @@
         ]
       },
       "formatLabel": "exFAT · PKG · Backport 7.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:34.708912+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:49.820662+00:00",
       "_igdbMatched": false
     },
     {
@@ -71115,7 +71115,7 @@
           "RPG"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "formatLabel": "PKG",
       "_igdbEnrichedAt": "2026-06-28T21:57:37.578613+00:00",
       "_igdbMatched": true
@@ -71486,7 +71486,7 @@
           "Indie"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:38.500901+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:49.820668+00:00",
       "_igdbMatched": false,
       "formatLabel": "Folder · PKG"
     },
@@ -71732,7 +71732,7 @@
       "title": "Wonder Boy The Dragons Trap",
       "version": "01.001.000",
       "category": "game",
-      "posterUrl": "https://dlpsgame.com/wp-content/uploads/2026/04/8.jpg",
+      "posterUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1z4q.jpg",
       "description": "Format: Backport 4.xx\nTags: PPSA07326, v1.001.000, 4.xx, 5.xx",
       "downloadLinks": [
         {
@@ -71781,8 +71781,8 @@
         ]
       },
       "formatLabel": "Backport 4.xx",
-      "_igdbEnrichedAt": "2026-06-28T21:57:39.053004+00:00",
-      "_igdbMatched": false,
+      "_igdbEnrichedAt": "2026-06-28T22:19:49.820674+00:00",
+      "_igdbMatched": true,
       "sizeBytes": 2559441
     },
     {
@@ -72068,7 +72068,7 @@
           "Racing"
         ]
       },
-      "_igdbEnrichedAt": "2026-06-28T21:57:39.329348+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:49.820680+00:00",
       "_igdbMatched": false,
       "formatLabel": "exFAT · PKG · Backport 4.xx"
     },
@@ -72325,7 +72325,7 @@
           "Sports"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:57:41.559442+00:00",
       "_igdbMatched": true
     },
@@ -72997,7 +72997,7 @@
         ]
       },
       "formatLabel": "APR-EMU",
-      "_igdbEnrichedAt": "2026-06-28T21:57:42.560966+00:00",
+      "_igdbEnrichedAt": "2026-06-28T22:19:50.154837+00:00",
       "_igdbMatched": false
     },
     {
@@ -73256,7 +73256,7 @@
           "Action"
         ]
       },
-      "_sizeProbedAt": "2026-06-28T21:58:17.838583+00:00",
+      "_sizeProbedAt": "2026-06-28T22:19:50.325727+00:00",
       "_igdbEnrichedAt": "2026-06-28T21:57:45.545938+00:00",
       "_igdbMatched": true
     },
