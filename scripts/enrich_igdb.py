@@ -122,6 +122,12 @@ def _search_terms(title: str) -> list[str]:
     terms = [safe]
     cleaned = re.sub(r"[®™©]", " ", safe)
     cleaned = re.sub(r"\([^)]*\)", " ", cleaned)        # retire (…)
+    cleaned = re.sub(r"\[[^\]]*\]", " ", cleaned)       # retire […] ([Season 2])
+    # suffixes « bruit » fréquents qui n'existent pas dans le nom IGDB canonique
+    cleaned = re.sub(r"\bvol\.?\s*\d+\b", " ", cleaned, flags=re.I)
+    cleaned = re.sub(r"\bseason\s*\d+\b", " ", cleaned, flags=re.I)
+    cleaned = re.sub(r"\bbonus content\b", " ", cleaned, flags=re.I)
+    cleaned = re.sub(r"\b\d+(?:st|nd|rd|th)\s+anniversary\b", " ", cleaned, flags=re.I)
     cleaned = _EDITION_NOISE.sub(" ", cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip(" -–—:")
     if cleaned and cleaned.lower() != safe.lower():
@@ -234,11 +240,11 @@ def fetch_igdb_cover(title: str, client_id: str, token: str, *, timeout: int = 2
     # Les jeux déjà matchés s'arrêtent à l'étape 1 : pas d'appels en plus.
     terms = _search_terms(title)
     queries = [
-        f'search "{terms[0]}"; {fields} where platforms = ({IGDB_PS5_PLATFORM_ID}); limit 5;',
-        f'search "{terms[0]}"; {fields} limit 5;',
+        f'search "{terms[0]}"; {fields} where platforms = ({IGDB_PS5_PLATFORM_ID}); limit 10;',
+        f'search "{terms[0]}"; {fields} limit 10;',
     ]
     for extra in terms[1:]:
-        queries.append(f'search "{extra}"; {fields} limit 5;')
+        queries.append(f'search "{extra}"; {fields} limit 10;')
     for q in queries:
         results = _igdb_post(q.encode("utf-8"), client_id, token, timeout=timeout)
         if not results:
