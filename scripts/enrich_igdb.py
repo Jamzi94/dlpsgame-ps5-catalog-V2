@@ -84,10 +84,21 @@ _TTL_UNMATCHED = 21    # pas trouvée : réessayer (IGDB s'enrichit avec le temp
 # ---------------------------------------------------------------------------
 # Correspondance de titres
 # ---------------------------------------------------------------------------
+_ROMAN = {"i": "1", "ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6",
+          "vii": "7", "viii": "8", "ix": "9", "x": "10", "xi": "11", "xii": "12"}
+
+
 def _normalize_title(s: str) -> str:
     s = (s or "").lower()
+    s = s.replace("&", " and ")
+    # Apostrophes JOINTES (pas un espace) : "assassin's" -> "assassins", sinon le
+    # token "s" cassait le score (Assassin's Creed, Marvel's, …).
+    s = re.sub(r"['’`´]", "", s)
     s = re.sub(r"[^a-z0-9]+", " ", s)
-    return re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"\s+", " ", s).strip()
+    # Nombres romains isolés -> chiffres (II<->2, VII<->7…) ; appliqué des DEUX
+    # côtés (titre & résultat IGDB) donc l'auto-correspondance reste préservée.
+    return " ".join(_ROMAN.get(tok, tok) for tok in s.split())
 
 
 # Mots « bruit » qui font rater la recherche IGDB (éditions, plateforme, marques).
@@ -116,6 +127,21 @@ def _search_terms(title: str) -> list[str]:
     if cleaned and cleaned.lower() != safe.lower():
         terms.append(cleaned)
     return terms
+
+
+def _is_stub_title(title: str) -> bool:
+    """Vrai pour les entrées qui ne sont pas de vrais jeux (DLC/stubs codés).
+
+    Ex. « DLL-AITDPS5 », « DLL-DCPS5 » : code en majuscules, sans espace, jamais
+    référencé dans IGDB. On évite des appels inutiles et on ne les compte pas
+    comme « non trouvés »."""
+    t = title.strip()
+    if re.match(r"(?i)^(DLL|UPD|DLC|PATCH)[-_ ]", t):
+        return True
+    # Code compact tout en majuscules, sans espace (ex. « AITDPS5 ») :
+    if " " not in t and len(t) <= 12 and t.isupper() and re.search(r"\d", t):
+        return True
+    return False
 
 
 def _best_match(title: str, results: list[dict]) -> dict | None:
@@ -279,6 +305,11 @@ def enrich_catalog(catalog: dict, client_id: str, token: str, *,
         title = (pkg.get("title") or "").strip()
         if not title:
             continue
+        # Stubs/DLC sans vrai nom de jeu (ex. « DLL-AITDPS5 ») : jamais dans IGDB,
+        # on n'y gaspille pas d'appels et on ne les compte pas comme « non trouvés ».
+        if _is_stub_title(title):
+            stats["stub"] = stats.get("stub", 0) + 1
+            continue
         # --recheck-unmatched : on ignore le TTL des jeux « non trouvés » pour les
         # ré-interroger tout de suite (utile quand la logique de matching change ou
         # qu'IGDB s'est enrichi) — les jeux déjà MATCHÉS restent cachés (TTL 60j).
@@ -385,6 +416,7 @@ def main(argv: list[str] | None = None) -> int:
         f"IGDB terminé : {stats['total']} jeux | {stats['fresh']} à jour (cache) | "
         f"{stats['calls']} appels ({stats['matched']} jaquettes trouvées, "
         f"{stats['unmatched']} non trouvées) | {stats['errors']} erreurs"
+        + (f" | {stats.get('stub', 0)} stubs ignorés" if stats.get('stub') else "")
         + (f" | {stats['capped']} reportés (plafond)" if stats['capped'] else "")
     )
     return 0
