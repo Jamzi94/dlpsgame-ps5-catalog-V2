@@ -496,6 +496,17 @@ jobs:
             python3 scripts/pegasus_finalize.py dlpsgame-ps5.json
           fi
 
+      - name: Generate games list
+        if: env.MERGE_SKIPPED != '1'
+        run: |
+          # Liste lisible de TOUS les jeux disponibles + leur format. Régénérée
+          # à partir du catalogue cumulatif : chaque run l'enrichit des nouveaux
+          # jeux sans perdre les anciens (merge non destructif + mémoire incr.).
+          if [ -f dlpsgame-ps5.json ]; then
+            python3 scripts/build_games_list.py dlpsgame-ps5.json \
+              --md games-list.md --csv games-list.csv
+          fi
+
       # ──────────────────────────────────────────────────────────────
       # MÉTRIQUES ET DIFF
       # ──────────────────────────────────────────────────────────────
@@ -597,6 +608,8 @@ jobs:
           git add -f dlpsgame-ps5.json
           [ -f dlpsgame-ps5.warnings.txt ] && git add -f dlpsgame-ps5.warnings.txt || true
           [ -f scrape-metrics.json ] && git add -f scrape-metrics.json || true
+          [ -f games-list.md ] && git add -f games-list.md || true
+          [ -f games-list.csv ] && git add -f games-list.csv || true
 
           # ITEM 2 : on versionne les manifests incrémentaux (last_run + 'modified'
           # par entrée) pour piloter le vrai incrémental entre runs.
@@ -642,5 +655,7 @@ jobs:
             dlpsgame-ps5.warnings.txt
             scrape-metrics.json
             diff-report.json
+            games-list.md
+            games-list.csv
           if-no-files-found: ignore
           retention-days: 14
