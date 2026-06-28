@@ -412,7 +412,7 @@ Mafia The Old Country,PPSA14251,PKG · Backport 9.xx,"PKG, Backport 9.xx",01.006
 Mafia The Old Country,PPSA14299,exFAT · Folder · Backport,"exFAT, Folder, PKG, RAR, Backport",01.006,"dlpsgame.com, exFAT",24,https://dlpsgame.com/mafia-the-old-country-free-ps5/
 Maneater,PPSA01862,exFAT · PKG,"exFAT, PKG",01.000.010,"dlpsgame.com, exFAT",16,https://pippo26442999.github.io/.exFAT/exFAT.json
 Maneater,PPSA01861,PKG,PKG,01.010,superpsx.com,3,https://superpsx.com/dll-mps5/
-Martha is Dead,PPSA02006,exFAT · PKG,"exFAT, PKG",01.090,"dlpsgame.com, exFAT, superpsx.com",10,https://pippo26442999.github.io/.exFAT/exFAT.json
+Martha is Dead,PPSA02006,exFAT · PKG,"PKG, exFAT",01.090,"superpsx.com, dlpsgame.com, exFAT",10,https://pippo26442999.github.io/.exFAT/exFAT.json
 Marvel’s Guardians of the Galaxy,PPSA01748,exFAT · PKG,"PKG, exFAT",01.006,"superpsx.com, dlpsgame.com, exFAT",13,https://dlpsgame.com/marvels-guardians-of-the-galaxy-ps5/
 Marvel’s Midnight Suns – Enhanced Edition,PPSA03603,exFAT · PKG · Backport,"PKG, exFAT, APR-EMU, Backport",01.013,"superpsx.com, dlpsgame.com, exFAT",7,https://pippo26442999.github.io/.exFAT/exFAT.json
 Marvel’s Spider-Man 2 – Deluxe Edition,PPSA03016,exFAT · PKG · Backport 4.xx,"APR-EMU, exFAT, PKG, RAR, Backport 4.xx",01.004.003,"superpsx.com, dlpsgame.com, exFAT",26,https://pippo26442999.github.io/.exFAT/exFAT.json
@@ -437,8 +437,8 @@ Minecraft Legends,GAME_90527,Backport 4.xx,"RAR, Backport 4.xx",01.013,dlpsgame.
 Minecraft Preview,PPSA19639,Backport 4.xx,"Backport 4.xx, RAR",01.024.000,dlpsgame.com,1,https://dlpsgame.com/minecraft-preview-ps5/
 Monster Boy and The Cursed Kingdom,PPSA02787,PKG · Backport 4.xx,"PKG, Backport 4.xx",01.000.004,"superpsx.com, dlpsgame.com",14,https://dlpsgame.com/monster-boy-and-the-cursed-kingdom-ps5/
 Monster Energy Supercross 25 The Official Video Game,PPSA20435,exFAT · Folder · Backport,"exFAT, Folder, PKG, ZIP, Backport",01.011,"dlpsgame.com, exFAT",14,https://dlpsgame.com/monster-energy-supercross-25-the-official-video-game-ps5/
-Monster Energy Supercross The Official Videogame 4,PPSA01608,PKG,"unknown, PKG",01.010,"dlpsgame.com, superpsx.com",5,https://dlpsgame.com/monster-energy-supercross-the-official-videogame-4-ps5/
 Monster Energy Supercross The Official Videogame 6,PPSA08592,Backport 4.xx,"ZIP, Backport 4.xx, Backport 5.xx",01.008,dlpsgame.com,13,https://dlpsgame.com/monster-energy-supercross-the-official-videogame-6-ps5/
+Monster Energy Supercross: The Official Videogame 4,PPSA01608,PKG,"PKG, unknown",01.010,"superpsx.com, dlpsgame.com",5,https://dlpsgame.com/monster-energy-supercross-the-official-videogame-4-ps5/
 Monster Energy Supercross: The Official Videogame 5,PPSA04054,PKG,"PKG, unknown",01.005,"superpsx.com, dlpsgame.com",9,https://dlpsgame.com/monster-energy-supercross-5-ps5/
 Monster Hunter Stories 3 Twisted Reflection,PPSA26873,PKG,"PKG, unknown",01.002,"superpsx.com, dlpsgame.com",4,https://dlpsgame.com/monster-hunter-stories-3-twisted-reflection-ps5/
 Monster Hunter Wilds,PPSA24191,Folder,"Folder, unknown",01.041.040,dlpsgame.com,8,https://dlpsgame.com/monster-hunter-wilds-ps5/
@@ -521,7 +521,7 @@ Poppy Playtime Chapter 2,PPSA21631,exFAT · PKG · Backport 4.xx,"PKG, exFAT, Ba
 Poppy Playtime Chapter 3,PPSA22380,PKG · Backport 4.xx,"PKG, Backport 4.xx, Backport 5.xx, ZIP",01.000,"superpsx.com, dlpsgame.com",22,https://dlpsgame.com/poppy-playtime-chapter-3-ps5/
 Port Royale 4,PPSA02815,PKG,PKG,01.004.000,"superpsx.com, dlpsgame.com",9,https://dlpsgame.com/port-royale-4-ps5/
 Post Trauma,PPSA11002,unknown,unknown,02.001,dlpsgame.com,2,https://dlpsgame.com/post-trauma-ps5/
-Potion Permit,PPSA02687,exFAT · PKG · Backport 4.xx,"RAR, ZIP, Backport 4.xx, exFAT, PKG",01.000,"dlpsgame.com, exFAT, superpsx.com",14,https://pippo26442999.github.io/.exFAT/exFAT.json
+Potion Permit,PPSA02687,exFAT · PKG · Backport 4.xx,"PKG, RAR, ZIP, Backport 4.xx, exFAT",01.000,"superpsx.com, dlpsgame.com, exFAT",14,https://pippo26442999.github.io/.exFAT/exFAT.json
 Potionomics Masterwork Edition,PPSA24152,Folder · PKG · Backport 4.xx,"PKG, Backport 4.xx, Backport 5.xx, Folder, ZIP, RAR",01.000,"superpsx.com, dlpsgame.com",22,https://dlpsgame.com/potionomics-masterwork-edition-ps5/
 Powerwash Simulator,PPSA04987,Backport 4.xx,"RAR, ZIP, Backport 4.xx, Backport 5.xx",01.015,dlpsgame.com,20,https://dlpsgame.com/powerwash-simulator-ps5/
 PRAGMATA,PPSA02530,exFAT · PKG · Backport 5.xx,"PKG, exFAT, Backport 5.xx",01.200,"superpsx.com, dlpsgame.com, exFAT",8,https://pippo26442999.github.io/.exFAT/exFAT.json
@@ -547,7 +547,7 @@ Resident Evil 4 Remake,PPSA07411,exFAT · Folder · Backport 4.xx,"PKG, exFAT, F
 Resident Evil 7: Biohazard Gold Edition,PPSA04404,exFAT · PKG · Backport,"PKG, exFAT, Backport",01.000,"superpsx.com, dlpsgame.com, exFAT",17,https://dlpsgame.com/resident-evil-7-biohazard-gold-edition-ps5/
 Resident Evil Requiem,PPSA30803,exFAT · Backport 4.xx,"exFAT, Backport 4.xx",01.200,dlpsgame.com,7,https://dlpsgame.com/resident-evil-requiem-ps5/
 Resident Evil Requiem,PPSA31246,exFAT · PKG · Backport 4.xx,"exFAT, PKG, RAR, Backport 4.xx",01.200.000,"superpsx.com, exFAT",22,https://pippo26442999.github.io/.exFAT/exFAT.json
-Resident Evil Village Gold Edition,PPSA01556,exFAT · PKG · Backport 4.xx,"exFAT, RAR, Backport 4.xx, PKG",01.210,"dlpsgame.com, exFAT, superpsx.com",37,https://dlpsgame.com/resident-evil-village-gold-edition-ps5/
+Resident Evil Village Gold Edition,PPSA01556,exFAT · PKG · Backport 4.xx,"PKG, exFAT, RAR, Backport 4.xx",01.002,"superpsx.com, dlpsgame.com, exFAT",37,https://dlpsgame.com/resident-evil-village-gold-edition-ps5/
 Resident Evil Village Maiden Demo,PPSA01859,PKG,"PKG, unknown",01.001,"superpsx.com, dlpsgame.com",5,https://dlpsgame.com/resident-evil-village-maiden-demo-ps5/
 Returnal,PPSA01285,FFPKG · exFAT · Backport 4.xx,"FFPKG, exFAT, RAR, Backport 4.xx, PKG",03.005,"dlpsgame.com, exFAT",19,https://pippo26442999.github.io/.exFAT/exFAT.json
 Revenge of The Savage Planet,PPSA20154,exFAT · PKG · Backport 4.xx,"exFAT, PKG, Backport 4.xx, ZIP, RAR",01.021,"superpsx.com, dlpsgame.com, exFAT",22,https://dlpsgame.com/revenge-of-the-savage-planet-ps5/
@@ -623,7 +623,7 @@ Split Fiction,PPSA08560,FFPKG · exFAT · Backport,"PKG, Backport, FFPKG, exFAT,
 Squirrel With A Gun,PPSA22102,Folder · PKG · Backport 4.xx,"PKG, Folder, RAR, ZIP, Backport 4.xx, Backport 5.xx",01.000,"superpsx.com, dlpsgame.com",21,https://dlpsgame.com/squirrel-with-a-gun-ps5/
 STALKER 2 Heart of Chornobyl,PPSA28336,exFAT · Folder · Backport 4.xx,"exFAT, Backport 4.xx, Folder, PKG, Backport",01.009,"dlpsgame.com, exFAT, superpsx.com",8,https://dlpsgame.com/stalker-2-heart-of-chornobyl-ps5/
 STALKER Call of Prypiat Enhanced Edition,PPSA21732,exFAT · PKG · Backport 4.xx,"exFAT, PKG, Backport 4.xx",01.009,"superpsx.com, dlpsgame.com, exFAT",11,https://dlpsgame.com/stalker-call-of-prypiat-enhan%d1%81ed-edition-ps5/
-STALKER Clear Sky Enhanсed Edition,PPSA21733,exFAT · PKG · Backport 4.xx,"exFAT, Backport 4.xx, PKG",01.009,"dlpsgame.com, exFAT, superpsx.com",10,https://dlpsgame.com/stalker-clear-sky-enhan%d1%81ed-edition-ps5/
+STALKER Clear Sky Enhanced Edition,PPSA21733,exFAT · PKG · Backport 4.xx,"exFAT, PKG, Backport 4.xx",01.009,"superpsx.com, dlpsgame.com, exFAT",10,https://dlpsgame.com/stalker-clear-sky-enhan%d1%81ed-edition-ps5/
 STALKER Shadow of Chornobyl Enhanсed Edition,PPSA21734,exFAT · PKG · Backport 4.xx,"exFAT, Backport 4.xx, PKG",01.009,"dlpsgame.com, exFAT",4,https://dlpsgame.com/stalker-shadow-of-chornobyl-enhan%d1%81ed-edition-ps5/
 Star Ocean The Divine Force,PPSA06262,exFAT · PKG · Backport 4.xx,"PKG, Backport 4.xx, exFAT, ZIP, Backport",01.000,"superpsx.com, dlpsgame.com, exFAT",15,https://dlpsgame.com/star-ocean-the-divine-force-ps5/
 Star Trek Resurgence,PPSA18037,Folder · Backport 4.xx,"Folder, ZIP, Backport 4.xx, Backport 5.xx",01.000,dlpsgame.com,15,https://dlpsgame.com/star-trek-resurgence-ps5/
@@ -732,7 +732,7 @@ The Pathless,PPSA01826,exFAT · PKG,"exFAT, PKG",02.000,"dlpsgame.com, exFAT",12
 The Persistence Enhanced,PPSA01916,PKG,"PKG, RAR",01.200,"superpsx.com, dlpsgame.com",4,https://dlpsgame.com/the-persistence-enhanced-ps5/
 The Plucky Squire,PPSA15319,exFAT · PKG · Backport 7.xx,"exFAT, APR-EMU, Backport 7.xx, Backport, RAR, PKG",02.002,"dlpsgame.com, exFAT",15,https://pippo26442999.github.io/.exFAT/exFAT.json
 The Precinct,PPSA17732,PKG,"PKG, unknown, RAR",01.900,"superpsx.com, dlpsgame.com",5,https://dlpsgame.com/the-precinct-ps5/
-The Quarry,PPSA06225,exFAT · PKG,"exFAT, PKG",01.000,"dlpsgame.com, exFAT, superpsx.com",13,https://pippo26442999.github.io/.exFAT/exFAT.json
+The Quarry,PPSA06225,exFAT · PKG,"PKG, exFAT",01.000,"superpsx.com, dlpsgame.com, exFAT",13,https://pippo26442999.github.io/.exFAT/exFAT.json
 The Riftbreaker,PPSA03753,exFAT · PKG · Backport 4.xx,"PKG, exFAT, Backport 4.xx, Backport",01.020,"superpsx.com, dlpsgame.com, exFAT",15,https://pippo26442999.github.io/.exFAT/exFAT.json
 The Smurfs 2 The Prisoner of the Green Stone,PPSA16716,exFAT · PKG · Backport 4.xx,"RAR, ZIP, Backport 4.xx, exFAT, PKG",01.000,"dlpsgame.com, exFAT, superpsx.com",25,https://dlpsgame.com/the-smurfs-2-the-prisoner-of-the-green-stone-new-free-ps5/
 The Smurfs: Mission Vileaf,PPSA02876,PKG,"PKG, unknown",01.000.001,"superpsx.com, dlpsgame.com",7,https://dlpsgame.com/the-smurfs-mission-vileaf-ps5/
@@ -760,7 +760,7 @@ Tormented Souls,PPSA02526,PKG · Backport,"Backport, PKG",01.009,exFAT,3,https:/
 Tormented Souls II,PPSA17322,exFAT · PKG · Backport 4.xx,"exFAT, PKG, Backport 4.xx, RAR",01.006,"superpsx.com, dlpsgame.com, exFAT",15,https://pippo26442999.github.io/.exFAT/exFAT.json
 Total Chaos,PPSA32393,unknown,unknown,01.002.002,dlpsgame.com,2,https://dlpsgame.com/total-chaos-ps5/
 Tour de France 2024,PPSA20114,exFAT · Folder · Backport 4.xx,"exFAT, Folder, PKG, ZIP, RAR, Backport 4.xx, Backport",01.008,"dlpsgame.com, exFAT",21,https://pippo26442999.github.io/.exFAT/exFAT.json
-Tour de France 2025,PPSA26576,exFAT · PKG · Backport 4.xx,"exFAT, APR-EMU, Backport 4.xx, RAR, PKG",01.007,"dlpsgame.com, exFAT, superpsx.com",18,https://pippo26442999.github.io/.exFAT/exFAT.json
+Tour de France 2025,PPSA26576,exFAT · PKG · Backport 4.xx,"APR-EMU, PKG, Backport 4.xx, exFAT, RAR",01.007,"superpsx.com, dlpsgame.com, exFAT",21,https://pippo26442999.github.io/.exFAT/exFAT.json
 Tourist Bus Simulator,PPSA04433,PKG,PKG,01.000.000,"superpsx.com, dlpsgame.com",13,https://dlpsgame.com/tourist-bus-simulator-ps5/
 Train Life: A Railway Simulator,PPSA03851,PKG · Backport,"PKG, Backport",01.000,"superpsx.com, dlpsgame.com",11,https://dlpsgame.com/train-life-a-railway-simulator-ps5/
 Train Sim World 2: Rush Hour Deluxe Edition,PPSA03944,PKG,"PKG, unknown",01.046,"superpsx.com, dlpsgame.com",16,https://dlpsgame.com/train-sim-world-2-rush-hour-deluxe-edition-ps5/

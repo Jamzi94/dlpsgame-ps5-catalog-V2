@@ -1,6 +1,6 @@
 # Liste des jeux PS5 disponibles — SuperPSX PS5
 
-_**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à chaque run_
+_**840** jeux · généré le 2026-06-28 21:37 UTC · régénéré et enrichi à chaque run_
 
 ## Répartition par format
 
@@ -469,7 +469,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 411 | Mafia The Old Country | exFAT · Folder · Backport | 01.006 | dlpsgame.com, exFAT |
 | 412 | Maneater | exFAT · PKG | 01.000.010 | dlpsgame.com, exFAT |
 | 413 | Maneater | PKG | 01.010 | superpsx.com |
-| 414 | Martha is Dead | exFAT · PKG | 01.090 | dlpsgame.com, exFAT, superpsx.com |
+| 414 | Martha is Dead | exFAT · PKG | 01.090 | superpsx.com, dlpsgame.com, exFAT |
 | 415 | Marvel’s Guardians of the Galaxy | exFAT · PKG | 01.006 | superpsx.com, dlpsgame.com, exFAT |
 | 416 | Marvel’s Midnight Suns – Enhanced Edition | exFAT · PKG · Backport | 01.013 | superpsx.com, dlpsgame.com, exFAT |
 | 417 | Marvel’s Spider-Man 2 – Deluxe Edition | exFAT · PKG · Backport 4.xx | 01.004.003 | superpsx.com, dlpsgame.com, exFAT |
@@ -494,8 +494,8 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 436 | Minecraft Preview | Backport 4.xx | 01.024.000 | dlpsgame.com |
 | 437 | Monster Boy and The Cursed Kingdom | PKG · Backport 4.xx | 01.000.004 | superpsx.com, dlpsgame.com |
 | 438 | Monster Energy Supercross 25 The Official Video Game | exFAT · Folder · Backport | 01.011 | dlpsgame.com, exFAT |
-| 439 | Monster Energy Supercross The Official Videogame 4 | PKG | 01.010 | dlpsgame.com, superpsx.com |
-| 440 | Monster Energy Supercross The Official Videogame 6 | Backport 4.xx | 01.008 | dlpsgame.com |
+| 439 | Monster Energy Supercross The Official Videogame 6 | Backport 4.xx | 01.008 | dlpsgame.com |
+| 440 | Monster Energy Supercross: The Official Videogame 4 | PKG | 01.010 | superpsx.com, dlpsgame.com |
 | 441 | Monster Energy Supercross: The Official Videogame 5 | PKG | 01.005 | superpsx.com, dlpsgame.com |
 | 442 | Monster Hunter Stories 3 Twisted Reflection | PKG | 01.002 | superpsx.com, dlpsgame.com |
 | 443 | Monster Hunter Wilds | Folder | 01.041.040 | dlpsgame.com |
@@ -578,7 +578,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 520 | Poppy Playtime Chapter 3 | PKG · Backport 4.xx | 01.000 | superpsx.com, dlpsgame.com |
 | 521 | Port Royale 4 | PKG | 01.004.000 | superpsx.com, dlpsgame.com |
 | 522 | Post Trauma | unknown | 02.001 | dlpsgame.com |
-| 523 | Potion Permit | exFAT · PKG · Backport 4.xx | 01.000 | dlpsgame.com, exFAT, superpsx.com |
+| 523 | Potion Permit | exFAT · PKG · Backport 4.xx | 01.000 | superpsx.com, dlpsgame.com, exFAT |
 | 524 | Potionomics Masterwork Edition | Folder · PKG · Backport 4.xx | 01.000 | superpsx.com, dlpsgame.com |
 | 525 | Powerwash Simulator | Backport 4.xx | 01.015 | dlpsgame.com |
 | 526 | PRAGMATA | exFAT · PKG · Backport 5.xx | 01.200 | superpsx.com, dlpsgame.com, exFAT |
@@ -604,7 +604,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 546 | Resident Evil 7: Biohazard Gold Edition | exFAT · PKG · Backport | 01.000 | superpsx.com, dlpsgame.com, exFAT |
 | 547 | Resident Evil Requiem | exFAT · Backport 4.xx | 01.200 | dlpsgame.com |
 | 548 | Resident Evil Requiem | exFAT · PKG · Backport 4.xx | 01.200.000 | superpsx.com, exFAT |
-| 549 | Resident Evil Village Gold Edition | exFAT · PKG · Backport 4.xx | 01.210 | dlpsgame.com, exFAT, superpsx.com |
+| 549 | Resident Evil Village Gold Edition | exFAT · PKG · Backport 4.xx | 01.002 | superpsx.com, dlpsgame.com, exFAT |
 | 550 | Resident Evil Village Maiden Demo | PKG | 01.001 | superpsx.com, dlpsgame.com |
 | 551 | Returnal | FFPKG · exFAT · Backport 4.xx | 03.005 | dlpsgame.com, exFAT |
 | 552 | Revenge of The Savage Planet | exFAT · PKG · Backport 4.xx | 01.021 | superpsx.com, dlpsgame.com, exFAT |
@@ -680,7 +680,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 622 | Squirrel With A Gun | Folder · PKG · Backport 4.xx | 01.000 | superpsx.com, dlpsgame.com |
 | 623 | STALKER 2 Heart of Chornobyl | exFAT · Folder · Backport 4.xx | 01.009 | dlpsgame.com, exFAT, superpsx.com |
 | 624 | STALKER Call of Prypiat Enhanced Edition | exFAT · PKG · Backport 4.xx | 01.009 | superpsx.com, dlpsgame.com, exFAT |
-| 625 | STALKER Clear Sky Enhanсed Edition | exFAT · PKG · Backport 4.xx | 01.009 | dlpsgame.com, exFAT, superpsx.com |
+| 625 | STALKER Clear Sky Enhanced Edition | exFAT · PKG · Backport 4.xx | 01.009 | superpsx.com, dlpsgame.com, exFAT |
 | 626 | STALKER Shadow of Chornobyl Enhanсed Edition | exFAT · PKG · Backport 4.xx | 01.009 | dlpsgame.com, exFAT |
 | 627 | Star Ocean The Divine Force | exFAT · PKG · Backport 4.xx | 01.000 | superpsx.com, dlpsgame.com, exFAT |
 | 628 | Star Trek Resurgence | Folder · Backport 4.xx | 01.000 | dlpsgame.com |
@@ -789,7 +789,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 731 | The Persistence Enhanced | PKG | 01.200 | superpsx.com, dlpsgame.com |
 | 732 | The Plucky Squire | exFAT · PKG · Backport 7.xx | 02.002 | dlpsgame.com, exFAT |
 | 733 | The Precinct | PKG | 01.900 | superpsx.com, dlpsgame.com |
-| 734 | The Quarry | exFAT · PKG | 01.000 | dlpsgame.com, exFAT, superpsx.com |
+| 734 | The Quarry | exFAT · PKG | 01.000 | superpsx.com, dlpsgame.com, exFAT |
 | 735 | The Riftbreaker | exFAT · PKG · Backport 4.xx | 01.020 | superpsx.com, dlpsgame.com, exFAT |
 | 736 | The Smurfs 2 The Prisoner of the Green Stone | exFAT · PKG · Backport 4.xx | 01.000 | dlpsgame.com, exFAT, superpsx.com |
 | 737 | The Smurfs: Mission Vileaf | PKG | 01.000.001 | superpsx.com, dlpsgame.com |
@@ -817,7 +817,7 @@ _**840** jeux · généré le 2026-06-28 19:57 UTC · régénéré et enrichi à
 | 759 | Tormented Souls II | exFAT · PKG · Backport 4.xx | 01.006 | superpsx.com, dlpsgame.com, exFAT |
 | 760 | Total Chaos | unknown | 01.002.002 | dlpsgame.com |
 | 761 | Tour de France 2024 | exFAT · Folder · Backport 4.xx | 01.008 | dlpsgame.com, exFAT |
-| 762 | Tour de France 2025 | exFAT · PKG · Backport 4.xx | 01.007 | dlpsgame.com, exFAT, superpsx.com |
+| 762 | Tour de France 2025 | exFAT · PKG · Backport 4.xx | 01.007 | superpsx.com, dlpsgame.com, exFAT |
 | 763 | Tourist Bus Simulator | PKG | 01.000.000 | superpsx.com, dlpsgame.com |
 | 764 | Train Life: A Railway Simulator | PKG · Backport | 01.000 | superpsx.com, dlpsgame.com |
 | 765 | Train Sim World 2: Rush Hour Deluxe Edition | PKG | 01.046 | superpsx.com, dlpsgame.com |
