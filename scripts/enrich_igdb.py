@@ -33,6 +33,7 @@ import re
 import sys
 import threading
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -135,16 +136,12 @@ def get_twitch_token(client_id: str, client_secret: str, *, timeout: int = 20) -
 # ---------------------------------------------------------------------------
 # Requête IGDB
 # ---------------------------------------------------------------------------
-def fetch_igdb_cover(title: str, client_id: str, token: str, *, timeout: int = 20) -> str | None:
-    """Retourne l'URL de jaquette IGDB (PS5) pour `title`, ou None."""
-    # Apicalypse : on demande le nom + l'image_id de la cover, filtré PS5.
-    safe = title.replace('"', " ").strip()
-    body = (
-        f'search "{safe}"; '
-        f'fields name,cover.image_id,platforms; '
-        f'where platforms = ({IGDB_PS5_PLATFORM_ID}); '
-        f'limit 5;'
-    ).encode("utf-8")
+def _igdb_post(body: bytes, client_id: str, token: str, *,
+               timeout: int, max_429_retries: int = 3) -> list:
+    """POST Apicalypse à IGDB, avec retry/backoff sur 429 (rate limit).
+
+    Le token-bucket borne déjà le débit à 4 req/s, mais un 429 transitoire
+    (rafale, autre client) gaspillerait l'appel du jeu : on réessaie un peu."""
     req = urllib.request.Request(
         IGDB_GAMES_URL, data=body, method="POST",
         headers={
@@ -154,18 +151,47 @@ def fetch_igdb_cover(title: str, client_id: str, token: str, *, timeout: int = 2
             "User-Agent": USER_AGENT,
         },
     )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        results = json.loads(resp.read().decode("utf-8"))
-    if not isinstance(results, list) or not results:
-        return None
-    match = _best_match(title, results)
-    if not match:
-        return None
-    cover = match.get("cover") or {}
-    image_id = cover.get("image_id") if isinstance(cover, dict) else None
-    if not image_id:
-        return None
-    return IGDB_IMAGE_TMPL.format(size=IGDB_COVER_SIZE, image_id=image_id)
+    for attempt in range(max_429_retries + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            return data if isinstance(data, list) else []
+        except urllib.error.HTTPError as exc:
+            # 429 (Too Many Requests) : backoff court puis nouvelle tentative.
+            if exc.code == 429 and attempt < max_429_retries:
+                time.sleep(0.5 * (attempt + 1) + random.uniform(0.0, 0.3))
+                continue
+            raise
+    return []
+
+
+def fetch_igdb_cover(title: str, client_id: str, token: str, *, timeout: int = 20) -> str | None:
+    """Retourne l'URL de jaquette IGDB pour `title`, ou None.
+
+    Stratégie : on cherche EN PRIORITÉ une version PS5 (filtre plateforme), puis,
+    si rien ne matche, on RÉESSAIE sans filtre plateforme. La jaquette IGDB est la
+    même quelle que soit la plateforme ; ce repli récupère un match quand IGDB ne
+    tague pas (encore) le jeu en PS5 (données parfois incomplètes)."""
+    safe = title.replace('"', " ").strip()
+    fields = "fields name,cover.image_id,platforms;"
+    queries = (
+        # 1) Priorité PS5
+        f'search "{safe}"; {fields} where platforms = ({IGDB_PS5_PLATFORM_ID}); limit 5;',
+        # 2) Repli toutes plateformes (même jaquette portrait)
+        f'search "{safe}"; {fields} limit 5;',
+    )
+    for q in queries:
+        results = _igdb_post(q.encode("utf-8"), client_id, token, timeout=timeout)
+        if not results:
+            continue
+        match = _best_match(title, results)
+        if not match:
+            continue
+        cover = match.get("cover") or {}
+        image_id = cover.get("image_id") if isinstance(cover, dict) else None
+        if image_id:
+            return IGDB_IMAGE_TMPL.format(size=IGDB_COVER_SIZE, image_id=image_id)
+    return None
 
 
 # ---------------------------------------------------------------------------

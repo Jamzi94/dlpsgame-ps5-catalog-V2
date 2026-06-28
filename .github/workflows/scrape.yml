@@ -123,7 +123,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          # fetch-depth 0 (historique complet) : indispensable pour que le step
+          # « Commit & push » puisse pousser/rebaser de façon fiable. En shallow
+          # (depth 1), un push depuis une branche échouait ("shallow update not
+          # allowed") et le rebase de secours n'avait pas de base commune.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
