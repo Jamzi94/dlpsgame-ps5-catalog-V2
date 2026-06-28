@@ -90,6 +90,34 @@ def _normalize_title(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+# Mots « bruit » qui font rater la recherche IGDB (éditions, plateforme, marques).
+# On les retire pour produire une 2e tentative SANS toucher au sous-titre (un
+# sous-titre après « : » identifie souvent un autre jeu — on n'y touche pas).
+_EDITION_NOISE = re.compile(
+    r"\b(deluxe|gold|ultimate|complete|definitive|standard|premium|legendary|"
+    r"special|enhanced|anniversary|remaster(?:ed)?|director'?s cut|goty|"
+    r"game of the year|bundle|collection|edition|ps5|ps4|playstation\s*5|"
+    r"playstation\s*4)\b",
+    re.I,
+)
+
+
+def _search_terms(title: str) -> list[str]:
+    """Termes de recherche IGDB, du plus fidèle au plus nettoyé (dédupliqués).
+
+    Variante nettoyée = sans ®/™/©, sans parenthèses, sans mots d'édition/plateforme.
+    Le sous-titre (après « : ») est CONSERVÉ pour ne pas matcher un autre jeu."""
+    safe = title.replace('"', " ").strip()
+    terms = [safe]
+    cleaned = re.sub(r"[®™©]", " ", safe)
+    cleaned = re.sub(r"\([^)]*\)", " ", cleaned)        # retire (…)
+    cleaned = _EDITION_NOISE.sub(" ", cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" -–—:")
+    if cleaned and cleaned.lower() != safe.lower():
+        terms.append(cleaned)
+    return terms
+
+
 def _best_match(title: str, results: list[dict]) -> dict | None:
     nt = _normalize_title(title)
     if not nt:
@@ -172,14 +200,19 @@ def fetch_igdb_cover(title: str, client_id: str, token: str, *, timeout: int = 2
     si rien ne matche, on RÉESSAIE sans filtre plateforme. La jaquette IGDB est la
     même quelle que soit la plateforme ; ce repli récupère un match quand IGDB ne
     tague pas (encore) le jeu en PS5 (données parfois incomplètes)."""
-    safe = title.replace('"', " ").strip()
     fields = "fields name,cover.image_id,platforms;"
-    queries = (
-        # 1) Priorité PS5
-        f'search "{safe}"; {fields} where platforms = ({IGDB_PS5_PLATFORM_ID}); limit 5;',
-        # 2) Repli toutes plateformes (même jaquette portrait)
-        f'search "{safe}"; {fields} limit 5;',
-    )
+    # Ordre des tentatives (on s'arrête au 1er match) :
+    #   1) titre exact, filtre PS5    — le plus précis
+    #   2) titre exact, toutes plateformes (jaquette identique)
+    #   3) titre nettoyé, toutes plateformes — rattrape éditions/marques/(…)
+    # Les jeux déjà matchés s'arrêtent à l'étape 1 : pas d'appels en plus.
+    terms = _search_terms(title)
+    queries = [
+        f'search "{terms[0]}"; {fields} where platforms = ({IGDB_PS5_PLATFORM_ID}); limit 5;',
+        f'search "{terms[0]}"; {fields} limit 5;',
+    ]
+    for extra in terms[1:]:
+        queries.append(f'search "{extra}"; {fields} limit 5;')
     for q in queries:
         results = _igdb_post(q.encode("utf-8"), client_id, token, timeout=timeout)
         if not results:
@@ -234,7 +267,7 @@ def _priority(pkg: dict) -> int:
 
 def enrich_catalog(catalog: dict, client_id: str, token: str, *,
                    ttl_days: int, max_calls: int, delay: float,
-                   concurrency: int = 3) -> dict:
+                   concurrency: int = 3, recheck_unmatched: bool = False) -> dict:
     packages = sorted(catalog.get("packages", []), key=_priority)
     stats = {"total": len(packages), "fresh": 0, "calls": 0,
              "matched": 0, "unmatched": 0, "errors": 0, "capped": 0}
@@ -246,7 +279,11 @@ def enrich_catalog(catalog: dict, client_id: str, token: str, *,
         title = (pkg.get("title") or "").strip()
         if not title:
             continue
-        if is_fresh(pkg, _get_ttl(pkg, ttl_days)):
+        # --recheck-unmatched : on ignore le TTL des jeux « non trouvés » pour les
+        # ré-interroger tout de suite (utile quand la logique de matching change ou
+        # qu'IGDB s'est enrichi) — les jeux déjà MATCHÉS restent cachés (TTL 60j).
+        force = recheck_unmatched and pkg.get("_igdbMatched") is False
+        if not force and is_fresh(pkg, _get_ttl(pkg, ttl_days)):
             stats["fresh"] += 1
             continue
         if max_calls and len(todo) >= max_calls:
@@ -312,6 +349,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--concurrency", type=int, default=3,
                     help="Nb de threads parallèles (défaut 3 ; débit global borné "
                          "à 4 req/s par token-bucket — limite IGDB stricte)")
+    ap.add_argument("--recheck-unmatched", action="store_true",
+                    help="Ré-interroge les jeux 'non trouvés' en ignorant leur TTL "
+                         "(les jeux déjà matchés restent cachés). À utiliser quand "
+                         "le matching s'améliore.")
     args = ap.parse_args(argv)
 
     client_id = os.environ.get("TWITCH_CLIENT_ID", "").strip()
@@ -334,7 +375,8 @@ def main(argv: list[str] | None = None) -> int:
 
     stats = enrich_catalog(catalog, client_id, token,
                            ttl_days=args.ttl_days, max_calls=args.max_calls,
-                           delay=args.delay, concurrency=args.concurrency)
+                           delay=args.delay, concurrency=args.concurrency,
+                           recheck_unmatched=args.recheck_unmatched)
 
     out = args.out or args.catalog
     out.write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -465,7 +465,12 @@ jobs:
           # En l'absence de jaquette IGDB, on garde la cover scrapée du site.
           # ITEM 9 : --concurrency 3 (débit plafonné STRICTEMENT à 4 req/s par token-bucket).
           if [ -f dlpsgame-ps5.json ]; then
-            python3 scripts/enrich_igdb.py dlpsgame-ps5.json --ttl-days 30 --max-calls 500 --concurrency 3
+            # --max-calls 900 : couvre tout le catalogue (~840) en un seul run
+            # (4 req/s strict → ~4 min) ; fini les jeux « reportés (plafond) ».
+            # --recheck-unmatched : ré-essaie les « non trouvés » à chaque run
+            # (matching nettoyé + IGDB s'enrichit) ; les matchés restent cachés.
+            python3 scripts/enrich_igdb.py dlpsgame-ps5.json --ttl-days 30 \
+              --max-calls 900 --concurrency 3 --recheck-unmatched
           fi
 
       # ──────────────────────────────────────────────────────────────
@@ -477,10 +482,14 @@ jobs:
         timeout-minutes: 30
         run: |
           # Complète les sizeBytes manquants en interrogeant vikingfile/mega/
-          # gofile (octets exacts, sans téléchargement). Non bloquant.
+          # gofile/mediafire (octets exacts, sans téléchargement). Non bloquant.
           # ITEM 9 : --concurrency 6 (hébergeurs distincts, pas de rate-limit strict).
           if [ -f dlpsgame-ps5.json ]; then
-            python3 scripts/hoster_size.py --catalog dlpsgame-ps5.json --max 400 --concurrency 6
+            # --retry-ttl-days 0 : ré-essaie à chaque run les jeux sondés sans
+            # succès (le cache de tailles est éphémère ; le set est petit et se
+            # vide à mesure que les tailles tombent). Récupère vikingfile/mediafire.
+            python3 scripts/hoster_size.py --catalog dlpsgame-ps5.json --max 400 \
+              --concurrency 6 --retry-ttl-days 0
           fi
 
       # ──────────────────────────────────────────────────────────────

@@ -49,7 +49,8 @@ MAX_SANE_BYTES = 900 * 1024 ** 3  # garde-fou : > 900 Go = aberrant (cf. pegasus
 
 # Hôtes que l'on sait sonder (cf. RESOLVERS). Un jeu sans aucun de ces miroirs
 # est « insondable » : inutile de l'inclure dans le budget --max.
-PROBEABLE_HOSTS = ("vikingfile.com", "mega.nz", "mega.co.nz", "gofile.io")
+PROBEABLE_HOSTS = ("vikingfile.com", "mega.nz", "mega.co.nz", "gofile.io",
+                   "mediafire.com", "www.mediafire.com")
 
 # TTL (jours) de ré-essai pour un jeu sondé SANS succès : on évite de re-sonder
 # en boucle les ~49 insondables à chaque run.
@@ -119,7 +120,17 @@ def _host(url: str) -> str:
 
 
 def _sane(size) -> int | None:
-    if isinstance(size, bool) or not isinstance(size, (int, float)):
+    # Plusieurs hébergeurs (vikingfile, mediafire…) renvoient la taille en
+    # CHAÎNE ("1073741824") : on coerce les chaînes purement numériques, sinon
+    # on rejetait des tailles pourtant valides (cause de jeux « sans taille »).
+    if isinstance(size, bool):
+        return None
+    if isinstance(size, str):
+        s = size.strip()
+        if not re.fullmatch(r"\d+", s):
+            return None
+        size = int(s)
+    if not isinstance(size, (int, float)):
         return None
     size = int(size)
     return size if 0 < size <= MAX_SANE_BYTES else None
@@ -224,16 +235,42 @@ def _size_gofile(url: str) -> int | None:
 
 
 # ---------------------------------------------------------------------------
+# mediafire.com — API publique get_info (quick_key) -> file_info.size (octets)
+# ---------------------------------------------------------------------------
+def _size_mediafire(url: str) -> int | None:
+    # Formats : mediafire.com/file/<quick_key>/<nom>/file  ou  mediafire.com/?<quick_key>
+    m = re.search(r"mediafire\.com/file/([A-Za-z0-9]+)", url) \
+        or re.search(r"mediafire\.com/\?([A-Za-z0-9]+)", url)
+    if not m:
+        return None  # dossiers (/folder/) non gérés ici -> insondable proprement
+    quick_key = m.group(1)
+    api = ("https://www.mediafire.com/api/1.5/file/get_info.php"
+           f"?quick_key={urllib.parse.quote(quick_key)}&response_format=json")
+    status, raw = _FETCH(api)
+    if status != 200:
+        return None
+    try:
+        data = json.loads(raw.decode("utf-8", "replace"))
+    except Exception:
+        return None
+    # {"response":{"result":"Success","file_info":{"size":"123456", ...}}}
+    info = (data.get("response") or {}).get("file_info") or {}
+    return _sane(info.get("size"))
+
+
+# ---------------------------------------------------------------------------
 # Dispatch
 # ---------------------------------------------------------------------------
 RESOLVERS = [
     ("vikingfile", _size_vikingfile),
     ("mega", _size_mega),
     ("gofile", _size_gofile),
+    ("mediafire", _size_mediafire),
 ]
 
 # Priorité de fiabilité quand un jeu a plusieurs miroirs.
-_HOST_PRIORITY = ["vikingfile.com", "mega.nz", "mega.co.nz", "gofile.io"]
+_HOST_PRIORITY = ["vikingfile.com", "mega.nz", "mega.co.nz", "gofile.io",
+                  "mediafire.com", "www.mediafire.com"]
 
 
 def probe_size(url: str) -> int | None:
