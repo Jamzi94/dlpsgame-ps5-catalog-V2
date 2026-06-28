@@ -1173,8 +1173,24 @@ def extract_metadata_from_post(
             if len(parts) >= 3:
                 version += f".{parts[2].ljust(3, '0')[:3]}"
 
-    # Size (ancré sur SIZE: en priorité, unités anglaises — anti-bug « to »)
+    # Size : d'abord le payload décodé (NFO scène, fiable). En repli, le CORPS et
+    # l'extrait de l'article — en mode ANCRÉ uniquement (SIZE:/TAILLE:/POIDS:) pour
+    # éviter de capter un « N GB » de prose. dlpsgame étant FR, on capte aussi
+    # « Taille : N Go » (cf. sizes.py). Comble les jeux dont la taille n'est
+    # annoncée que dans le texte visible, pas dans le payload chiffré.
     size_bytes, size_str = extract_size(all_decoded)
+    if not size_bytes:
+        content_rendered = (post.get("content") or {}).get("rendered", "")
+        content_text = ""
+        if BeautifulSoup and content_rendered:
+            content_text = BeautifulSoup(content_rendered, "html.parser").get_text(" ", strip=True)
+        elif content_rendered:
+            content_text = re.sub(r"<[^>]+>", " ", content_rendered)
+        for fallback_text in (content_text, excerpt_text):
+            if fallback_text:
+                size_bytes, size_str = extract_size(fallback_text, anchored_only=True)
+                if size_bytes:
+                    break
 
     # Title
     title_rendered = (post.get("title") or {}).get("rendered", "")
