@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-06-28T23:23:53.233856+00:00",
+  "timestamp": "2026-06-29T05:33:43.654354+00:00",
   "catalog": "dlpsgame-ps5.json",
   "total_games": 840,
   "sources": {
     "dlpsgame.com": 753,
     "superpsx.com": 483,
-    "exfat": 376
+    "exfat": 377
   },
   "games_with_size": 794,
   "games_without_size": 46,
@@ -13,7 +13,7 @@
   "games_with_titleid": 839,
   "placeholder_titleids": 15,
   "avg_links_per_game": 12.6,
-  "total_download_links": 10611,
+  "total_download_links": 10616,
   "mirror_distribution": {
     "Akia": 2375,
     "1File": 2370,
@@ -31,11 +31,11 @@
     "Mega": 23,
     "Transit": 17,
     "Rano (multi)": 10,
-    "akia_url": 6,
-    "viki_url": 6,
-    "data_url": 6,
-    "filek_url": 6,
-    "vault_url": 6,
+    "akia_url": 7,
+    "viki_url": 7,
+    "data_url": 7,
+    "filek_url": 7,
+    "vault_url": 7,
     "Multihost": 6,
     "Mirror": 6,
     "Multihosts": 5,
@@ -57,7 +57,7 @@
   },
   "format_distribution": {
     "PKG": 647,
-    "exFAT": 405,
+    "exFAT": 406,
     "Backport 4.xx": 359,
     "RAR": 307,
     "ZIP": 206,
@@ -82,7 +82,7 @@
   "size_stats": {
     "min_gb": 0.0,
     "max_gb": 380.0,
-    "avg_gb": 45.3,
+    "avg_gb": 45.5,
     "median_gb": 25.0
   },
   "warnings_count": 0,
