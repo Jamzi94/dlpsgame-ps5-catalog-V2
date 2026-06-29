@@ -2,8 +2,8 @@
 """Génère une liste lisible de TOUS les jeux du catalogue, avec leur format.
 
 Entrée : le catalogue mergé (``dlpsgame-ps5.json``).
-Sorties :
-  - ``games-list.md``  : index Markdown trié (titre, format, version, sources)
+Sorties (SANS liens ni sources — projet privé) :
+  - ``games-list.md``  : index Markdown trié (titre, format, version)
                          + une répartition par format en tête.
   - ``games-list.csv`` : même contenu, exploitable (Excel / Google Sheets).
 
@@ -59,18 +59,14 @@ def _row(pkg: dict) -> dict:
     """Extrait les champs affichables d'un paquet (robuste aux clés manquantes)."""
     title = (pkg.get("title") or pkg.get("name") or "").strip() or "(sans titre)"
     file_formats = _as_list(pkg.get("fileFormat"))
-    sources = _as_list(pkg.get("source"))
+    # Volontairement SANS liens de téléchargement ni sources : la liste reste
+    # un simple index titre/format/version (projet privé).
     return {
         "title": title,
         "title_id": (pkg.get("titleId") or "").strip(),
         "format": _format_of(pkg),
         "file_formats": ", ".join(file_formats),
         "version": (pkg.get("version") or "").strip(),
-        "sources": ", ".join(sources),
-        "download_count": len(_as_list(pkg.get("downloadLinks") and
-                                       [l.get("url") for l in pkg["downloadLinks"]
-                                        if isinstance(l, dict)])),
-        "download_source": (pkg.get("downloadSource") or "").strip(),
     }
 
 
@@ -106,19 +102,18 @@ def build(catalog_path: Path, md_path: Path, csv_path: Path) -> int:
     lines.append("")
     lines.append("## Tous les jeux")
     lines.append("")
-    lines.append("| # | Titre | Format | Version | Sources |")
-    lines.append("| ---: | --- | --- | --- | --- |")
+    lines.append("| # | Titre | Format | Version |")
+    lines.append("| ---: | --- | --- | --- |")
     for i, r in enumerate(rows, 1):
         lines.append(
             f"| {i} | {_md_escape(r['title'])} | {_md_escape(r['format'])} "
-            f"| {_md_escape(r['version']) or '—'} | {_md_escape(r['sources']) or '—'} |"
+            f"| {_md_escape(r['version']) or '—'} |"
         )
     lines.append("")
     md_path.write_text("\n".join(lines), encoding="utf-8")
 
     # ── CSV ─────────────────────────────────────────────────────────────────
-    fieldnames = ["title", "title_id", "format", "file_formats",
-                  "version", "sources", "download_count", "download_source"]
+    fieldnames = ["title", "title_id", "format", "file_formats", "version"]
     with csv_path.open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=fieldnames)
         writer.writeheader()
