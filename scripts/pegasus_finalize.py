@@ -29,8 +29,17 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 from formats import display_label, normalize_formats
+
+# Link-lockers : page intermédiaire protégée par CAPTCHA (filecrypt) ou
+# raccourcisseur monétisé pointant dessus (shrinkearn/clk). Ne donnent PAS un
+# lien direct vers l'hébergeur -> on les retire (sauf si seuls liens du jeu).
+_LOCKER_HOSTS = {
+    "filecrypt.cc", "filecrypt.co", "filecrypt.to",
+    "shrinkearn.com", "clk.sh", "ouo.io", "linkvertise.com",
+}
 
 # Garde-fou : aucun jeu PS5 réel n'approche 900 Go (le SSD console fait 825 Go).
 # Le bug historique « to » produit toujours des tailles >= 1 To ("1 to"=1 To,
@@ -61,11 +70,18 @@ def _base_format(file_format) -> str:
     tags: list[str] = []
     for f in file_format:
         fl = str(f).lower()
-        if fl in _CONTAINER_FMT or fl in _SECTION_FMT or fl.startswith("backport"):
+        if fl in _CONTAINER_FMT or fl in _SECTION_FMT or fl.startswith("backport") or fl == "unknown":
             continue
         if str(f) not in tags:
             tags.append(str(f))
     return " · ".join(tags)
+
+
+def _strip_unknown(fmt_str: str) -> str:
+    """Retire les jetons « unknown » d'un format « a · b · unknown »."""
+    parts = [p.strip() for p in (fmt_str or "").split("·")
+             if p.strip() and p.strip().lower() != "unknown"]
+    return " · ".join(parts)
 
 
 def _link_format(name: str, url: str, game_fmt: str, base_fmt: str, group: str) -> str:
@@ -112,13 +128,24 @@ def _link_format(name: str, url: str, game_fmt: str, base_fmt: str, group: str) 
 
 
 def _clean_links(pkg: dict) -> int:
-    """Retire les downloadLinks à URL vide ou non http(s). Renvoie le nb gardé."""
+    """Retire les downloadLinks à URL vide/non-http ET les link-lockers (filecrypt/
+    shrinkearn/clk : captcha, pas de lien direct) — sauf si ce sont les SEULS liens
+    du jeu (mieux que rien). Renvoie le nb gardé."""
     links = pkg.get("downloadLinks") or []
-    kept = []
+    valid = []
     for l in links:
         url = (l.get("url") or "").strip() if isinstance(l, dict) else ""
         if url.startswith(("http://", "https://")):
-            kept.append(l)
+            valid.append(l)
+
+    def _host(u: str) -> str:
+        try:
+            return (urlparse(u).hostname or "").lower().replace("www.", "")
+        except Exception:
+            return ""
+
+    non_locker = [l for l in valid if _host(l.get("url", "")) not in _LOCKER_HOSTS]
+    kept = non_locker if non_locker else valid  # lockers gardés en dernier recours
     pkg["downloadLinks"] = kept
     return len(kept)
 
@@ -157,22 +184,24 @@ def finalize_package(pkg: dict, stats: dict) -> None:
     # qui reste masquée. La SOURCE PAGE (downloadSource) garde la marque.
     ff = pkg.get("fileFormat")
     fmt = pkg.get("formatLabel") or (" · ".join(ff) if isinstance(ff, list) and ff else "")
+    fmt = _strip_unknown(fmt)
     pkg["source"] = [fmt] if fmt else ["PS5"]
     pkg["downloadSource"] = BRAND_SOURCE_URL
 
-    # 3ter) Format affiché À CÔTÉ de chaque hébergeur (repérage quand un jeu a
-    # beaucoup de liens) : format (+ backport, déjà dans formatLabel) + version
-    # si connue. Idempotent : retire un éventuel « [..] » terminal avant de
-    # réappliquer (sinon la fusion ferait s'accumuler les suffixes).
+    # 3ter) On retire d'abord les liens inutilisables (URL invalide, link-lockers
+    # captcha) — sauf si ce sont les seuls — puis on étiquette CHAQUE lien restant
+    # avec son format (+ version) à côté de l'hébergeur. Idempotent : on retire un
+    # éventuel « [..] » terminal avant de réappliquer.
+    _clean_links(pkg)
     version = (pkg.get("version") or "").strip()
-    vsuf = f" · v{version}" if version else ""
     base_fmt = _base_format(pkg.get("fileFormat"))
     for link in pkg.get("downloadLinks") or []:
         if not (isinstance(link, dict) and link.get("name")):
             continue
         base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
-        link_fmt = _link_format(base, link.get("url", ""), fmt, base_fmt, link.get("group", ""))
-        link["name"] = f"{base} [{link_fmt}{vsuf}]" if (link_fmt or version) else base
+        link_fmt = _strip_unknown(_link_format(base, link.get("url", ""), fmt, base_fmt, link.get("group", "")))
+        tag = " · ".join(p for p in (link_fmt, f"v{version}" if version else "") if p)
+        link["name"] = f"{base} [{tag}]" if tag else base
 
     # 4) Validation Pegasus
     if not (pkg.get("titleId") or "").strip():
