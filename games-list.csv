@@ -99,6 +99,7 @@ Borderlands 3 Ultimate Edition,PPSA01462,PKG,"PKG, unknown",01.090
 Borderlands 4,PPSA01494,exFAT · PKG · Backport 4.xx,"exFAT, PKG, RAR, Backport 4.xx",01.003.001
 Born of Bread,PPSA14457,Folder · PKG · Backport 4.xx,"Folder, RAR, ZIP, Backport 4.xx, Backport 5.xx, PKG",02.000
 Bramble The Mountain King,PPSA09426,PKG · Backport 4.xx,"ZIP, Backport 4.xx, Backport 5.xx, PKG",01.000
+Breathedge,PPSA04243,exFAT,exFAT,01.000
 Brothers A Tale of Two Sons Remake,PPSA14501,exFAT · PKG,"exFAT, APR-EMU, RAR, PKG",02.000
 Bugsnax,PPSA01502,PKG,PKG,02.000
 Bugsnax,PPSA01503,unknown,unknown,02.000
@@ -213,6 +214,7 @@ EA Sports FC 25,GAME_64805,exFAT · Backport 4.xx,"exFAT, Backport 4.xx, Backpor
 EA SPORTS FC 26,PPSA27360,exFAT · PKG · Backport 4.xx,"exFAT, PKG, Backport 4.xx, ZIP",01.000
 EA Sports PGA Tour,PPSA02227,exFAT · PKG · Backport,"Backport, PKG, exFAT, Backport 4.xx",01.002
 EA Sports PGA Tour,GAME_42502,exFAT · Backport 4.xx,"exFAT, Backport 4.xx",01.002
+EA Sports UFC 5,PPSA03541,exFAT · APR-EMU · Backport,"Backport, exFAT, APR-EMU, RAR",01.031
 EA Sports WRC,PPSA06092,PKG · Backport 4.xx,"PKG, ZIP, Backport 4.xx, Backport 6.xx",01.000
 Earth Defense Force World Brothers 2,PPSA19406,Folder · PKG · Backport 4.xx,"PKG, Backport 4.xx, Backport 5.xx, Folder, ZIP",01.005
 Ed 0 Zombie Uprising,PPSA22711,Backport 4.xx,"ZIP, Backport 4.xx, Backport 5.xx",01.000
@@ -381,10 +383,10 @@ Life is Strange Reunion,PPSA28099,exFAT · Folder · Backport 4.xx,"exFAT, Folde
 Life is Strange True Colors,PPSA02047,exFAT · PKG,"exFAT, PKG",01.008
 Life is Strange: Reunion,PPSA28101,exFAT · PKG,"exFAT, PKG",01.000
 Life is Strange: True Colors,PPSA02046,PKG,PKG,01.008
-Like A Dragon Gaiden The Man Who Erased His Name,PPSA16265,RAR,RAR,01.022
+Like A Dragon Gaiden The Man Who Erased His Name Deluxe Edition,PPSA16265,Backport,"Backport, RAR",01.022
 Like a Dragon Infinite Wealth,PPSA06433,exFAT · PKG,"exFAT, APR-EMU, RAR, PKG",01.020
 Like A Dragon Ishin,PPSA06454,exFAT · PKG · Backport,"Backport, PKG, exFAT, ZIP, Backport 4.xx, Backport 5.xx",01.006.000
-Like A Dragon Pirate Yakuza in Hawaii,PPSA24478,RAR,RAR,01.014
+Like A Dragon Pirate Yakuza in Hawaii Deluxe Edition,PPSA24478,Backport,"Backport, RAR",01.014
 Little Big Adventure: Twinsen’s Quest,PPSA23885,PKG,"PKG, unknown, RAR",01.000
 Little Nightmares 2,PPSA02154,exFAT · PKG,"exFAT, PKG",01.001
 Little Nightmares 3,PPSA05143,exFAT · PKG · Backport 4.xx,"exFAT, PKG, RAR, Backport 4.xx, Backport 9.xx",01.004
@@ -429,6 +431,7 @@ MindsEye,PPSA28209,exFAT · Folder · Backport 9.xx,"exFAT, PKG, Backport 9.xx, 
 Minecraft,PPSA17221,PKG · Backport 4.xx,"PKG, Backport 4.xx",01.008
 Minecraft Legends,GAME_70928,Backport 4.xx,"Backport 4.xx, RAR",01.013
 Minecraft Preview,PPSA19639,Backport 4.xx,"Backport 4.xx, RAR",01.024.000
+MLB The Show 23,PPSA09243,Backport,Backport,01.021
 Monster Boy and The Cursed Kingdom,PPSA02787,PKG · Backport 4.xx,"PKG, Backport 4.xx",01.000.004
 Monster Energy Supercross 25,PPSA20435,exFAT · Folder · Backport,"exFAT, Folder, PKG, ZIP, Backport",01.011
 Monster Energy Supercross The Official Videogame 6,PPSA08592,Backport 4.xx,"ZIP, Backport 4.xx, Backport 5.xx",01.008
@@ -563,7 +566,7 @@ Rugrats Adventure in Gameland,PPSA23396,exFAT · PKG,"exFAT, RAR, PKG",01.000
 Sackboy A Big Adventure,PPSA01289,exFAT · PKG,"exFAT, PKG, RAR",01.024
 Saga of Sins,PPSA10050,exFAT · PKG,"exFAT, APR-EMU, PKG",01.000
 Saints Row,PPSA02807,exFAT · PKG,"exFAT, PKG",01.017
-Saints Row,PPSA02813,exFAT · PKG · Backport,"PKG, exFAT, APR-EMU, Backport, RAR",01.017
+Saints Row Gold Edition,PPSA02813,exFAT · PKG · Backport,"exFAT, PKG, APR-EMU, Backport, RAR",01.017
 SAND LAND,PPSA08574,exFAT · Folder · Backport 4.xx,"exFAT, Folder, ZIP, Backport 4.xx, Backport 5.xx, PKG",01.007
 SAROS,PPSA07631,exFAT · PKG · Backport 5.xx,"exFAT, ZIP, Backport 5.xx, PKG",01.000
 Scarlet Nexus,PPSA02211,exFAT · PKG,"exFAT, APR-EMU, PKG",01.008
@@ -778,7 +781,6 @@ Turok Trilogy Bundle,PPSA24558,exFAT · APR-EMU · Backport 4.xx,"exFAT, APR-EMU
 Two Point Campus,PPSA03644,PKG · Backport 4.xx,"PKG, Backport 4.xx, Backport 5.xx",01.029
 Two Point Campus,GAME_42954,Backport 4.xx,"ZIP, Backport 4.xx, Backport 5.xx, RAR",01.029
 Two Point Museum,PPSA19769,exFAT · PKG,"exFAT, RAR, PKG",01.000
-UFC 5,PPSA03541,exFAT · APR-EMU,"exFAT, APR-EMU, RAR",01.031
 UFO Robot Grendizer: The Feast of The Wolves,PPSA14376,PKG,PKG,01.007
 Unbound: Worlds Apart,PPSA03274,PKG,"PKG, unknown",01.000
 Uncharted Legacy of Thieves Collection,PPSA05684,exFAT · PKG · Backport,"Backport, exFAT, ZIP, Backport 4.xx, PKG",01.002
