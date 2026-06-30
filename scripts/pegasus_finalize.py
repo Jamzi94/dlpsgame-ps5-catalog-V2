@@ -200,7 +200,9 @@ def finalize_package(pkg: dict, stats: dict) -> None:
             continue
         base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
         link_fmt = _strip_unknown(_link_format(base, link.get("url", ""), fmt, base_fmt, link.get("group", "")))
-        tag = " · ".join(p for p in (link_fmt, f"v{version}" if version else "") if p)
+        # Version PROPRE au lien (section), sinon version du jeu en repli.
+        link_version = (link.get("version") or "").strip() or version
+        tag = " · ".join(p for p in (link_fmt, f"v{link_version}" if link_version else "") if p)
         link["name"] = f"{base} [{tag}]" if tag else base
 
     # 4) Validation Pegasus

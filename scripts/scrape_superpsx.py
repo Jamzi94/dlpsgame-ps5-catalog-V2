@@ -1358,6 +1358,7 @@ def parse_dll_page(url: str) -> dict | None:
                         "name": link_name,
                         "url": link["url"],
                         "group": group,
+                        **({"version": version} if version else {}),
                     })
 
             # Fix row: "Fix X.xx (@USER) ⇛ download links"
@@ -1373,6 +1374,7 @@ def parse_dll_page(url: str) -> dict | None:
                         "name": link_name,
                         "url": link["url"],
                         "group": "Fix",
+                        **({"version": version} if version else {}),
                     })
 
             # Backport row: "Backport X.xx (@USER) ⇛ download links"
@@ -1388,6 +1390,7 @@ def parse_dll_page(url: str) -> dict | None:
                         "name": link_name,
                         "url": link["url"],
                         "group": "Backport",
+                        **({"version": version} if version else {}),
                     })
 
             # DLC row: "DLC (@USER) ⇛ download links"
@@ -1399,6 +1402,7 @@ def parse_dll_page(url: str) -> dict | None:
                         "name": link_name,
                         "url": link["url"],
                         "group": "DLC",
+                        **({"version": version} if version else {}),
                     })
 
             # FW REQUIRED row
@@ -1667,6 +1671,7 @@ def scrape_game(
         url = link.get("url", "")
         name = link.get("name", "Mirror")
         group = link.get("group", "")  # section/format du lien (exFAT/Backport/DLC…)
+        link_version = link.get("version", "")  # version propre à la section
         # Skip empty-URL text-only hosts (FileK etc.)
         if not url:
             log.debug("    skip text-only host: %s", name)
@@ -1700,6 +1705,8 @@ def scrape_game(
                     m_link = {"name": m_name, "url": m_url}
                     if group:
                         m_link["group"] = group
+                    if link_version:
+                        m_link["version"] = link_version
                     download_links.append(m_link)
                 continue
             # Résolution vide → on retombe sur le lien keepshield brut.
@@ -1716,6 +1723,8 @@ def scrape_game(
         out_link = {"name": name, "url": url}
         if group:
             out_link["group"] = group
+        if link_version:
+            out_link["version"] = link_version
         download_links.append(out_link)
 
     if not download_links:

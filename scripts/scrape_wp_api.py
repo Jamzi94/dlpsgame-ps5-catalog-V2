@@ -1163,6 +1163,27 @@ def build_download_links_from_payloads(
     return out
 
 
+def _version_from_text(text: str) -> str:
+    """Version normalisée (« 01.002 ») trouvée dans un texte de section, ou « ».
+
+    Chaque section dlpsgame porte sa propre « Game (vXX.XXX) » : on l'attache au
+    lien pour que la version affichée corresponde à CE téléchargement (et pas à la
+    version globale du jeu)."""
+    if not text:
+        return ""
+    plain = re.sub(r"<[^>]+>", " ", text)
+    m = VERSION_RE.search(plain)
+    if not m:
+        return ""
+    parts = m.group(1).split(".")
+    if len(parts) < 2:
+        return ""
+    v = f"{int(parts[0]):02d}.{parts[1].ljust(3, '0')[:3]}"
+    if len(parts) >= 3:
+        v += f".{parts[2].ljust(3, '0')[:3]}"
+    return v
+
+
 def build_download_links_from_groups(
     groups: list[tuple[str, str]],
     page_url: str,
@@ -1184,6 +1205,7 @@ def build_download_links_from_groups(
         if not decoded or not decoded.strip():
             continue
         grp = detect_group(label) if (label or "").strip() else ""
+        ver = _version_from_text(decoded)  # version propre à CETTE section
         for text, href in extract_links_from_html(decoded, page_url):
             mirror_hint = extract_mirror_name(href, text).lower()
             if resolve_redirects:
@@ -1200,6 +1222,8 @@ def build_download_links_from_groups(
             link = {"name": extract_mirror_name(direct, text), "url": direct}
             if grp:
                 link["group"] = grp
+            if ver:
+                link["version"] = ver
             out.append(link)
 
     return out
