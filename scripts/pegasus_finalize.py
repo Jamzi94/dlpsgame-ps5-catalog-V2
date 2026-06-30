@@ -38,6 +38,10 @@ from formats import display_label, normalize_formats
 MAX_SANE_BYTES = 900 * 1024 ** 3
 REAL_TITLEID_RE = re.compile(r"^[A-Z]{4}\d{3,}$")
 
+# Marque unique exposée dans le JSON : on masque les vraies sources
+# (dlpsgame/superpsx/exFAT) derrière « Phoenix DL » pour TOUS les jeux.
+BRAND = "Phoenix DL"
+
 
 def _clean_links(pkg: dict) -> int:
     """Retire les downloadLinks à URL vide ou non http(s). Renvoie le nb gardé."""
@@ -80,6 +84,12 @@ def finalize_package(pkg: dict, stats: dict) -> None:
         pkg.pop("formatLabel", None)
         pkg["description"] = desc_body
 
+    # 3bis) Rebranding de la provenance : tous les jeux affichent « Phoenix DL »
+    # (masque dlpsgame.com / superpsx.com / exFAT). Idempotent : réécrit à chaque
+    # run, donc la fusion qui réintroduit la vraie source est neutralisée ici.
+    pkg["source"] = [BRAND]
+    pkg["downloadSource"] = BRAND
+
     # 4) Validation Pegasus
     if not (pkg.get("titleId") or "").strip():
         stats["missing_titleId"] += 1
@@ -99,6 +109,9 @@ def finalize_catalog(catalog: dict) -> dict:
         "no_valid_links": 0, "placeholder_titleId": 0, "with_size": 0,
         "with_formatLabel": 0,
     }
+    # Nom du catalogue rebrandé (sinon « SuperPSX PS5 » / « exFAT PS5 » fuite
+    # la source, y compris dans l'en-tête de la liste de jeux générée ensuite).
+    catalog["name"] = f"{BRAND} PS5"
     packages = catalog.get("packages", [])
     stats["total"] = len(packages)
     for pkg in packages:
