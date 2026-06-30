@@ -1666,6 +1666,7 @@ def scrape_game(
     for link in dll_data.get("links", []):
         url = link.get("url", "")
         name = link.get("name", "Mirror")
+        group = link.get("group", "")  # section/format du lien (exFAT/Backport/DLC…)
         # Skip empty-URL text-only hosts (FileK etc.)
         if not url:
             log.debug("    skip text-only host: %s", name)
@@ -1696,7 +1697,10 @@ def scrape_game(
                         continue
                     seen_urls.add(m_url)
                     m_name = f"{group_prefix}{mirror.get('mirror', 'Mirror')}"
-                    download_links.append({"name": m_name, "url": m_url})
+                    m_link = {"name": m_name, "url": m_url}
+                    if group:
+                        m_link["group"] = group
+                    download_links.append(m_link)
                 continue
             # Résolution vide → on retombe sur le lien keepshield brut.
             log.debug("    keepshield non résolu, conservation du lien brut: %s", url)
@@ -1709,7 +1713,10 @@ def scrape_game(
         if url in seen_urls:
             continue
         seen_urls.add(url)
-        download_links.append({"name": name, "url": url})
+        out_link = {"name": name, "url": url}
+        if group:
+            out_link["group"] = group
+        download_links.append(out_link)
 
     if not download_links:
         log.warning("  ✗ No download links for %s", game_url)

@@ -924,6 +924,43 @@ def extract_payloads_from_content(content_rendered: str) -> list[str]:
     return DATA_PAYLOAD_RE.findall(content_rendered)
 
 
+def extract_payload_groups_from_content(content_rendered: str) -> list[tuple[str, str]]:
+    """Retourne [(label_section, html_décodé)] pour chaque div.secure-data.
+
+    Le label est le texte du <p>/<h*> qui précède le spoiler (su-spoiler) — c.-à-d.
+    la SECTION de téléchargement (« exFAT », « Backport 4.xx », « DLC »…). Réplique
+    find_spoiler_groups du scraper HTML pour connaître le FORMAT propre à chaque
+    groupe de liens (au lieu de tout aplatir). Repli sur les payloads bruts (label
+    vide) si BeautifulSoup manque ou si la structure n'est pas reconnue.
+    """
+    if not content_rendered:
+        return []
+    if not BeautifulSoup:
+        return [("", decode_payload(p)) for p in DATA_PAYLOAD_RE.findall(content_rendered)]
+    soup = BeautifulSoup(content_rendered, "html.parser")
+    groups: list[tuple[str, str]] = []
+    for secure in soup.find_all("div", class_="secure-data"):
+        payload = secure.get("data-payload", "")
+        decoded = decode_payload(payload) if payload else secure.decode_contents()
+        if not decoded or not decoded.strip():
+            continue
+        label = ""
+        spoiler = secure.find_parent("div", class_=re.compile(r"su-spoiler"))
+        if spoiler:
+            prev = spoiler.find_previous_sibling()
+            while prev is not None:
+                txt = prev.get_text(" ", strip=True) if hasattr(prev, "get_text") else ""
+                if txt and not txt.lower().startswith("link download"):
+                    label = txt
+                    break
+                prev = prev.find_previous_sibling()
+        groups.append((label, decoded))
+    if not groups:
+        # Structure inattendue : repli sur les payloads bruts (sans section).
+        return [("", decode_payload(p)) for p in DATA_PAYLOAD_RE.findall(content_rendered)]
+    return groups
+
+
 # ---------------------------------------------------------------------------
 # Extract links from decoded HTML fragment
 # ---------------------------------------------------------------------------
@@ -1122,6 +1159,48 @@ def build_download_links_from_payloads(
                 continue
             seen_urls.add(dedupe_key)
             out.append({"name": mirror, "url": direct})
+
+    return out
+
+
+def build_download_links_from_groups(
+    groups: list[tuple[str, str]],
+    page_url: str,
+    *,
+    resolve_redirects: bool = True,
+) -> list[dict]:
+    """Comme build_download_links_from_payloads, mais conserve le FORMAT (group)
+    de la section de chaque lien (exFAT / Backport / DLC / Dump / Standard).
+
+    `groups` : liste de (label_section, html_décodé) — cf.
+    extract_payload_groups_from_content. Chaque lien reçoit ``group`` quand la
+    section est identifiée (sinon le champ est omis : repli ultérieur sur le
+    format du jeu dans pegasus_finalize).
+    """
+    seen_urls: set[str] = set()
+    out: list[dict] = []
+
+    for label, decoded in groups:
+        if not decoded or not decoded.strip():
+            continue
+        grp = detect_group(label) if (label or "").strip() else ""
+        for text, href in extract_links_from_html(decoded, page_url):
+            mirror_hint = extract_mirror_name(href, text).lower()
+            if resolve_redirects:
+                direct = resolve_redirect(href, mirror_hint=mirror_hint)
+            else:
+                if any(host in href for host in REDIRECT_HOSTS):
+                    continue
+                direct = href
+            if direct is None or is_non_host_url(direct):
+                continue
+            if direct in seen_urls:
+                continue
+            seen_urls.add(direct)
+            link = {"name": extract_mirror_name(direct, text), "url": direct}
+            if grp:
+                link["group"] = grp
+            out.append(link)
 
     return out
 
@@ -1380,9 +1459,11 @@ def process_post(
     # Extract metadata
     meta = extract_metadata_from_post(post, decoded_texts)
 
-    # Build download links
-    download_links = build_download_links_from_payloads(
-        payloads, page_url, resolve_redirects=resolve_redirects
+    # Build download links — en conservant la SECTION/format de chaque groupe
+    # (exFAT / Backport / DLC / Standard) pour un format correct PAR lien.
+    link_groups = extract_payload_groups_from_content(content_rendered)
+    download_links = build_download_links_from_groups(
+        link_groups, page_url, resolve_redirects=resolve_redirects
     )
 
     # Detect file format

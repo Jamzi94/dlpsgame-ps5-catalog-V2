@@ -48,14 +48,44 @@ BRAND = "Phoenix DL"
 BRAND_SOURCE_URL = "https://phoenixdl.com"
 
 
-def _detect_link_format(name: str, url: str, game_fmt: str) -> str:
-    """Format SPÉCIFIQUE d'un lien, déduit de son nom + de son URL.
+# Conteneurs (pas un format de jeu) et libellés de section (axe orthogonal).
+_CONTAINER_FMT = {"rar", "zip", "7z", "iso", "tar", "gz", "part"}
+_SECTION_FMT = {"exfat", "backport", "dlc", "dump", "standard", "fix"}
 
-    Évite la sur-généralisation (tous les liens taggués avec le format complet du
-    jeu) : un lien DLC -> « DLC », un lien « 4.xx » -> « Backport 4.xx », etc. Les
-    hôtes à hash (akirabox/vikingfile/1fichier) n'exposent rien d'exploitable :
-    pour eux on retombe sur le format du jeu (meilleure info disponible)."""
+
+def _base_format(file_format) -> str:
+    """Type de PAQUET de base (PKG/FPKG/APR-EMU…), hors conteneurs et hors
+    libellés de section (exFAT/Backport/DLC). Étiquette de la section « Standard »."""
+    if not isinstance(file_format, list):
+        return ""
+    tags: list[str] = []
+    for f in file_format:
+        fl = str(f).lower()
+        if fl in _CONTAINER_FMT or fl in _SECTION_FMT or fl.startswith("backport"):
+            continue
+        if str(f) not in tags:
+            tags.append(str(f))
+    return " · ".join(tags)
+
+
+def _link_format(name: str, url: str, game_fmt: str, base_fmt: str, group: str) -> str:
+    """Format SPÉCIFIQUE d'un lien. Priorité :
+      1) la SECTION captée au scraping (group : exFAT/Backport/DLC/Dump) — fiable ;
+      2) heuristique nom + URL (DLC, version backport, exfat/pkg/fpkg/apr-emu) ;
+      3) section « Standard » -> format de paquet de base (PKG/FPKG/APR-EMU) ;
+      4) repli sur le format du jeu (hôtes à hash sans info exploitable)."""
+    g = (group or "").strip()
     blob = f"{name} {url}".lower()
+
+    def _backport_with_version() -> str:
+        m = re.search(r"\b([4-9])\.xx\b", blob) or re.search(r"[-_/]([4-9])\.\d{2}[-_/]", blob)
+        return f"Backport {m.group(1)}.xx" if m else "Backport"
+
+    # 1) Section identifiée au scraping (sauf « Standard », traité plus bas)
+    if g and g.lower() != "standard":
+        return _backport_with_version() if g == "Backport" else g
+
+    # 2) Heuristique nom/URL
     if "dlc" in blob:
         return "DLC"
     fmts: list[str] = []
@@ -67,12 +97,18 @@ def _detect_link_format(name: str, url: str, game_fmt: str) -> str:
         fmts.append("PKG")
     if re.search(r"apr[\s_-]?emu", blob):
         fmts.append("APR-EMU")
-    m = re.search(r"\b([4-9])\.xx\b", blob) or re.search(r"[-_/]([4-9])\.\d{2}[-_/]", blob)
-    if m:
-        fmts.append(f"Backport {m.group(1)}.xx")
+    if re.search(r"\b([4-9])\.xx\b", blob) or re.search(r"[-_/]([4-9])\.\d{2}[-_/]", blob):
+        fmts.append(_backport_with_version())
     elif "backport" in blob:
         fmts.append("Backport")
-    return " · ".join(dict.fromkeys(fmts)) or game_fmt
+    detected = " · ".join(dict.fromkeys(fmts))
+    if detected:
+        return detected
+
+    # 3) Section « Standard » -> format de paquet de base ; 4) sinon format du jeu
+    if g.lower() == "standard" and base_fmt:
+        return base_fmt
+    return game_fmt
 
 
 def _clean_links(pkg: dict) -> int:
@@ -130,11 +166,12 @@ def finalize_package(pkg: dict, stats: dict) -> None:
     # réappliquer (sinon la fusion ferait s'accumuler les suffixes).
     version = (pkg.get("version") or "").strip()
     vsuf = f" · v{version}" if version else ""
+    base_fmt = _base_format(pkg.get("fileFormat"))
     for link in pkg.get("downloadLinks") or []:
         if not (isinstance(link, dict) and link.get("name")):
             continue
         base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
-        link_fmt = _detect_link_format(base, link.get("url", ""), fmt)
+        link_fmt = _link_format(base, link.get("url", ""), fmt, base_fmt, link.get("group", ""))
         link["name"] = f"{base} [{link_fmt}{vsuf}]" if (link_fmt or version) else base
 
     # 4) Validation Pegasus
