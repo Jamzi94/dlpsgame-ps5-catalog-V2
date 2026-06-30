@@ -89,11 +89,24 @@ def finalize_package(pkg: dict, stats: dict) -> None:
         pkg.pop("formatLabel", None)
         pkg["description"] = desc_body
 
-    # 3bis) Rebranding de la provenance : tous les jeux affichent « Phoenix DL »
-    # (masque dlpsgame.com / superpsx.com / exFAT). Idempotent : réécrit à chaque
-    # run, donc la fusion qui réintroduit la vraie source est neutralisée ici.
-    pkg["source"] = [BRAND]
+    # 3bis) CARTE du jeu : l'app affiche le champ `source`. On y met le/les
+    # FORMAT(s) du jeu (exFAT/PKG/Backport/APR-EMU…) — pas la vraie provenance,
+    # qui reste masquée. La SOURCE PAGE (downloadSource) garde la marque.
+    ff = pkg.get("fileFormat")
+    fmt = pkg.get("formatLabel") or (" · ".join(ff) if isinstance(ff, list) and ff else "")
+    pkg["source"] = [fmt] if fmt else ["PS5"]
     pkg["downloadSource"] = BRAND_SOURCE_URL
+
+    # 3ter) Format affiché À CÔTÉ de chaque hébergeur (repérage quand un jeu a
+    # beaucoup de liens) : format (+ backport, déjà dans formatLabel) + version
+    # si connue. Idempotent : retire un éventuel « [..] » terminal avant de
+    # réappliquer (sinon la fusion ferait s'accumuler les suffixes).
+    version = (pkg.get("version") or "").strip()
+    tag = " · ".join(p for p in (fmt, f"v{version}" if version else "") if p)
+    for link in pkg.get("downloadLinks") or []:
+        if isinstance(link, dict) and link.get("name"):
+            base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
+            link["name"] = f"{base} [{tag}]" if tag else base
 
     # 4) Validation Pegasus
     if not (pkg.get("titleId") or "").strip():
