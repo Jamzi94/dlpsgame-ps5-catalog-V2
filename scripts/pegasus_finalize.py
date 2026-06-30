@@ -48,6 +48,33 @@ BRAND = "Phoenix DL"
 BRAND_SOURCE_URL = "https://phoenixdl.com"
 
 
+def _detect_link_format(name: str, url: str, game_fmt: str) -> str:
+    """Format SPÉCIFIQUE d'un lien, déduit de son nom + de son URL.
+
+    Évite la sur-généralisation (tous les liens taggués avec le format complet du
+    jeu) : un lien DLC -> « DLC », un lien « 4.xx » -> « Backport 4.xx », etc. Les
+    hôtes à hash (akirabox/vikingfile/1fichier) n'exposent rien d'exploitable :
+    pour eux on retombe sur le format du jeu (meilleure info disponible)."""
+    blob = f"{name} {url}".lower()
+    if "dlc" in blob:
+        return "DLC"
+    fmts: list[str] = []
+    if "exfat" in blob:
+        fmts.append("exFAT")
+    if "fpkg" in blob:
+        fmts.append("FPKG")
+    elif re.search(r"\bpkg\b", blob):
+        fmts.append("PKG")
+    if re.search(r"apr[\s_-]?emu", blob):
+        fmts.append("APR-EMU")
+    m = re.search(r"\b([4-9])\.xx\b", blob) or re.search(r"[-_/]([4-9])\.\d{2}[-_/]", blob)
+    if m:
+        fmts.append(f"Backport {m.group(1)}.xx")
+    elif "backport" in blob:
+        fmts.append("Backport")
+    return " · ".join(dict.fromkeys(fmts)) or game_fmt
+
+
 def _clean_links(pkg: dict) -> int:
     """Retire les downloadLinks à URL vide ou non http(s). Renvoie le nb gardé."""
     links = pkg.get("downloadLinks") or []
@@ -102,11 +129,13 @@ def finalize_package(pkg: dict, stats: dict) -> None:
     # si connue. Idempotent : retire un éventuel « [..] » terminal avant de
     # réappliquer (sinon la fusion ferait s'accumuler les suffixes).
     version = (pkg.get("version") or "").strip()
-    tag = " · ".join(p for p in (fmt, f"v{version}" if version else "") if p)
+    vsuf = f" · v{version}" if version else ""
     for link in pkg.get("downloadLinks") or []:
-        if isinstance(link, dict) and link.get("name"):
-            base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
-            link["name"] = f"{base} [{tag}]" if tag else base
+        if not (isinstance(link, dict) and link.get("name")):
+            continue
+        base = re.sub(r"\s*\[[^\]]*\]\s*$", "", link["name"]).rstrip()
+        link_fmt = _detect_link_format(base, link.get("url", ""), fmt)
+        link["name"] = f"{base} [{link_fmt}{vsuf}]" if (link_fmt or version) else base
 
     # 4) Validation Pegasus
     if not (pkg.get("titleId") or "").strip():
