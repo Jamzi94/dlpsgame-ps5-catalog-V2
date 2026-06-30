@@ -1,6 +1,6 @@
 # Liste des jeux PS5 disponibles — Phoenix DL PS5
 
-_**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à chaque run_
+_**846** jeux · généré le 2026-06-30 18:43 UTC · régénéré et enrichi à chaque run_
 
 ## Répartition par format
 
@@ -9,17 +9,17 @@ _**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à
 | PKG | 156 |
 | exFAT · PKG · Backport 4.xx | 155 |
 | exFAT · PKG | 127 |
-| unknown | 64 |
+| unknown | 60 |
 | PKG · Backport 4.xx | 50 |
 | exFAT · Folder · Backport 4.xx | 47 |
 | Backport 4.xx | 34 |
 | Folder · PKG · Backport 4.xx | 30 |
 | Folder · Backport 4.xx | 20 |
 | exFAT · PKG · Backport | 18 |
+| RAR | 18 |
 | APR-EMU | 16 |
 | exFAT · Backport 4.xx | 14 |
 | PKG · Backport | 14 |
-| RAR | 14 |
 | exFAT · PKG · Backport 7.xx | 10 |
 | PKG · APR-EMU | 9 |
 | exFAT · APR-EMU | 8 |
@@ -293,7 +293,7 @@ _**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à
 | 235 | Fatal Frame 2 Crimson Butterfly Remake | Backport 10.xx | 01.002.002 |
 | 236 | Fatal Frame Maiden of Black Water | PKG | 01.000 |
 | 237 | FATAL FURY City of The Wolves | exFAT · PKG · Backport 6.xx | 01.009 |
-| 238 | FIFA 22 | unknown | 01.000.190 |
+| 238 | FIFA 22 | RAR | 01.000.190 |
 | 239 | FIFA 23 | PKG · Backport 4.xx | 01.024 |
 | 240 | FIFA 23 | Backport 4.xx | 01.024 |
 | 241 | FINAL FANTASY TACTICS The Ivalice Chronicles | exFAT · PKG · Backport 4.xx | 01.040 |
@@ -418,7 +418,7 @@ _**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à
 | 360 | Killing Floor 3 | exFAT · PKG · Backport | 02.006 |
 | 361 | Kingdom Come Deliverance 2 | exFAT · PKG · Backport 4.xx | 01.041 |
 | 362 | Kitaria Fables | exFAT · PKG | 01.005 |
-| 363 | Kitten Island | unknown | 01.000.000 |
+| 363 | Kitten Island | RAR | 01.000.000 |
 | 364 | KLONOA Phantasy Reverie Series | PKG | 01.002 |
 | 365 | KLONOA Phantasy Reverie Series | RAR | 01.002 |
 | 366 | Last Days of Lazarus | PKG · Backport 4.xx | 01.001 |
@@ -538,7 +538,7 @@ _**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à
 | 480 | Observer System Redux | unknown | 01.008 |
 | 481 | Observer: System Redux | PKG | 01.008 |
 | 482 | Octopath Traveler 2 | exFAT · PKG · Backport 4.xx | 01.000 |
-| 483 | Oddworld Abes Exoddus (PS1 Emulation) | unknown | 01.000.002 |
+| 483 | Oddworld Abes Exoddus (PS1 Emulation) | RAR | 01.000.002 |
 | 484 | Oddworld Soulstorm | PKG | 01.160 |
 | 485 | Oddworld Soulstorm | unknown | 01.160 |
 | 486 | On The Road The Truck Simulator | Backport 4.xx | 01.000.009 |
@@ -546,7 +546,7 @@ _**846** jeux · généré le 2026-06-30 16:12 UTC · régénéré et enrichi à
 | 488 | One Piece Odyssey | exFAT · PKG | 01.002.001 |
 | 489 | Outcast A New Beginning | Folder · Backport 4.xx | 01.000 |
 | 490 | Outcast A New Beginning | PKG | 01.000 |
-| 491 | Outer Wilds | unknown | 01.000 |
+| 491 | Outer Wilds | RAR | 01.000 |
 | 492 | Outward Definitive Edition | exFAT · PKG | 01.007 |
 | 493 | Overpass 2 | exFAT · Folder · Backport 4.xx | 01.004 |
 | 494 | Override 2 Super Mech League | PKG | 01.007 |
