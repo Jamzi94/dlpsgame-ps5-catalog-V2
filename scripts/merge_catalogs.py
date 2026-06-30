@@ -51,14 +51,28 @@ def merge_key(pkg: dict) -> str:
 
 
 def merge_links(existing: list[dict], incoming: list[dict]) -> list[dict]:
-    """Union des downloadLinks, dédoublonnée par URL (l'ordre est préservé)."""
-    out = list(existing)
-    seen = {(l.get("url") or "").strip() for l in out}
-    for link in incoming:
+    """Union des downloadLinks, dédoublonnée par URL (ordre préservé).
+
+    Pour un URL présent des DEUX côtés, on COMPLÈTE les champs manquants (ex.
+    'group' = section/format capté lors d'un scrape no_cache) au lieu de garder
+    bêtement la 1re version : sinon un run incrémental (contenu en cache, sans
+    'group') écrasait le 'group' acquis -> le format par lien régressait."""
+    out: list[dict] = []
+    pos: dict[str, int] = {}
+    for link in list(existing) + list(incoming):
+        if not isinstance(link, dict):
+            continue
         u = (link.get("url") or "").strip()
-        if u and u not in seen:
-            seen.add(u)
-            out.append(link)
+        if not u:
+            continue
+        if u in pos:
+            cur = out[pos[u]]
+            for k, v in link.items():
+                if v and not cur.get(k):
+                    cur[k] = v
+        else:
+            pos[u] = len(out)
+            out.append(dict(link))
     return out
 
 
