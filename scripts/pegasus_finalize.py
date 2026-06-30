@@ -39,8 +39,13 @@ MAX_SANE_BYTES = 900 * 1024 ** 3
 REAL_TITLEID_RE = re.compile(r"^[A-Z]{4}\d{3,}$")
 
 # Marque unique exposée dans le JSON : on masque les vraies sources
-# (dlpsgame/superpsx/exFAT) derrière « Phoenix DL » pour TOUS les jeux.
+# (dlpsgame/superpsx/exFAT) pour TOUS les jeux.
 BRAND = "Phoenix DL"
+# IMPORTANT : l'app affiche la SOURCE PAGE comme le HOSTNAME de cette URL. Un
+# hostname ne peut pas contenir d'espace/majuscule, donc downloadSource DOIT
+# être une URL valide -> l'app montrera « phoenixdl.com ». (Un texte brut comme
+# « Phoenix DL » est interprété en URL relative et retombe sur l'IP de l'appareil.)
+BRAND_SOURCE_URL = "https://phoenixdl.com"
 
 
 def _clean_links(pkg: dict) -> int:
@@ -88,7 +93,7 @@ def finalize_package(pkg: dict, stats: dict) -> None:
     # (masque dlpsgame.com / superpsx.com / exFAT). Idempotent : réécrit à chaque
     # run, donc la fusion qui réintroduit la vraie source est neutralisée ici.
     pkg["source"] = [BRAND]
-    pkg["downloadSource"] = BRAND
+    pkg["downloadSource"] = BRAND_SOURCE_URL
 
     # 4) Validation Pegasus
     if not (pkg.get("titleId") or "").strip():
